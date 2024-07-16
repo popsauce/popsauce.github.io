@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Algorithms on Popsauce&#39;s Blog</title>
+    <link>http://localhost:1313/categories/algorithms/</link>
+    <description>Recent content in Algorithms on Popsauce&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>karanlohaan0@gmail.com (Karan Lohaan)</managingEditor>
+    <webMaster>karanlohaan0@gmail.com (Karan Lohaan)</webMaster><atom:link href="http://localhost:1313/categories/algorithms/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Advanced XOR</title>
+      <link>http://localhost:1313/posts/advancedxor/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/advancedxor/</guid>
+      <description>&lt;p&gt;Advanced XOR is a XOR encryption based problem in the form of a python script.
+This problem had the notoriety of being the hardest problem in the whole problemset that was given as a test.
+For the selection process to decide which first year students would be allowed to join the club.
+This problem was also my introduction to cryptography challenges.&lt;/p&gt;
+&lt;h2 id=&#34;understanding-advanced_xorpy&#34;&gt;Understanding advanced_xor.py&lt;/h2&gt;
+&lt;p&gt;The main script advanced_xor.py contains 2 main functions, one to generate a key and the other which runs the encryption function.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;from os import urandom
+from ctypes import CDLL
+import string
+
+key = &amp;quot;&amp;quot;
+ciphertext = &amp;quot;&amp;quot;
+def get_key():
+    global key
+    c = urandom(1)
+    if len(key)!=5::
+        if c not in string.ascii_lowercase and c not in string.ascii_uppercase :
+            get_key()
+        else:
+            key += c
+            get_key()
+    
+def xor_encrypt(x):
+    global key
+    global ciphertext
+    get_key()
+    
+    hex_key = key.encode(&amp;quot;hex&amp;quot;)
+    key_list = [hex_key[i]+hex_key[i+1] for i in range(0,len(hex_key),2)]
+    print key
+    for i in xrange(len(x)):
+        ciphertext += chr(ord(x[i]) ^ int(key_list[i%5], 16))
+
+    
+if __name__ == &amp;quot;__main__&amp;quot;:
+    plaintext = raw_input(&amp;quot;Enter the plaintext to be encrypted: &amp;quot;)
+    xor_encrypt(plaintext)
+    print ciphertext.encode(&amp;quot;hex&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The script prompts for a string called plaintext, which can have any length.
+After getting the plaintext it generates a key and encrypts the plaintext.&lt;/p&gt;
+&lt;h3 id=&#34;def-get_key&#34;&gt;def get_key()&lt;/h3&gt;
+&lt;p&gt;This function generates a key of length 5 which contains both upper case and lower case ascii alphabets.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def get_key():
+    global key
+    c = urandom(1)
+    if len(key)!=5::
+        if c not in string.ascii_lowercase and c not in string.ascii_uppercase :
+            get_key()
+        else:
+            key += c
+            get_key()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;def-xor_encrypt&#34;&gt;def xor_encrypt()&lt;/h3&gt;
+&lt;p&gt;This is the main function that is used to encrypt the plaintext.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def xor_encrypt(x):
+    global key
+    global ciphertext
+    get_key()
+    
+    hex_key = key.encode(&amp;quot;hex&amp;quot;)
+    key_list = [hex_key[i]+hex_key[i+1] for i in range(0,len(hex_key),2)]
+    print key
+    for i in xrange(len(x)):
+        ciphertext += chr(ord(x[i]) ^ int(key_list[i%5], 16))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The encryption algorithm first encodes the key into hexadecimal form based on the unicode number corresponding to each character in the key. The raange of this encoding lies from a-z ~ 61-7A , A-Z ~ 41-5A.&lt;/p&gt;
+&lt;h2 id=&#34;solving-advanced_xorpy&#34;&gt;Solving advanced_xor.py&lt;/h2&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
