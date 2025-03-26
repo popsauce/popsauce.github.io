@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>3D on Popsauce&#39;s Blog</title>
+    <link>http://localhost:1313/categories/3d/</link>
+    <description>Recent content in 3D on Popsauce&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>karanlohaan0@gmail.com (Karan Lohaan)</managingEditor>
+    <webMaster>karanlohaan0@gmail.com (Karan Lohaan)</webMaster><atom:link href="http://localhost:1313/categories/3d/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>placeholder</title>
+      <link>http://localhost:1313/posts/placeholder/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/placeholder/</guid>
+      <description>&lt;p&gt;So&lt;/p&gt;
+&lt;h2 id=&#34;understanding-advanced_xorpy&#34;&gt;Understanding advanced_xor.py&lt;/h2&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Scipts on Popsauce&#39;s Blog</title>
+    <link>http://localhost:1313/tags/scipts/</link>
+    <description>Recent content in Scipts on Popsauce&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>karanlohaan0@gmail.com (Karan Lohaan)</managingEditor>
+    <webMaster>karanlohaan0@gmail.com (Karan Lohaan)</webMaster><atom:link href="http://localhost:1313/tags/scipts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Compute Efficient Object Detection</title>
+      <link>http://localhost:1313/posts/computeefficientobjectdetection/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/computeefficientobjectdetection/</guid>
+      <description>&lt;p&gt;Resource Starved object detection&lt;/p&gt;
+&lt;p&gt;I was looking for an object detection solution for keeping track of crop items and their timeline transition so one would have to identify and keep track of a crop&amp;rsquo;s state using a data set of
+Object Detection has come a long way from relying on basic keypoint detection algorithms to cnns to vision transformers&lt;/p&gt;
+&lt;p&gt;When it comes to performing object detection on a small microcontroller there are a lot of options but they dont work as well as one would like them to&lt;/p&gt;
+&lt;h2 id=&#34;feature-based-object-detection&#34;&gt;Feature based object detection&lt;/h2&gt;
+&lt;h2 id=&#34;cnn-based-object-detection-efficient-cnns&#34;&gt;CNN based object detection (Efficient CNN&amp;rsquo;s)&lt;/h2&gt;
+&lt;h2 id=&#34;vision-transformer-based-object-detection&#34;&gt;vision transformer based object detection&lt;/h2&gt;
+&lt;h2 id=&#34;explaining-different-benchmarks-for-compute-efficient-neural-networks&#34;&gt;Explaining different benchmarks for compute efficient neural networks&lt;/h2&gt;
+&lt;h3 id=&#34;real-time-latency&#34;&gt;Real time Latency&lt;/h3&gt;
+&lt;h3 id=&#34;accuracy&#34;&gt;Accuracy&lt;/h3&gt;
+&lt;h3 id=&#34;precision&#34;&gt;Precision&lt;/h3&gt;
+&lt;h2 id=&#34;factors-that-matter-for-small-form-factor-dev-boards&#34;&gt;Factors that matter for small form factor dev boards&lt;/h2&gt;
+&lt;p&gt;Would it be possible to reduce the size of the packages and libraries that have to be installed&lt;/p&gt;
+&lt;p&gt;Since the opencv cpp library has extensive documentation i think the smallest form factor would be to directly try to implement the libraries that are required so we would have to narrow down our&lt;/p&gt;
+&lt;h2 id=&#34;heading&#34;&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;testing-different-recipes-on-a-dev-board&#34;&gt;Testing different recipes on a dev board&lt;/h2&gt;
+&lt;p&gt;There are plenty of options to choose from when deciding on a combination of devboard and camera,&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Object detection on the edge on a budget</title>
+      <link>http://localhost:1313/posts/budgetfriendlycamera/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/budgetfriendlycamera/</guid>
+      <description>&lt;p&gt;I was on the lookout for a custom object detection solution for 2 projects that i had in mind. Mostly to keep track of certain items and do some estimation based tasks like inventory management and update their status in real time.&lt;/p&gt;
+&lt;p&gt;For example a scenario where a desk is in the field of view of the camera it should be able to detect objects present on the desk and then update a table of of values that maintain things present on the desk.&lt;/p&gt;
+&lt;p&gt;So starting with some basic design considerations we need the following things more or less :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Portable camera for capturing a video stream for object detection&lt;/li&gt;
+&lt;li&gt;Real time camera streaming (good to have)&lt;/li&gt;
+&lt;li&gt;Adequate compute for object detection&lt;/li&gt;
+&lt;li&gt;A way to interface with camera and schedule cron jobs if possible&lt;/li&gt;
+&lt;li&gt;Extracting information from the video scene and storing it in a csv file containing the updated values of the last streaming session.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;potential-options-for-a-portable-camera&#34;&gt;Potential options for a portable camera&lt;/h2&gt;
+&lt;p&gt;Camera module is probably the most important thing in this project so here are the potential options when it comes to digital cameras -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;camera based SoC / microcontroller&lt;/li&gt;
+&lt;li&gt;webcameras&lt;/li&gt;
+&lt;li&gt;consumer grade portable digital cameras like gopros&lt;/li&gt;
+&lt;li&gt;smartphone cameras&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;What varies wildly amongst all these offerings is their cost, the size of their image sensors, thier recording resolution ranges and all these other variables&lt;/p&gt;
+&lt;p&gt;I wont mention all the options that i went through but some of the major ones that stood out for my use case were esp32 based cameras, stm32f4 /f7 boards with openvision camera modules, raspberry pi soc with camera modules.&lt;/p&gt;
+&lt;p&gt;And i even considered webcameras and old smartphone cameras cause i think its much better to go for an old smartphone camera as its the best quality camera you can get on a budget but still i wanted to test an soc based solution so i mostly went with using an old smartphone camera for testing the setup and a raspberry pi 0 2 w board for my image processing needs.&lt;/p&gt;
+&lt;p&gt;Some options that i was considering at the time are listed here :-&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Esp 32 with openvision camera modules like ov2640, 5640, 7670, 9655.&lt;/li&gt;
+&lt;li&gt;Raspberry Pi modules ranging from Raspberry Pi Zero 2 W to Raspberry Pi 4 with their respective camera modules.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;The sections below detail how to setup both types of cameras&lt;/p&gt;
+&lt;h2 id=&#34;potential-options-for-compute&#34;&gt;Potential Options for Compute&lt;/h2&gt;
+&lt;p&gt;Now this part is interesting cause this aspect was really hard to pin down and a lot of my inhibitions were really put to test. First I ruled out all the recent SOTA models as running a ViT based object detection solution would be a bit too overkill and expensive no matter how badly i wanted to go down this route. So after going through a lot of potential options these were what i nailed it down to :&lt;/p&gt;
+&lt;p&gt;Try and see if I can make it work with a feature detection based algorithm if it could satisfy my use case as itll be easiest to setup and really efficient&lt;/p&gt;
+&lt;p&gt;But before training anything fancy I trained a ResNet on my laptop to see how it fares as it is the easiest to implement&lt;/p&gt;
+&lt;h2 id=&#34;setting-up-the-rpi-0-2-w&#34;&gt;Setting up the RPi 0 2 W&lt;/h2&gt;
+&lt;p&gt;So as a potential portable battery powered camera this was a good choice compared to a smartphone as it costs $5 for microsd card, $15 for the rpi 0 2 w, $15 for the v2.1 camera module and $15-30 for a powerbank (10 Ah to 20 Ah) so around $50.
+An old smartphone camera might cost around this much if not more like an old pixel camera or and old iphone.&lt;/p&gt;
+&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
+&lt;p&gt;For this setup im using the 64bit Bullseye lite os based on debian 11, while flashing the image it is necessary to use the raspi-imager provided by rpi especialy for this headless setup as that is the only way to enable and run ssh.&lt;/p&gt;
+&lt;p&gt;Earlier i used to use startup disk creator with an empty ssh file into the boot drive which enabled a default user and password but that has been disabled now.&lt;/p&gt;
+&lt;p&gt;In the raspi imager ui there will be additional options for entering network details and enabling ssh which is pretty straightforward. It is neccessary to enter the network details for this headless setup as we&amp;rsquo;ll be connecting to our rpi using ssh over a wifi network so this has to be set during the image flashing process itself.&lt;/p&gt;
+&lt;p&gt;After flashing the os to the micro sd card we can put it into our rpi and boot it up.&lt;/p&gt;
+&lt;h2 id=&#34;setting-up-rpi-as-a-headless-camera&#34;&gt;Setting up rpi as a headless camera&lt;/h2&gt;
+&lt;p&gt;For our headless setup we ssh into our rpi and set it up without a screen so for that we&amp;rsquo;ll have to use the ssh username and password that we had set while flashing the image. Along with this we connect the v2 camera module to the mipi connector.&lt;/p&gt;
+&lt;p&gt;After booting the rpi we need to set the camera settings by selecting the interface options using &lt;code&gt;sudo raspi-config&lt;/code&gt; command&lt;/p&gt;
+&lt;p&gt;After booting the rpi we can confirm whether the camera is working or not by using the libcamera library,
+libcamera-hello
+libcamera-vid&lt;/p&gt;
+&lt;h2 id=&#34;tradeoffs-between-live-streaming-video-vs-storing-and-transferring-video-files&#34;&gt;Tradeoffs between live-streaming video vs storing and transferring video files&lt;/h2&gt;
+&lt;h2 id=&#34;media-server&#34;&gt;Media Server&lt;/h2&gt;
+&lt;p&gt;For realtime streaming its essential to choose a lightweight media library that will convert the raw footage to rtsp if the stream&lt;/p&gt;
+&lt;p&gt;Would it be possible to reduce the size of the packages and libraries that have to be installed&lt;/p&gt;
+&lt;p&gt;Since the opencv cpp library has extensive documentation i think the smallest form factor would be to directly try to implement the libraries that are required so we would have to narrow down our&lt;/p&gt;
+&lt;h2 id=&#34;feature-detection&#34;&gt;Feature Detection&lt;/h2&gt;
+&lt;h2 id=&#34;testing-different-recipes-on-a-dev-board&#34;&gt;Testing different recipes on a dev board&lt;/h2&gt;
+&lt;p&gt;There are plenty of options to choose from when deciding on a combination of devboard and camera,&lt;/p&gt;
+&lt;p&gt;questions regarding pretraining transformer for video data&lt;/p&gt;
+&lt;p&gt;labelled data for objects&lt;/p&gt;
+&lt;p&gt;depth estimation for arms and arm positions ?&lt;/p&gt;
+&lt;p&gt;The question&lt;/p&gt;
+&lt;p&gt;distribution of labous instead of having a transformer do it all&lt;/p&gt;
+&lt;p&gt;object detection :vit transformer or keypoint detection ? or yolo a&lt;/p&gt;
+&lt;p&gt;object position :depth estimation&lt;/p&gt;
+&lt;p&gt;set of actions that can be done on the object llm&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Scaling Image Processing</title>
+      <link>http://localhost:1313/posts/scalingimageprocessing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/scalingimageprocessing/</guid>
+      <description>&lt;p&gt;Tools for all your image processing needs.&lt;/p&gt;
+&lt;h2 id=&#34;image-processing-primer&#34;&gt;Image Processing Primer&lt;/h2&gt;
+&lt;p&gt;Modify&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;hue sat values&lt;/li&gt;
+&lt;li&gt;scaling&lt;/li&gt;
+&lt;li&gt;edge detection&lt;/li&gt;
+&lt;li&gt;optical flow&lt;/li&gt;
+&lt;li&gt;canny edges&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ocr
+background removal&lt;/p&gt;
+&lt;h2 id=&#34;heading&#34;&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;opencv&#34;&gt;OpenCV&lt;/h2&gt;
+&lt;h2 id=&#34;imagemagick&#34;&gt;Imagemagick&lt;/h2&gt;
+&lt;h2 id=&#34;ffmpeg&#34;&gt;FFMPEG&lt;/h2&gt;
+&lt;h2 id=&#34;gnu-image-manipulation-program&#34;&gt;GNU Image Manipulation Program&lt;/h2&gt;
+&lt;p&gt;so while so far we have just had command line tools or libraries why have i mentioned a gui based application. Its not like we&amp;rsquo;ll be able to open and edit each image on the gui right ?&lt;/p&gt;
+&lt;p&gt;I get all the concerns but i think this tool is the most underrated tool when it comes to quickly prototyping different techniques to see which achieves the best results and then applying custom results in a way that no other tool can, let me explain why&lt;/p&gt;
+&lt;p&gt;all the above tools are a great fit when you know exactly what you want to do to the image but for cases where its still unknown how to approach refining an image for a particular task i always always open GIMP, ive really grown to like it over the years.&lt;/p&gt;
+&lt;p&gt;But the best feature of them all is the fact that you can write scripts to do the same ie apply the same setting to all the images that you want to apply it to.
+There are primarily 2 ways to get this done&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Script Fu&lt;/li&gt;
+&lt;li&gt;Python Fu&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;script-fu&#34;&gt;Script Fu&lt;/h3&gt;
+&lt;h3 id=&#34;python-fu&#34;&gt;Python Fu&lt;/h3&gt;
+&lt;h2 id=&#34;specific-augmentation-related-techniques-for-certain-applications&#34;&gt;Specific augmentation related techniques for certain applications&lt;/h2&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

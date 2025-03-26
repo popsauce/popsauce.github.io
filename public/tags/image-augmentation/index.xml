@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Image Augmentation on Popsauce&#39;s Blog</title>
+    <link>http://localhost:1313/tags/image-augmentation/</link>
+    <description>Recent content in Image Augmentation on Popsauce&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>karanlohaan0@gmail.com (Karan Lohaan)</managingEditor>
+    <webMaster>karanlohaan0@gmail.com (Karan Lohaan)</webMaster><atom:link href="http://localhost:1313/tags/image-augmentation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Scaling Image Processing</title>
+      <link>http://localhost:1313/posts/scalingimageprocessing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/scalingimageprocessing/</guid>
+      <description>&lt;p&gt;Tools for all your image processing needs,&lt;/p&gt;
+&lt;h2 id=&#34;finding-the-right-fit&#34;&gt;Finding the right fit&lt;/h2&gt;
+&lt;h2 id=&#34;gimp--script-fu&#34;&gt;GIMP + Script Fu&lt;/h2&gt;
+&lt;h2 id=&#34;opencv&#34;&gt;OpenCV&lt;/h2&gt;
+&lt;h2 id=&#34;imagemagick&#34;&gt;Imagemagick&lt;/h2&gt;
+&lt;h2 id=&#34;ffmpeg&#34;&gt;FFMPEG&lt;/h2&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

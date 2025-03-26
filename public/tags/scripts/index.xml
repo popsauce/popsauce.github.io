@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Scripts on Popsauce&#39;s Blog</title>
+    <link>http://localhost:1313/tags/scripts/</link>
+    <description>Recent content in Scripts on Popsauce&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>karanlohaan0@gmail.com (Karan Lohaan)</managingEditor>
+    <webMaster>karanlohaan0@gmail.com (Karan Lohaan)</webMaster><atom:link href="http://localhost:1313/tags/scripts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dabbling into Functional Programming</title>
+      <link>http://localhost:1313/posts/dabblingintofp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/dabblingintofp/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;I started getting piqued by the idea of using a functional programming language after coming across a lot of posts on lisp. And its position on the language &lt;a href=&#34;https://www.paulgraham.com/avg.html&#34;&gt;power continuum&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Even on &lt;a href=&#34;https://survey.stackoverflow.co/2022/#section-most-loved-dreaded-and-wanted-programming-scripting-and-markup-languages&#34;&gt;developer surveys&lt;/a&gt; 2 functional languages were number 2 and 3 on this list as being the most loved languages.&lt;/p&gt;
+&lt;p&gt;Now that might not indicate too much cause at the end of the day its a tool to get things done and its definitely better to use a language more suited to the task at hand.&lt;/p&gt;
+&lt;p&gt;But all in all it had me convinced that i could not ignore this mystery paradigm anymore.&lt;/p&gt;
+&lt;p&gt;When it comes to deciding on a language i think theres a spectrum to follow some things require speed, some things require existing libraries that are required for a particular kind of task, some things are easier in one language harder in another and all other possible variables you can think of like good forums and good resources etc that could dictate how much leverage you might get when using that language.&lt;/p&gt;
+&lt;p&gt;So after making my case for dabbling into a functional programming language i had to decide on one, or maybe a few ?&lt;/p&gt;
+&lt;p&gt;Some of those choices were :-&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Haskell for the Best Possible Implementation of FP in a Language&lt;/li&gt;
+&lt;li&gt;Scala, Clojure for Apps That Can Run On JVM&lt;/li&gt;
+&lt;li&gt;Elixir, Erlang for Applications That Run on BeamVM, for Scalable Fault Tolerant Highly Available Systems&lt;/li&gt;
+&lt;li&gt;F# for Apps that run on the .NET framework&lt;/li&gt;
+&lt;li&gt;Common Lisp, for Lisp macros&lt;/li&gt;
+&lt;li&gt;Clojurescript, Purescript as an Alternative for JavaScript&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;After trying to compare by going through lots of posts on all possible aspects it seemed that there is no golden bullet.&lt;/p&gt;
+&lt;p&gt;From extensive &lt;a href=&#34;https://danluu.com/empirical-pl/&#34;&gt;comparisons&lt;/a&gt; between functional and non functional languages.&lt;/p&gt;
+&lt;p&gt;To comparing a single &lt;a href=&#34;https://benchmarksgame-team.pages.debian.net/benchmarksgame/&#34;&gt;metric&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This rabbithole had no end.&lt;/p&gt;
+&lt;h2 id=&#34;comparing-potential-options&#34;&gt;Comparing Potential Options&lt;/h2&gt;
+&lt;p&gt;So when it came to choosing a language from the landscape of functional programming i still did not have my answer.&lt;/p&gt;
+&lt;p&gt;This &lt;a href=&#34;https://en.wikipedia.org/wiki/Comparison_of_functional_programming_languages&#34;&gt;wiki&lt;/a&gt; article has a list of features offered by each language but i have no way of gaging whether how these features would affect the final outcome when im trying to solve a problem or make an application using these languages.&lt;/p&gt;
+&lt;p&gt;So i tried to find examples of things that have been done already using these languages, and I found code conferences even better than books when it came to seeing the kind of things people are building with these languages.&lt;/p&gt;
+&lt;p&gt;For projects that run on beamVM the &amp;ldquo;Code BEAM&amp;rdquo; conferences on &lt;a href=&#34;https://www.youtube.com/@CodeSync&#34;&gt;code sync&lt;/a&gt; were really good, haskell has GOTO conferences,&lt;/p&gt;
+&lt;h2 id=&#34;dabbling-into-functional-programming&#34;&gt;Dabbling into Functional Programming&lt;/h2&gt;
+&lt;p&gt;So now that I had a general direction about which langauges I wanted to try, to learn FP.&lt;/p&gt;
+&lt;p&gt;I thought of solving a set of problems.
+Problems that arent too hard yet arent too easy, just enough so that i can get a general idea about how to do things the FP way.&lt;/p&gt;
+&lt;p&gt;The problems are :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Given a set of x,y points we have to determine whether it lies on any of a given set of general functions if it doesnt we return &amp;ldquo;null&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;Take a set of strings encode them into a single string and then decode them again.&lt;/li&gt;
+&lt;li&gt;Implement a fast access table similar to a hash table/dictionary&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In case youre wondering where these problems came from, I just made them up.&lt;/p&gt;
+&lt;p&gt;And we&amp;rsquo;ll try to solve these problems using these languages&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Haskell&lt;/li&gt;
+&lt;li&gt;Elixir&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This choice i think could be attributed to chance, its just that after going through so many posts i just gravitated more towards these two as my first candidates, but i&amp;rsquo;ll probably stick with haskell given the fact that it is a better language to grasp functional programming concepts.
+I might transition to another language later but for now im just trying out these 2.&lt;/p&gt;
+&lt;h3 id=&#34;determine-if-a-set-of-points-lie-on-a-general-function-in-the-xy-plane&#34;&gt;Determine if a set of points lie on a general function in the xy plane.&lt;/h3&gt;
+&lt;p&gt;For this problem our input is straightforward we take in a set of points [$(x_{1},y_{1})(x_{2},y_{2})(x_{3},y_{3})$]. And check if they lie on either of these general functions :
+$$
+10^x, e^x, x^2, x, \sqrt{x}, \ln(x), \log_{10}(x)
+$$&lt;/p&gt;
+&lt;p&gt;And return the function on which the point lies, if it doesn&amp;rsquo;t we return null.&lt;/p&gt;
+&lt;p&gt;Ok so first things first just dealing with Input/Output took me a really long time to figure out cause IO Monads has a lot of nuance to it&lt;/p&gt;
+&lt;p&gt;So i tried 2 ways of taking in input&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;File reading&lt;/li&gt;
+&lt;li&gt;Manually entering xy points&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For file reading i found a great &lt;a href=&#34;https://stackoverflow.com/questions/7867723/haskell-file-readin&#34;&gt;answer&lt;/a&gt; on stack overflow.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;main = do  
+        contents &amp;lt;- readFile &amp;quot;test.txt&amp;quot;
+        print . map readInt . words $ contents
+-- alternately, main = print . map readInt . words =&amp;lt;&amp;lt; readFile &amp;quot;test.txt&amp;quot;
+
+readInt :: String -&amp;gt; Int
+readInt = read
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Manually entering and storing xy points in a list turned out to be more tricky than the last one as it was more&lt;/p&gt;
+&lt;h3 id=&#34;encoding-decoding-strings&#34;&gt;Encoding Decoding strings&lt;/h3&gt;
+&lt;p&gt;In this problem we take a set of strings and combine them into a single string and then use another decoding algorithm to retrieve the original set of strings&lt;/p&gt;
+&lt;p&gt;Like if we have this set of strings [&amp;ldquo;apple&amp;rdquo;, &amp;ldquo;banana&amp;rdquo;, &amp;ldquo;custard&amp;rdquo;] we could just use a single char delimiter &amp;ldquo;:&amp;rdquo; and create a single string &amp;ldquo;apple:banana:custard&amp;rdquo;, or another way could be adding string length info to the string along with a delimiter.&lt;/p&gt;
+&lt;h3 id=&#34;creating-a-hash-table&#34;&gt;Creating a Hash table&lt;/h3&gt;
+&lt;p&gt;I think&lt;/p&gt;
+&lt;h2 id=&#34;data-structures-in-functional-programming&#34;&gt;Data Structures in Functional Programming&lt;/h2&gt;
+&lt;p&gt;So now that we have covered this thing in det&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Data Structures for 2D points</title>
+      <link>http://localhost:1313/posts/spatialdatastructures/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/spatialdatastructures/</guid>
+      <description>&lt;h2 id=&#34;navigating-the-2d-plane&#34;&gt;Navigating the 2D Plane&lt;/h2&gt;
+&lt;p&gt;2d plane requires certain data structures like quad tree bs a quick brown fox jumped over the pickled fence zebra with another drawn&lt;/p&gt;
+&lt;h2 id=&#34;quad-tree&#34;&gt;Quad tree&lt;/h2&gt;
+&lt;p&gt;KD&lt;/p&gt;
+&lt;h2 id=&#34;bsp&#34;&gt;BSP&lt;/h2&gt;
+&lt;h2 id=&#34;kd-tree&#34;&gt;KD tree&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>Generating meshes from gaussian splats</title>
+      <link>http://localhost:1313/posts/meshgsplat/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/meshgsplat/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hardest Problem on Codeforces</title>
+      <link>http://localhost:1313/posts/tightenup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/tightenup/</guid>
+      <description>&lt;p&gt;What makes a problem hard to solve ?&lt;/p&gt;
+&lt;p&gt;Are hard problems really that out of reach for a person new to CP (Competitive Programming) ?&lt;/p&gt;
+&lt;p&gt;Since the general advice to tackle CP is that you should work your way up to harder problems.(i.e Solve a lot of easier problems then slowly start solving problems that are harder)&lt;/p&gt;
+&lt;p&gt;If I were to attempt a problem that was really hard would i be able to solve it ?&lt;/p&gt;
+&lt;p&gt;Would it be a question of how much time it would take ? (like maybe i&amp;rsquo;ll take more time compared to a seasoned competitive programmer)&lt;/p&gt;
+&lt;p&gt;Or would my solution not be as efficient ? (read skill issue)&lt;/p&gt;
+&lt;p&gt;Or god forbid i was unable to arrive at any solution&lt;/p&gt;
+&lt;p&gt;Anyways after this chain of thought I think you can see where i&amp;rsquo;m going with this.&lt;/p&gt;
+&lt;h2 id=&#34;finding-the-hardest-problem-on-codeforces&#34;&gt;Finding the hardest problem on codeforces&lt;/h2&gt;
+&lt;p&gt;There are a lot of ways to classify how hard a problem is, I settled with a straightforward approach for this one and wrote &amp;ldquo;hardest problem on codeforces&amp;rdquo; on my search engine and clicked on the first search result, and voila it led me to this &lt;a href=&#34;https://codeforces.com/blog/entry/10690&#34;&gt;blogpost&lt;/a&gt; which described this &lt;a href=&#34;https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1164&#34;&gt;problem&lt;/a&gt;.
+And more than the title it was the problem itself that had me hooked, one reason was that trying to solve this problem in a physical setting with physical props seems really easy so would it really be that hard to solve, in an iterative manner.&lt;/p&gt;
+&lt;p&gt;Regarding the credibility of this problem being one of the hardest to solve you&amp;rsquo;ll have to take &lt;a href=&#34;https://codeforces.com/profile/rng_58&#34;&gt;rng_58&lt;/a&gt;&amp;rsquo;s &lt;a href=&#34;https://codeforces.com/blog/entry/10690&#34;&gt;word&lt;/a&gt; if not mine.&lt;/p&gt;
+&lt;h2 id=&#34;problem-description&#34;&gt;Problem Description&lt;/h2&gt;
+&lt;p&gt;The best way to describe this problem is to visualise a bulletin board.
+The board has a set of pins placed on the board and a loose piece of thread that starts from a hole, is placed in a certain manner and then ends at another hole.&lt;/p&gt;
+&lt;p&gt;So we have to predict the final state of the thread when it is pulled from these 2 holes resulting in a taut thread that loops around certain pins depending on its initial state.&lt;/p&gt;
+&lt;p&gt;Some examples of the initial state and final state are shown below :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/tightenup1s.png&#34; alt=&#34;problem pic&#34;&gt; &lt;img src=&#34;http://localhost:1313/tightenup4s.png&#34; alt=&#34;problem pic&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Example 1, This shows the initial thread in an inverted s shape and how it loops around certain pins when pulled.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/tightenup2s.png&#34; alt=&#34;problem pic&#34;&gt; &lt;img src=&#34;http://localhost:1313/tightenup5s.png&#34; alt=&#34;problem pic&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Example 2, This one forms a star.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/tightenup3s.png&#34; alt=&#34;problem pic&#34;&gt; &lt;img src=&#34;http://localhost:1313/tightenup6s.png&#34; alt=&#34;problem pic&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Example 3, This one would have been really hard to simulate mentally.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;So now that we&amp;rsquo;ve understood the problem statement its time to deal with the input, output specifics.
+According to the &lt;a href=&#34;https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1164&#34;&gt;problem&lt;/a&gt; statement we&amp;rsquo;re given multiple datasets, each dataset is preceded by a line containing m and n.&lt;/p&gt;
+&lt;p&gt;Here m represents the number of vertices of the thread including starting and ending point, n represents the number of pins.
+For each dataset there are m+n lines depicting x,y positions of m vertices of the thread and n positions of pins.
+And we have to keep on reading datasets until we get 0 0 as an input.&lt;/p&gt;
+&lt;p&gt;A sample dataset is shown below :-&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;m n
+x1 y1     -
+...        | # m lines for thread vertices
+x1 y1     -
+x1 y1     -
+...        | # n lines for pin positions
+x1 y1     -
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In this case given below we are given 4 datasets :-&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;m n     # 1st dataset
+x1 y1
+...
+x1 y1
+m2 n2   # 2nd dataset
+x2 y2
+...
+x2 y2
+m3 n3   # 3rd dataset
+x3 y3
+...
+x3 y3
+m4 n4   # 4th dataset
+x4 y4
+...
+x4 y4
+0 0     # end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As it can be seen we read the first line with m n; then read another m lines for the vertices of the thread and read another n lines for the positions of pins.  We keep on accepting datasets until we get 0,0.&lt;/p&gt;
+&lt;p&gt;So for this case we read 4 datasets.&lt;/p&gt;
+&lt;p&gt;For the output we are supposed to return the length of the final state of the thread for each dataset, ie :-&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;len1
+len2
+len3
+len4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that we&amp;rsquo;ve covered the semantics of the problem statement lets see how we can solve it.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;I would really recommend going through the&lt;/code&gt;  &lt;a href=&#34;https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1164&#34;&gt;problem statement&lt;/a&gt; &lt;code&gt; and thinking of solutions on your own for a few minutes as it&#39;ll make this post that much more easy to understand.&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;solving-the-hardest-problem-on-codeforces&#34;&gt;Solving the hardest problem on codeforces&lt;/h2&gt;
+&lt;p&gt;Now that i had gone through the description a few times, i started thinking of ways to solve this problem.&lt;/p&gt;
+&lt;h3 id=&#34;my-approach&#34;&gt;My Approach&lt;/h3&gt;
+&lt;p&gt;A set of pins on x,y plane and a set of vertices that depict the thread. One thing thats not mentioned explicitly is that the order of the vertices of the thread are how it is being represented (like the thread goes from 1st point to 2nd point to 3rd point etc) otherwise there are innumerable ways to make a thread if you&amp;rsquo;re just given an unordered set of vertices.&lt;/p&gt;
+&lt;h4 id=&#34;pulling-on-a-loose-thread&#34;&gt;Pulling on a loose thread&lt;/h4&gt;
+&lt;p&gt;So if you imagine pulling on a loose thread that goes through some points you&amp;rsquo;ll recollect that as it keeps on getting shorter, its vertices keep on decreasing until youre left with just the starting and ending point from where you were pulling.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pulloutput.gif&#34; alt=&#34;pull&#34;&gt;&lt;/p&gt;
+&lt;p&gt;As it can be seen in the example above if there are no obstacles (pins) in the path of the thread its vertices and length will keep on decreasing. These 2 aspects are the key insights that can be taken from the above example. So we have to do the following transformation :-&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;decrease the number of thread vertices&lt;/li&gt;
+&lt;li&gt;decrease the length of the thread&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Since both of these variables are correlated, as removing a vertex would also reduce the length, we have to decide dealing with which would be easier to do in an iterative manner, I went with removing the vertices of the thread to get to the final state.&lt;/p&gt;
+&lt;h4 id=&#34;traversing-through-the-thread&#34;&gt;Traversing through the thread&lt;/h4&gt;
+&lt;p&gt;Now that we know that we&amp;rsquo;ll be decreasing the number of vertices let&amp;rsquo;s see how to traverse through the thread. To traverse through an ordered set of vertices we&amp;rsquo;ll pick n vertices at a time and try to reduce them.
+So how do we decide on our n vertices. Lets see some examples&lt;/p&gt;
+&lt;h5 id=&#34;n-vertices--n-sided-polygon&#34;&gt;N vertices ~ n sided polygon&lt;/h5&gt;
+&lt;p&gt;Lets say we take n vertices at a time and reduce them to their starting and ending vertex.
+Then taking a large n would help as in a single iteration we&amp;rsquo;ll reduce n vertices.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/npoly.gif&#34; alt=&#34;npoly&#34;&gt;&lt;/p&gt;
+&lt;p&gt;But this is only valid if there are no pins in the n vertex polygon.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/npolygon.png&#34; alt=&#34;npolygon&#34;&gt;&lt;/p&gt;
+&lt;p&gt;If there are pins in the n vertex polygon. We could reduce the n sided poygon to starting vertex, pin and ending vertex, which involves doing the following transformation Xn-&amp;gt;3n.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/npolygonpin.png&#34; alt=&#34;npolygonpin&#34;&gt;&lt;/p&gt;
+&lt;p&gt;But doing this would be wrong, as we would be assuming that the thread would definitely loop around the pin. If there&amp;rsquo;s a case where in the final configuration the thread does not loop around this pin we would have no way of knowing how the thread loops around the pin and whether it can be removed like a vertex or not.&lt;/p&gt;
+&lt;p&gt;The example given below demonstrates how this transformation would result in an incorrect state:-&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/incorrectstate.gif&#34; alt=&#34;incorrectstate1&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Here we can see why we cant reduce vertices to pin positions prematurely, cause if we do go forward with the transformation we&amp;rsquo;ll have to make sure that theres a way of knowing which side the thread occupies when going around the pin. Like in the case given below :-&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pinloop1.png&#34; alt=&#34;incorrectstate2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;If we loop the thread with every pin that lies inside its n vertex polygon we get the following state if we just replace the vertex position with pin position for the thread representation:-&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pinloop2.png&#34; alt=&#34;incorrectstate3&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Here if we loop the thread around the pin at the bottom we would not be able to reach the correct final state shown below :-&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pinloop3.png&#34; alt=&#34;incorrectstate4&#34;&gt;&lt;/p&gt;
+&lt;p&gt;We could also work around this by storing a tangent or a point to show where the thread has looped to resolve such cases as shown below :-&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pinloop4.png&#34; alt=&#34;incorrectstate5&#34;&gt;&lt;/p&gt;
+&lt;p&gt;But this doesnt seem to be too optimal as we&amp;rsquo;ll have to calculate and store additional information about the tangent or point so lets see if theres another way.&lt;/p&gt;
+&lt;p&gt;So now that we have ruled out prematurely looping around pins, we still have to decide how to traverse through the thread.&lt;/p&gt;
+&lt;p&gt;Since we&amp;rsquo;re not touching the pins anymore at this stage lets see which n gives us a better intermediate state.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/6n3n.gif&#34; alt=&#34;6Nvs3N&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Here we can see that taking a small n is better as we get to a better intermediate state (with lesser length and lesser vertices) without iterating to an incorrect transformation (like the case of looping around pins prematurely).&lt;/p&gt;
+&lt;p&gt;Another big reason is that dealing with triangles is a lot more easier than n&amp;gt;3 polygons when it comes to applying functions like checking if a point lies inside the polygon. And we cant go lower than 3 vertices as that would just be a line.&lt;/p&gt;
+&lt;h4 id=&#34;iterating-through-triangles&#34;&gt;Iterating through triangles&lt;/h4&gt;
+&lt;p&gt;Now that we&amp;rsquo;ve decided to go through the thread 3 points at a time, lets see how that would pan out in a much more realistic scenario :-&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/tightenuptraverse1.png&#34; alt=&#34;tightenuptraverse1&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Here pins are depicted in blue and (Xn,Yn) represent pin positions, similiarly thread state and thread vertices are depicted in brown and (In,Jn) represent thread vertex positions.&lt;/p&gt;
+&lt;p&gt;Lets see how to tackle the first 3 thread vertices.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/triangleoutput.gif&#34; alt=&#34;triangleoutputgif&#34;&gt;&lt;/p&gt;
+&lt;p&gt;As it can be seen in this example if there is no point inside our triangle we remove the 2nd vertex according to the thread sequence in the 3 vertices.&lt;/p&gt;
+&lt;p&gt;So the sequence of steps are as follows :-&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Go through the vertices 3 at a time&lt;/li&gt;
+&lt;li&gt;Check if any pin lies inside the triangle&lt;/li&gt;
+&lt;li&gt;If a pin lies inside the triangle we don&amp;rsquo;t do anything and move 1 vertex ahead.&lt;/li&gt;
+&lt;li&gt;If there is no pin inside the triangle we remove the 2nd vertex from the thread stack.&lt;/li&gt;
+&lt;li&gt;Then we consider the following 3 vertices : vertex 1, vertex 3, new vertex after vertex 3. (after removing vertex 2)&lt;/li&gt;
+&lt;li&gt;And then repeat these steps again&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If we apply this sequence of steps for the whole thread this is what we get :-&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/fulltraversalbig.gif&#34; alt=&#34;fulltraversalbig&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Seems pretty neat doesn&amp;rsquo;t it ?&lt;/p&gt;
+&lt;p&gt;Lets see compare our initial state and final state after going through the thread once.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/tightenuptraverse1x64.png&#34; alt=&#34;tightenuptraverse1x64&#34;&gt;&lt;/p&gt;
+&lt;p&gt;So our triangle traversal strategy seems to work nicely but there&amp;rsquo;s still room for more reductions.&lt;/p&gt;
+&lt;p&gt;See if you can spot more triangles without pins in our final state.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/tightenuptraverse64xtri.png&#34; alt=&#34;tightenuptraverse64xtri&#34;&gt;&lt;/p&gt;
+&lt;p&gt;So we found 2 more triangles without pins that can be reduced.&lt;/p&gt;
+&lt;p&gt;The question now is whether there is a way of knowing beforehand how many times we&amp;rsquo;ll have to go through the thread vertices.&lt;/p&gt;
+&lt;p&gt;If there isn&amp;rsquo;t we&amp;rsquo;ll have to rely on traversing through the thread again until all the triangles without pins have been reduced.&lt;/p&gt;
+&lt;p&gt;So we&amp;rsquo;ll keep on traversing through the thread until all triangles left have pins inside them.&lt;/p&gt;
+&lt;p&gt;Again there are 2 strategies that can be used :-&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Go through through the thread again using the same idea until we can&amp;rsquo;t reduce triangles anymore.&lt;/li&gt;
+&lt;li&gt;Go through only the new triangles that were created by removing the vertices.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;For strategy 1 :&lt;/strong&gt; This is easier to implement as we can keep on updating a set which contains triangles that have pins, so we dont have to apply the functions on the ones for which we have checked in a previous iteration and only apply them when we come across a new triangle.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;For strategy 2 :&lt;/strong&gt; Here we only traverse through new triangles which were created after removing a vertex. So we create another array and add 2 triangles corresponding to every vertex removed.&lt;/p&gt;
+&lt;p&gt;Since strategy 2 seems more optimal lets see how that would work.&lt;/p&gt;
+&lt;p&gt;To see how to implement strategy 2 we consider a set of points p1 p2 p3 p4 p5, this would give us triangle T1 (p123), T2(p234), T3(p345).&lt;/p&gt;
+&lt;p&gt;So when we are traversing through the points, we reduce triangle T2(p234) by removing p3 which leaves us with p1 p2 p4 p5 . So after reducing T2 we get 2 new triangles T1(p124), T2(p245) that we have not considered before as shown in the example below :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/it2.gif&#34; alt=&#34;iteration2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;So we would have to check for 2 new triangles T1(p124), T2(p245) for our next iteration to check if they can be reduced.&lt;/p&gt;
+&lt;p&gt;So the transformation can be simplified to the following step whenever a vertex is removed :-&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/it14.png&#34; alt=&#34;iteration2final&#34;&gt;&lt;/p&gt;
+&lt;p&gt;i.e add 2 triangles to an array whenever a point is removed. Then we go through this second array and reduce more triangles, and repeat these steps until we are left with no more triangles that can be reduced.&lt;/p&gt;
+&lt;h4 id=&#34;grouping-pins-according-to-triangles&#34;&gt;Grouping pins according to triangles&lt;/h4&gt;
+&lt;p&gt;One thing we have not discussed so far is how we are going to go through the pins when we check if they lie inside the triangle, for the thread it was straightforward as we had a starting point and ending point but here its not.&lt;/p&gt;
+&lt;p&gt;One way is we go through all the pins whenever we have to check if a pin lies inside a triangle.&lt;/p&gt;
+&lt;p&gt;Lets see how that would work, we have &lt;code&gt;m&lt;/code&gt; thread vertices. But since we are going through them 3 at a time we would have  &lt;code&gt;m-2&lt;/code&gt; triangles that have to be checked for &lt;code&gt;n&lt;/code&gt; pins.&lt;/p&gt;
+&lt;p&gt;i.e &lt;code&gt;n * (m-2)&lt;/code&gt; times we would have to check for pins, in every iteration which is a lot. Lets see if we can reduce it.&lt;/p&gt;
+&lt;p&gt;So can we group pins according to their corresponding triangles.&lt;/p&gt;
+&lt;p&gt;This can be done if we take the lowest x,y points and highest x,y points out of the 3 points and check which pins lie in that range.&lt;/p&gt;
+&lt;p&gt;We need a fast look up method to access pins in a given x and y range.
+bsp, kd tree+, quad tree&lt;/p&gt;
+&lt;h4 id=&#34;reducing-the-thread&#34;&gt;Reducing the thread&lt;/h4&gt;
+&lt;h2 id=&#34;heading&#34;&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;philosophical-end-quote&#34;&gt;Philosophical end quote&lt;/h2&gt;
+&lt;p&gt;Problems are meant to be conquered dont let any red flag holding, low acceptance rate bearing, problem ever convince you to believe otherwise.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;P.S : I tried my best to reduce chunks of text by adding accompanying visual explanations and reducing the text block size by being more precise, i hope the explanations are a medium or easy read, ciao.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Hardest Problem on Codeforces (Functional Style)</title>
+      <link>http://localhost:1313/posts/tightenup2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/tightenup2/</guid>
+      <description>&lt;p&gt;This is an attempt to solve the hardest problem on codeforces using a different approach
+And i did attempt to try and learn the functional way of doing things but i figured in terms of street cred amongst cs grads, i think solving the hardest problem on codeforces in a functional programming language is where its at, instant peak stardom.&lt;/p&gt;
+&lt;p&gt;But before I get ahead of myself here, I would mention that my solution is probably not the best way to go about solving this problem/either of the 2&lt;/p&gt;
+&lt;p&gt;And i&amp;rsquo;d be really grateful if you have any helpful suggestions or things that i might have missed out on when it comes to my approach at solving this problem.&lt;/p&gt;
+&lt;h2 id=&#34;problem-description&#34;&gt;Problem Description&lt;/h2&gt;
+&lt;p&gt;The official problem statement is mentioned &lt;a href=&#34;&#34;&gt;here&lt;/a&gt;. And in my last post i did break down this problem statement to make it easier to understand.&lt;/p&gt;
+&lt;h2 id=&#34;solving-the-hardest-problem-on-codeforces-functional-style&#34;&gt;Solving the hardest problem on codeforces (Functional Style)&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>Haskell meets C (Haskell FFI Primer)</title>
+      <link>http://localhost:1313/posts/haskellffi/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/haskellffi/</guid>
+      <description>&lt;h2 id=&#34;premise&#34;&gt;Premise&lt;/h2&gt;
+&lt;p&gt;f&lt;/p&gt;
+&lt;h2 id=&#34;foreign-function-interface-ffi&#34;&gt;Foreign Function Interface (FFI)&lt;/h2&gt;
+&lt;h2 id=&#34;testing-it-out&#34;&gt;Testing it out&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>How to build a robotic arm</title>
+      <link>http://localhost:1313/posts/robotarm1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/robotarm1/</guid>
+      <description>&lt;p&gt;DFMA principal&lt;/p&gt;
+&lt;p&gt;no 3d part online well make our own
+hoose a specific goal
+coplete the whole stack
+rtos esp32 motor encoder
+no arduino hackerday hobby projects
+and of course the most important consideration making it dirt cheap&lt;/p&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Building your robot arm seems like a nice hobby project but does it have any use cases ?&lt;/p&gt;
+&lt;p&gt;Suppose&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Macros that transcend the terminal</title>
+      <link>http://localhost:1313/posts/macrotools/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/macrotools/</guid>
+      <description>&lt;p&gt;So what are macros
+these snippets of code that are meant to execute other code snippets
+its a very meta concept like trying move big blocks&lt;/p&gt;
+&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;So you had a good day at class maybe completed a few assignment scripts and are feeling kinda worn out that&lt;/p&gt;
+&lt;p&gt;you write a macro in your bashrc file&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#function to compile and run cpp files
+function ccc(){
+    g++ -o $1 $1.cpp
+    ./$1
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and next time you just enter &lt;code&gt;ccc filename&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;But then youre like what if i want to do a set of tasks on the browser&lt;/p&gt;
+&lt;h2 id=&#34;the-ultimate-macro-building-stack&#34;&gt;The ultimate macro building stack&lt;/h2&gt;
+&lt;h3 id=&#34;pyautogui&#34;&gt;pyautogui&lt;/h3&gt;
+&lt;h3 id=&#34;screen-recorder--ffmpeg&#34;&gt;Screen Recorder + ffmpeg&lt;/h3&gt;
+&lt;h3 id=&#34;ocr&#34;&gt;OCR&lt;/h3&gt;
+&lt;h2 id=&#34;ultimate-use-cases-for-the-ultimate-macro-builder&#34;&gt;Ultimate use cases for the ultimate macro builder&lt;/h2&gt;
+&lt;p&gt;logging on websites during heavy traffic&lt;/p&gt;
+&lt;p&gt;booking tickets on a known website&lt;/p&gt;
+&lt;p&gt;when youre too lazy to develop custom scripts or have made no headway after going through the documentation multiple times&lt;/p&gt;
+&lt;p&gt;remember with great power comes great reponsibility&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Meshes, Voxels, NURBS and T-Splines</title>
+      <link>http://localhost:1313/posts/nurbstspline/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/nurbstspline/</guid>
+      <description>&lt;p&gt;While learning CAD basics I stumbled upon various CAD specific surface modelling primitives like NURBS and T Splines.
+Ive tried to demystify some aspects of these surface representing functions here.&lt;/p&gt;
+&lt;h2 id=&#34;newer-perspectives&#34;&gt;Newer Perspectives&lt;/h2&gt;
+&lt;p&gt;The main motivation for going down this deep dive of understanding CAD surfaces was mainly because it is really different from other forms of representing 3d models that rely on using a set of discrete points, triangles, polygons.&lt;/p&gt;
+&lt;p&gt;I also wanted to check for their viability for representing 3d models in a more compressed/continuous manner as storing a set of points/triangles/polygons as a set of functions could be beneficial if we&amp;rsquo;re talking about general regular geometry based objects.  u&lt;/p&gt;
+&lt;h2 id=&#34;case-studies-for-different-shapes&#34;&gt;Case studies for different Shapes&lt;/h2&gt;
+&lt;p&gt;cylinder
+sphere
+monkeyface
+room model&lt;/p&gt;
+&lt;h2 id=&#34;file-formats-for-exotic-shapes&#34;&gt;File Formats for Exotic Shapes&lt;/h2&gt;
+&lt;p&gt;scale constrained models ?(do they fix the model geometry to a scale present in the real world or is it just an arbitrary set of points)&lt;/p&gt;
+&lt;h3 id=&#34;bezier-curve&#34;&gt;Bezier Curve&lt;/h3&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h2 id=&#34;non-uniform-rational-b-splines&#34;&gt;Non Uniform Rational B-Splines&lt;/h2&gt;
+&lt;p&gt;the stonk&lt;/p&gt;
+&lt;h2 id=&#34;t-splines&#34;&gt;T-Splines&lt;/h2&gt;
+&lt;p&gt;T Splines are more recent compared to NURBS based surfaces. Some key differences are the fact that it includes&lt;/p&gt;
+&lt;h2 id=&#34;tspline-viewer&#34;&gt;Tspline viewer&lt;/h2&gt;
+&lt;h2 id=&#34;contents-of-a-cad-file&#34;&gt;Contents of a CAD file&lt;/h2&gt;
+&lt;p&gt;step is kind of like the csv of the cad world as it is a platform agnostic file type&lt;/p&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;p&gt;The NURBS Book by Les A. Piegl and Wayne Tiller: This book was published in 1995 a really great to the point resource
+p&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>placeholder</title>
+      <link>http://localhost:1313/posts/placeholder/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/placeholder/</guid>
+      <description>&lt;p&gt;So&lt;/p&gt;
+&lt;h2 id=&#34;understanding-advanced_xorpy&#34;&gt;Understanding advanced_xor.py&lt;/h2&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

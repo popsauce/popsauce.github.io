@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Productivity on Popsauce&#39;s Blog</title>
+    <link>http://localhost:1313/categories/productivity/</link>
+    <description>Recent content in Productivity on Popsauce&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>karanlohaan0@gmail.com (Karan Lohaan)</managingEditor>
+    <webMaster>karanlohaan0@gmail.com (Karan Lohaan)</webMaster><atom:link href="http://localhost:1313/categories/productivity/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Macros that transcend the terminal</title>
+      <link>http://localhost:1313/posts/macrotools/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/macrotools/</guid>
+      <description>&lt;p&gt;So what are macros
+these snippets of code that are meant to execute other code snippets
+its a very meta concept like trying move big blocks&lt;/p&gt;
+&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;So you had a good day at class maybe completed a few assignment scripts and are feeling kinda worn out that&lt;/p&gt;
+&lt;p&gt;you write a macro in your bashrc file&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#function to compile and run cpp files
+function ccc(){
+    g++ -o $1 $1.cpp
+    ./$1
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and next time you just enter &lt;code&gt;ccc filename&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;But then youre like what if i want to do a set of tasks on the browser&lt;/p&gt;
+&lt;h2 id=&#34;the-ultimate-macro-building-stack&#34;&gt;The ultimate macro building stack&lt;/h2&gt;
+&lt;h3 id=&#34;pyautogui&#34;&gt;pyautogui&lt;/h3&gt;
+&lt;h3 id=&#34;screen-recorder--ffmpeg&#34;&gt;Screen Recorder + ffmpeg&lt;/h3&gt;
+&lt;h3 id=&#34;ocr&#34;&gt;OCR&lt;/h3&gt;
+&lt;h2 id=&#34;ultimate-use-cases-for-the-ultimate-macro-builder&#34;&gt;Ultimate use cases for the ultimate macro builder&lt;/h2&gt;
+&lt;p&gt;logging on websites during heavy traffic&lt;/p&gt;
+&lt;p&gt;booking tickets on a known website&lt;/p&gt;
+&lt;p&gt;when youre too lazy to develop custom scripts or have made no headway after going through the documentation multiple times&lt;/p&gt;
+&lt;p&gt;remember with great power comes great reponsibility&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>placeholder</title>
+      <link>http://localhost:1313/posts/placeholder/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/placeholder/</guid>
+      <description>&lt;p&gt;So&lt;/p&gt;
+&lt;h2 id=&#34;understanding-advanced_xorpy&#34;&gt;Understanding advanced_xor.py&lt;/h2&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

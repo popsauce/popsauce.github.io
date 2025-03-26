@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on Popsauce&#39;s Blog</title>
+    <link>http://localhost:1313/tags/projects/</link>
+    <description>Recent content in Projects on Popsauce&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>karanlohaan0@gmail.com (Karan Lohaan)</managingEditor>
+    <webMaster>karanlohaan0@gmail.com (Karan Lohaan)</webMaster><atom:link href="http://localhost:1313/tags/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Modelling Axolotl Embryos</title>
+      <link>http://localhost:1313/posts/modellingaxolotls/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/modellingaxolotls/</guid>
+      <description>&lt;h2 id=&#34;project-details&#34;&gt;Project Details&lt;/h2&gt;
+&lt;h2 id=&#34;1-project-abstract&#34;&gt;1. Project Abstract​:&lt;/h2&gt;
+&lt;h3 id=&#34;11-what-is-the-project-about-&#34;&gt;1.1 What is the project about ?&lt;/h3&gt;
+&lt;p&gt;The key objective of this project is to generate a 3d model based on a
+set of 2d images of an axolotl embryo at a particular stage. The sample
+dataset contains 2D images of an embryo captured using a microscope in a
+flipping column.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image32.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 1 - Stage 4 Axolotl Embryos in different orientations&lt;/p&gt;
+&lt;p&gt;The 2D image dataset of any embryo sample at a particular stage
+typically contains 8 images per sample. With each image containing
+different orientations of the embryo as shown in figure 1.&lt;/p&gt;
+&lt;h3 id=&#34;12-why-is-this-project-important-&#34;&gt;1.2 Why is this project important ?&lt;/h3&gt;
+&lt;p&gt;This project is meant as a research tool to aid researchers in modelling
+axolotl embryos based on images generated using techniques mentioned in
+the paper
+&lt;a href=&#34;https://www.researchgate.net/publication/328615916_Acquisition_and_reconstruction_of_4D_surfaces_of_axolotl_embryos_with_the_flipping_stage_robotic_microscope&#34;&gt;&lt;!-- raw HTML omitted --&gt;[1]&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;
+. Axolotl embryos are unique in their similarities to human embryos in
+aspects like neural plate closure and tube formation in embryos and they
+are often used as model organisms for studying embryogenesis due to the
+transparent membrane of the embryo that allows us to analyse significant
+changes in the organism across different stages.&lt;/p&gt;
+&lt;p&gt;No open source alternatives exist for this type of a tool that can
+reconstruct an ellipsoidal structure from a small set of 2D images using
+uncalibrated reconstruction methods, this tool would help in recreating
+more than just 3D models of axolotl embryos, as the method outlined here
+can be applied to any model that resembles an ellipsoid or a sphere, for
+example other embryos/cells, planets, asteroids, spherical objects, etc
+can be potential subjects that can be modelled using the techniques
+mentioned in this proposal.&lt;/p&gt;
+&lt;h2 id=&#34;2-project-in-detail-and-planned-approach&#34;&gt;2. Project in Detail and Planned Approach:&lt;/h2&gt;
+&lt;p&gt;Modelling the axolotl embryos from the given set of 2D images can be
+divided into different sub problems that have to be solved step by step.&lt;/p&gt;
+&lt;p&gt;So to get the final implementation of the minimum viable solution I have
+divided my approach approach into 3 main categories : -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Extracting embryo images from given 2D images (2.2)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Generating a 3D model based on given 2D images (2.3)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Projecting embryo images on the generated 3D model (2.4)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;21-overview-of-current-3d-reconstruction-methods&#34;&gt;2.1 Overview of current 3D reconstruction Methods:&lt;/h3&gt;
+&lt;p&gt;Recreating an accurate 3D model is still an area of active research
+where there are different domain specific problems that arise depending
+on the method used, the type of data available and the complexity of the
+model that has to be generated.&lt;/p&gt;
+&lt;p&gt;So upon researching current reconstruction techniques I found that they
+either rely heavily on additional data in the form of depth maps, camera
+coordinates, etc to generate accurate models as outlined in this doc
+&lt;a href=&#34;https://docs.google.com/document/d/13XlC-Vmw73AgCSLihCjD8btnN01Xk5J7LBVb5X2vs8Q/edit?usp=sharing&#34;&gt;&lt;!-- raw HTML omitted --&gt;[2]&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;
+or require existing 3D model datasets for training a NN that generates a
+probability density cloud after analysing images, since the microscope
+image dataset has some limitations based on the number of images
+available per sample and the lack of any other form of external data for
+spatial information, we will have to create new custom methods to tackle
+reconstruction that generate spatial information based on 2D images that
+utilise properties of an ellipsoid to recreate a 3D model. A List of
+research papers on 3D reconstruction techniques can be found here
+&lt;a href=&#34;https://docs.google.com/document/d/1KiuWRnsuQq4DdXVvLSC7bKDpIxDu7hvBqVqMnQse3bA/edit?usp=sharing&#34;&gt;&lt;!-- raw HTML omitted --&gt;[3]&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;
+for comparisons of different methods.&lt;/p&gt;
+&lt;h3 id=&#34;22-extracting-embryo-images-from-2d-images&#34;&gt;2.2 Extracting embryo images from 2D images.&lt;/h3&gt;
+&lt;h4 id=&#34;221-methods-to-extract-region-of-interest&#34;&gt;2.2.1 Methods to Extract Region of Interest&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Extracting embryo images accurately is very critical in generating a
+model as we’ll be deriving all the necessary spatial information from
+the features present in the extracted embryo image. Initially I was
+planning on training a NN trained on a training dataset of self
+cropped images to extract our Region of Interest (Embryo) from the
+background (flipping column).&lt;/p&gt;
+&lt;p&gt;But since our dataset has some unique aspects like a monochromatic
+blue hue as the background we can just mask all blue hue pixels by
+modifying HSV (hue, saturation, value) values based on a rgb histogram
+of the pixel population (See figure 3).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image11.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image22.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image29.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 3 - Embryo images and their corresponding rgb pixel population
+histogram, y axis represents pixel population, x axis represents hue
+value of given pixel ranging from 0 to 255&lt;/p&gt;
+&lt;h4 id=&#34;222-masking-hue-values-according-to-a-custom-threshold&#34;&gt;2.2.2 Masking hue values according to a custom threshold:&lt;/h4&gt;
+&lt;p&gt;The usual opencv algorithms (for eg watershed algorithm) for segmenting
+objects from background were adequate for most images but for some
+embryo images like the ones which have both their light yellow side and
+dark side in the same frame as shown in figure 4, the output was not
+coming out accurately as most of these algorithms rely on selecting
+shapes based on similar pixel value intensity, so they were treating the
+lighter side and the darker side as 2 separate entities.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image10.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 4 - Embryo with both light colored and dark colored side in same
+image&lt;/p&gt;
+&lt;p&gt;So instead of joining the entities in a separate step it was more
+convenient to just remove the blue hue background as it had a more
+consistent pixel value range of blue hues.&lt;/p&gt;
+&lt;p&gt;So after identifying relevant hsv values of the background we can mask
+the image in the following manner shown in figure 5.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;media/image22.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image34.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image26.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 5 - Masking hues in the embryo image.&lt;/p&gt;
+&lt;h4 id=&#34;223-additional-image-augmentation-methods-for-improving-contour-extraction&#34;&gt;2.2.3 Additional image augmentation methods for improving contour extraction:&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;For some embryo images (Figure 6) which have a yellowish-green hue in
+the ventral side masking all relevant areas resulted in the embryo
+losing some pixels shown in the figure. This would make it difficult
+to outline the embryo.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image11.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image39.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image16.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 6 - Masking hues in the embryo image.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;So a workaround for this involves increasing the relative saturation
+value (S) and decreasing the relative brightness value (L) to get a
+more clear distinction between the embryo and the background that
+results in a more clean outline of the embryo as shown in figure 8.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;media/image27.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 7 - Diagram showing HSL spectrum&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;media/image11.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image42.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image6.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 8 - Changing the S and L values to get a cleaner outline of ROI&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;media/image42.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image13.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 9 - RGB pixel population histogram of the augmented image&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We can then get a more accurate outline and crop out the image as
+shown in figure 8.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;23-generating-a-3d-model-based-on-given-2d-images&#34;&gt;2.3 Generating a 3D model based on given 2D images&lt;/h3&gt;
+&lt;p&gt;The 3D model that we are going to generate would resemble an irregular
+ellipsoid. To generate an accurate approximation of the 3D model we have
+to solve 3 sub problems : -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Getting accurate outlines/contours (2.3.1)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Finding the approximate axis of rotation (2.3.2)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Finding the angle of rotation for each contour by measuring the
+displacement of corresponding points wrt the axis (2.3.3)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Generating a 3D mesh based on the point cloud (2.3.4)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;media/image36.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 10 - Overview of the main idea, the first diagram represents a
+single contour, the second diagram represents the 3d figure i.e by
+rotating the outline according to the angle of rotation we can
+generate a very close approximation of the actual 3D model that gets
+better with more images per sample.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;231-getting-accurate-outlinescontours&#34;&gt;2.3.1 Getting accurate outlines/contours:&lt;/h4&gt;
+&lt;p&gt;The 3D model that we are going to generate would resemble an irregular
+ellipsoid. The first step in generating the 3D model is extracting
+outlines from all embryo images in the set.&lt;/p&gt;
+&lt;h2 id=&#34;mediaimage24pngmediaimage41pngmediaimage18png&#34;&gt;&lt;img src=&#34;media/image24.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image41.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image18.png&#34; alt=&#34;&#34;&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;media/image3.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image15.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image12.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 11- Rough Outlines/Contours of 3 Axolotl embryos&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The contour plots will be used as 2D numpy arrays of x, y coordinates
+for further transformation steps.&lt;/p&gt;
+&lt;p&gt;Since most samples have 8 images we’ll get 8 outlines per sample. And
+after applying image filters for smoothening the ROI we can get a
+smoother outline of the contour&lt;/p&gt;
+&lt;p&gt;As shown in figure 12&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image17.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 12- Smoothened Outline/Contour of Axolotl embryo&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;media/image21.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image31.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image28.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image33.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image33.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image33.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image35.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image30.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 13- All Outlines/Contours of a stage 4 axolotl embryo in 8
+different orientations&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;After getting all embryo outlines we’ll align them on the y axis and
+then modify the numpy array of 2D coordinates as outlined in section
+2.3.4 to generate a 3D point cloud.&lt;/p&gt;
+&lt;p&gt;Depending on the no. of images per set this method would be able to
+generate better approximations that approach the ideal model which
+gets better with more images per sample.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;232-finding-the-approximate-axis-of-rotation&#34;&gt;2.3.2 Finding the approximate axis of rotation:&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;For finding the approximate axis of rotation we can either take the
+mean of the extreme points in the numpy array of 2D coordinates of the
+contour, and generate a vertical line between them. For example, find
+the max and min of y coordinate values and take the mean of their
+distance in the x axis to get the x coordinate of the corresponding
+axis of rotation, or use a centroid based on the given coordinates in
+the numpy array.&lt;/p&gt;
+&lt;p&gt;Or we can rely on finding a vertical axis that remains the same size
+across the set of images taken 2 at a time and is closest to the
+centroid. So selecting the longest vertical line and tracing it across
+images can also reveal accurate approximations for axis of rotation.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;233-finding-the-angle-of-rotation-for-each-contour&#34;&gt;2.3.3 Finding the angle of rotation for each contour:&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We then need to find the angle of rotation for each image,there are
+multiple ways to find out the angle at which we’ll place our outlines
+like, by checking the displacement of similar points with respect to
+an approximate axis of rotation.&lt;/p&gt;
+&lt;p&gt;So we will go through the sample set of 8 images and evaluate the
+angle of rotation between each pair after going through them in their
+normal order of rotation which will give us 7 values for angle of
+rotation of the embryo in adjacent frames.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image45.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image4.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 14- Approximating the angle of rotation based on a set of 8
+corresponding points in the two adjacent images&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image25.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 15 - Another example showing the method of finding angle of
+rotation by checking for displacement of corresponding points.&lt;/p&gt;
+&lt;h4 id=&#34;234-generating-a-3d-mesh-based-on-the-generated-point-cloud&#34;&gt;2.3.4 Generating a 3D mesh based on the generated point cloud:&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Now since we have both the contours and their angle of rotation we
+apply the 3D transformation formula for rotating our contours about
+the y axis and generate an array of x,y,z coordinates from the numpy
+array of x, y coordinates of the contour.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 16- Transformation of coordinates after rotation about z axis
+where A= x1, y1, z1 and A’= x2, y2, z1&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;So a point on the contour say P( x, y) would be P’( x*sin(∅), y,
+x*cos(∅) ) on the 3D ellipsoid upon rotation about the y axis. Where
+∅ is the angle of rotation.&lt;/p&gt;
+&lt;p&gt;So after getting the angle of rotation we can then align all outlines
+to the XY Plane by aligning their axis of rotation to the y axis and
+then apply the following transformation formula to get the new x y z
+coordinates after rotating the outline into the plane about the axis
+of rotation by an angle ∅.&lt;/p&gt;
+&lt;p&gt;From P to P’ we get the following transformation (x, y, 0) to ( x *
+cos(∅), y , x * sin(∅) ) as explained in figure 17 where the x
+coordinate becomes x*cos(∅), y coordinate remains the same as we’re
+rotating the figure about y axis and z coordinate is x*sin(∅) as
+shown in the XZ plane diagram in figure 17.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;media/image44.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 17- Diagram explaining the transformation formula for getting 3D
+coordinates by rotating 2D contour about Y axis&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;So after converting our 2d numpy array of coordinates to a 3d array.&lt;/p&gt;
+&lt;p&gt;We can then generate a 3D scatter plot and generate a point cloud of
+the embryo surface.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image7.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 18 - A regular ellipsoidal point cloud&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Then for generating the 3D mesh we can use Open3D for generating the
+mesh that generates surfaces based on principles similar to nearest
+neighbour algorithms for generating the mesh based on point
+coordinates.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;media/image40.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 19 - Mesh generated from the ellipsoidal point cloud&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We can then export the 3D model in any specified format using python
+stl and Open3D libraries.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;24-projecting-embryo-images-on-the-generated-3d-model&#34;&gt;2.4 Projecting embryo images on the generated 3D model&lt;/h3&gt;
+&lt;p&gt;There are various projection methods that outline how to go about
+projecting an image to a 3D model in the Open3D, Scikit and PyOpenGL
+libraries. Image projection requires transforming the perspective image
+to a projection texture that can be applied to the model.&lt;/p&gt;
+&lt;p&gt;Out of the existing projection methods cylindrical projection methods
+would suit this model the best as we are dealing with an irregular
+ellipsoid. We can generate an approximate equirectangular image and then
+apply it to our generated model. An example can be seen in figure&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;media/image20.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image23.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 20 - Projection image of jupiter, projection image wrapped around
+a model.&lt;/p&gt;
+&lt;h4 id=&#34;241-use-image-stitching-algorithms-to-stitch-multiple-projection-images&#34;&gt;2.4.1 Use image stitching algorithms to stitch multiple projection images:&lt;/h4&gt;
+&lt;p&gt;We’ll be using the extracted embryo images from section 2.2 to generate
+the projection image.&lt;/p&gt;
+&lt;p&gt;Where we’ll stitch multiple projection images into a single image using
+opencv’s image stitching algorithms.The final image made up of multiple
+stitched images would then be used as a texture or a projection image
+that will be wrapped around the 3D model.&lt;/p&gt;
+&lt;h4 id=&#34;242-projecting-the-final-projection-image-to-the-generated-3d-model&#34;&gt;2.4.2 Projecting the final projection image to the generated 3D model:&lt;/h4&gt;
+&lt;p&gt;Similarly we can try mapping our extracted embryo to a sphere as shown
+in figure 21.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image19.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image9.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image38.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 21- Projection image of the embryo wrapped around a sphere&lt;/p&gt;
+&lt;p&gt;But the main objective is mapping it onto our 3D generated model&lt;/p&gt;
+&lt;p&gt;We could either rely on the image projection method or generate a depth
+map based on our model.&lt;/p&gt;
+&lt;p&gt;An example of an approximate mockup of the 3D model using 2 sample
+images is shown in figure 22&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image37.gif&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 22 - Projection image of the embryo wrapped around an early
+mockup of the generated model.&lt;/p&gt;
+&lt;h3 id=&#34;25-deploying-the-tool&#34;&gt;2.5 Deploying the tool:&lt;/h3&gt;
+&lt;h4 id=&#34;251-publishing-it-to-pypi&#34;&gt;2.5.1 Publishing it to PyPI:&lt;/h4&gt;
+&lt;p&gt;Since im using python libraries like OpenCV, Open3D, PyOpenGL,
+matplotlib, basemap, i can deploy my solution by creating a python
+package and publish it to PyPI (Python Package Index) for making it
+accessible to all users as an installable library/package. This
+implementation is the easiest as it doesn’t require any changes to the
+main project code as it can be used as is in any python environment.&lt;/p&gt;
+&lt;h4 id=&#34;252-deploying-the-script-as-a-web-application&#34;&gt;2.5.2 Deploying the script as a web application:&lt;/h4&gt;
+&lt;p&gt;The other option is deploying my solution as a web application on a site
+like heroku. I&amp;rsquo;ll set up my python scripts using flask and heroku CLI,
+this method would have to comply with the site related restrictions and
+would require tweaking libraries or other dependencies to reduce
+complete project size. The heroku deployment option is very
+straightforward for hosting python scripts and there is extensive
+documentation for the same.&lt;/p&gt;
+&lt;h4 id=&#34;253-adding-documentation&#34;&gt;2.5.3 Adding Documentation:&lt;/h4&gt;
+&lt;p&gt;I’ll add extensive documentation using github pages / read the docs / mk
+docs along with the implementation steps to help in ease of access as
+well as improving readability.&lt;/p&gt;
+&lt;h2 id=&#34;31-minimum-set-of-deliverables&#34;&gt;3.1 Minimum set of deliverables:&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Extracting embryo images from given 2D images (2.2)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Generating a 3D model based on given 2D images (2.3)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Projecting embryo images on the generated 3D model (2.4)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Deploying the python script (2.5)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;32-additional-features-that-can-be-added-if-extra-time-is-there&#34;&gt;3.2 Additional features that can be added if extra time is there:&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Additional features that can be added:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Displaying details like number, projected area, approximate
+volume, hsv heatmap of individual cells in each embryo stage to
+check for abnormalities and defects.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Outlining and labelling each segmented section in the generated
+model for easier classification.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;4-tentative-timeline&#34;&gt;4. Tentative timeline:&lt;/h2&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h2 id=&#34;5-plan-for-communication-with-mentors&#34;&gt;5. Plan for communication with mentors:&lt;/h2&gt;
+&lt;p&gt;I&amp;rsquo;ll continue communicating with my mentors and keep them updated on my
+progress during the devoworm weekly meetings like I have been doing in
+the past. I will be active on all the mediums I have provided in my
+contact details. I’ll also keep on updating minor progress milestones on
+slack.&lt;/p&gt;
+&lt;h2 id=&#34;6-candidate-details&#34;&gt;6. Candidate Details:&lt;/h2&gt;
+&lt;h3 id=&#34;61-why-do-i-want-to-do-this-project-&#34;&gt;6.1 Why do I want to do this project ?&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I’ve previously worked on computer vision projects related to image
+classification and feature extraction and was always interested in
+delving more into the spatial learning aspect side of things as these
+techniques are being implemented in most real life applications like
+self driving cars to area mapping drones, but felt they were too
+difficult to try out, but I’ve been learning more methods in the
+domain of 3D reconstruction through the ideas tested in this project
+which has definitely improved my understanding about the process.&lt;/p&gt;
+&lt;p&gt;There&amp;rsquo;s also the added benefit of working with a real dataset that can
+be used as a research tool which is more exciting to work on compared
+to a hobby project and has a lot of scope for usage in other areas as
+irregular ellipsoid 3D reconstruction can be done for a much broader
+set of objects, which really pushed me to delve deeper into exploring
+ideas relevant for this project.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;62-relevant-project-experience-and-past-contributions&#34;&gt;6.2 Relevant Project Experience and Past contributions&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I have experience in designing CAD models based on complex shapes that
+are used as components for Hardware Projects using a 3D printer. I
+have also created a python script for generating custom 3D templates
+for imprinting text and logos for a given 3d model using a general cli
+interface by running the python script as described in
+&lt;a href=&#34;https://github.com/popsauce/3D-imprint-generator&#34;&gt;&lt;!-- raw HTML omitted --&gt;[4]&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;
+.&lt;/p&gt;
+&lt;p&gt;I have been actively working on this project for the past few weeks
+and have been updating my progress using presentations and mockups in
+the weekly meetings of my organisation
+&lt;a href=&#34;https://www.youtube.com/channel/UChGTq41_rJwmZ1I4j7SezWQ&#34;&gt;&lt;!-- raw HTML omitted --&gt;[5]&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;63-is-this-the-only-project-im-applying-for&#34;&gt;6.3 Is this the only project I’m applying for?&lt;/h3&gt;
+&lt;p&gt;Yes, this is the only project that I am applying for.&lt;/p&gt;
+&lt;h3 id=&#34;64-working-time-and-commitments-&#34;&gt;6.4 Working time and commitments :&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I plan to work full time on this project. I’ll be dedicating most of
+my time after classes to get things done as per the timeline, if not
+ahead of it. Giving me 40 to 50 hours every week including weekends.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;65-other-plans-for-summer-&#34;&gt;6.5 Other plans for summer :&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I don&amp;rsquo;t have any major commitments during the project period that will
+hinder my progress on the project. I’ll just be having my end semester
+exams in my college that will get over by May end.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;appendix-&#34;&gt;Appendix :&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Modelling Axolotl Embryos (GSoC)</title>
+      <link>http://localhost:1313/posts/modellingaxolotlembryos/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/modellingaxolotlembryos/</guid>
+      <description>&lt;p&gt;This article describes how to model embryos from images using various techniques.&lt;/p&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;For my GSoC Internship with Devoworm under INCF. I was given a dataset of embryos for extracting features and representing them as 3D models.&lt;/p&gt;
+&lt;h3 id=&#34;dataset-description&#34;&gt;Dataset Description&lt;/h3&gt;
+&lt;p&gt;The dataset has images of axolotl embryos.
+There are 8 images taken from different angles for each sample embryo as shown below.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/modellingaxolotlembryos/embryos.jpg&#34; alt=&#34;8embryos&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Axolotl embryos have transparent membranes which makes it really easy to study different developmental stages of their lifecycle. So i had to produce the best model to represent these features and the embryo itself using the current dataset which has axolotl embryos at different stages of development&lt;/p&gt;
+&lt;h3 id=&#34;getting-the-images&#34;&gt;Getting the images&lt;/h3&gt;
+&lt;p&gt;Images of the axolotl embryo dataset were taken using a flipping microscope that used to take 8 images per sample. And the sample has embryos at various stages that can be identified by the amount of cell differentiation&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/modellingaxolotlembryos/flippingmicroscope.png&#34; alt=&#34;flippingmicroscope&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+&lt;h2 id=&#34;comparison-of-existing-tools&#34;&gt;Comparison of existing tools&lt;/h2&gt;
+&lt;h2 id=&#34;breaking-down-the-task-into-solvable-chunks&#34;&gt;Breaking down the task into solvable chunks&lt;/h2&gt;
+&lt;h2 id=&#34;acknowledgements&#34;&gt;Acknowledgements&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>placeholder</title>
+      <link>http://localhost:1313/posts/placeholder/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/placeholder/</guid>
+      <description>&lt;p&gt;So&lt;/p&gt;
+&lt;h2 id=&#34;understanding-advanced_xorpy&#34;&gt;Understanding advanced_xor.py&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>Waveform manipulation on circuits</title>
+      <link>http://localhost:1313/posts/modellingwaveforms/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/modellingwaveforms/</guid>
+      <description>&lt;p&gt;This article describes how to model ellipsoidal structures (embryos) from images using various techniques.&lt;/p&gt;
+&lt;h2 id=&#34;headings&#34;&gt;Headings&lt;/h2&gt;
+&lt;p&gt;The following HTML &lt;code&gt;&amp;lt;h2&amp;gt;&lt;/code&gt;—&lt;code&gt;&amp;lt;h6&amp;gt;&lt;/code&gt; elements represent five levels of section headings. &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt; is for Title. &lt;code&gt;&amp;lt;h2&amp;gt;&lt;/code&gt; is the highest section level while &lt;code&gt;&amp;lt;h6&amp;gt;&lt;/code&gt; is the lowest. With &lt;code&gt;numberedSubtitles&lt;/code&gt; param enabled, items will be numbered&lt;/p&gt;
+&lt;h3 id=&#34;h3&#34;&gt;H3&lt;/h3&gt;
+&lt;h3 id=&#34;h3-1&#34;&gt;H3&lt;/h3&gt;
+&lt;h4 id=&#34;h4&#34;&gt;H4&lt;/h4&gt;
+&lt;h5 id=&#34;h5&#34;&gt;H5&lt;/h5&gt;
+&lt;h5 id=&#34;h5-1&#34;&gt;H5&lt;/h5&gt;
+&lt;h6 id=&#34;h6&#34;&gt;H6&lt;/h6&gt;
+&lt;h3 id=&#34;h3-2&#34;&gt;H3&lt;/h3&gt;
+&lt;h3 id=&#34;h3-3&#34;&gt;H3&lt;/h3&gt;
+&lt;h4 id=&#34;h4-1&#34;&gt;H4&lt;/h4&gt;
+&lt;h4 id=&#34;h4-2&#34;&gt;H4&lt;/h4&gt;
+&lt;h2 id=&#34;paragraph&#34;&gt;Paragraph&lt;/h2&gt;
+&lt;p&gt;Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.&lt;/p&gt;
+&lt;p&gt;Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sapicia is sinveli squiatum, core et que aut hariosam ex eat.&lt;/p&gt;
+&lt;h2 id=&#34;blockquotes&#34;&gt;Blockquotes&lt;/h2&gt;
+&lt;p&gt;The blockquote element represents content that is quoted from another source, optionally with a citation which must be within a &lt;code&gt;footer&lt;/code&gt; or &lt;code&gt;cite&lt;/code&gt; element, and optionally with in-line changes such as annotations and abbreviations.&lt;/p&gt;
+&lt;h3 id=&#34;blockquote-without-attribution&#34;&gt;Blockquote without attribution&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Tiam, ad mint andaepu dandae nostion secatur sequo quae.
+&lt;strong&gt;Note&lt;/strong&gt; that you can use &lt;em&gt;Markdown syntax&lt;/em&gt; within a blockquote.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt; that you can put a blockquote inside a blockquote&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;blockquote-with-attribution&#34;&gt;Blockquote with attribution&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Don&amp;rsquo;t communicate by sharing memory, share memory by communicating.&lt;!-- raw HTML omitted --&gt;
+— Rob Pike&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;tables&#34;&gt;Tables&lt;/h2&gt;
+&lt;p&gt;Tables aren&amp;rsquo;t part of the core Markdown spec, but Hugo supports them out-of-the-box.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Age&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Bob&lt;/td&gt;
+&lt;td&gt;27&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Alice&lt;/td&gt;
+&lt;td&gt;23&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;inline-markdown-within-tables&#34;&gt;Inline Markdown within tables&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Italics&lt;/th&gt;
+&lt;th&gt;Bold&lt;/th&gt;
+&lt;th&gt;Code&lt;/th&gt;
+&lt;th&gt;Strikethrough&lt;/th&gt;
+&lt;th&gt;Underline&lt;/th&gt;
+&lt;th&gt;Highlight&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;em&gt;italics&lt;/em&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;bold&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;code&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;del&gt;strikethrough&lt;/del&gt;&lt;/td&gt;
+&lt;td&gt;&lt;!-- raw HTML omitted --&gt;underline&lt;!-- raw HTML omitted --&gt;&lt;/td&gt;
+&lt;td&gt;&lt;!-- raw HTML omitted --&gt;highlight&lt;!-- raw HTML omitted --&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;code-blocks&#34;&gt;Code Blocks&lt;/h2&gt;
+&lt;h3 id=&#34;code-block-with-backticks&#34;&gt;Code block with backticks&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;!doctype html&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;html&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;lang&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;en&amp;#34;&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;head&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;meta&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;charset&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;utf-8&amp;#34;&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;title&lt;/span&gt;&amp;gt;Example HTML5 Document&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;title&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;head&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;body&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;p&lt;/span&gt;&amp;gt;Test&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;p&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;body&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;html&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;code-block-indented-with-four-spaces&#34;&gt;Code block indented with four spaces&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;!doctype html&amp;gt;
+&amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;
+&amp;lt;head&amp;gt;
+  &amp;lt;meta charset=&amp;quot;utf-8&amp;quot;&amp;gt;
+  &amp;lt;title&amp;gt;Example HTML5 Document&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+  &amp;lt;p&amp;gt;Test&amp;lt;/p&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;code-block-with-hugos-internal-highlight-shortcode&#34;&gt;Code block with Hugo&amp;rsquo;s internal highlight shortcode&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;!doctype html&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;html&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;lang&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;en&amp;#34;&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;head&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;meta&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;charset&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;utf-8&amp;#34;&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;title&lt;/span&gt;&amp;gt;Example HTML5 Document&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;title&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;head&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;body&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;p&lt;/span&gt;&amp;gt;Test&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;p&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;body&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;html&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#34;list-types&#34;&gt;List Types&lt;/h2&gt;
+&lt;h3 id=&#34;ordered-list&#34;&gt;Ordered List&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Item 1
+&lt;ol&gt;
+&lt;li&gt;Sub-item 1.1&lt;/li&gt;
+&lt;li&gt;Sub-item 1.2&lt;/li&gt;
+&lt;li&gt;Sub-item 1.3&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Item 2&lt;/li&gt;
+&lt;li&gt;Item 3&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;unordered-list&#34;&gt;Unordered List&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Fruit
+&lt;ul&gt;
+&lt;li&gt;Apple&lt;/li&gt;
+&lt;li&gt;Orange&lt;/li&gt;
+&lt;li&gt;Banana&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Dairy
+&lt;ul&gt;
+&lt;li&gt;Milk&lt;/li&gt;
+&lt;li&gt;Cheese&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;checklist&#34;&gt;Checklist&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 1&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 2
+&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Sub-item 2.1&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Sub-item 2.2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 3&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;definition-list&#34;&gt;Definition List&lt;/h3&gt;
+&lt;dl&gt;
+&lt;dt&gt;First Term&lt;/dt&gt;
+&lt;dd&gt;This is the definition of the first term.&lt;/dd&gt;
+&lt;dt&gt;Second Term&lt;/dt&gt;
+&lt;dd&gt;This is one definition of the second term.&lt;/dd&gt;
+&lt;dd&gt;This is another definition of the second term.&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;h2 id=&#34;symbols&#34;&gt;Symbols&lt;/h2&gt;
+&lt;p&gt;You can use the HTML entity for whatever symbol you want to use. For example, if you want to display the copyright sign (©), you can copy and paste the HTML entity for copyright &lt;code&gt;(&amp;amp;copy;)&lt;/code&gt; into your Markdown document.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Copyright (©) — &amp;amp;copy;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Registered trademark (®) — &amp;amp;reg;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Trademark (™) — &amp;amp;trade;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Euro (€) — &amp;amp;euro;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Left arrow (←) — &amp;amp;larr;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Up arrow (↑) — &amp;amp;uarr;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Right arrow (→) — &amp;amp;rarr;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Down arrow (↓) — &amp;amp;darr;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Degree (°) — &amp;amp;#176;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Pi (π) — &amp;amp;#960;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For a complete list of available HTML entities, refer to Wikipedia’s page on &lt;a href=&#34;https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references&#34;&gt;HTML entities&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;other-elements--abbr-sub-sup-kbd-mark&#34;&gt;Other Elements — abbr, sub, sup, kbd, mark&lt;/h2&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;GIF&lt;!-- raw HTML omitted --&gt; is a bitmap image format.&lt;/p&gt;
+&lt;p&gt;H&lt;!-- raw HTML omitted --&gt;2&lt;!-- raw HTML omitted --&gt;O&lt;/p&gt;
+&lt;p&gt;X&lt;!-- raw HTML omitted --&gt;n&lt;!-- raw HTML omitted --&gt; + Y&lt;!-- raw HTML omitted --&gt;n&lt;!-- raw HTML omitted --&gt; = Z&lt;!-- raw HTML omitted --&gt;n&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;Press &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;CTRL&lt;!-- raw HTML omitted --&gt;+&lt;!-- raw HTML omitted --&gt;ALT&lt;!-- raw HTML omitted --&gt;+&lt;!-- raw HTML omitted --&gt;Delete&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt; to end the session.&lt;/p&gt;
+&lt;p&gt;Most &lt;!-- raw HTML omitted --&gt;salamanders&lt;!-- raw HTML omitted --&gt; are nocturnal, and hunt for insects, worms, and other small creatures.&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;The above quote is excerpted from Rob Pike&amp;rsquo;s &lt;a href=&#34;https://www.youtube.com/watch?v=PAAkCSZUG1c&#34;&gt;talk&lt;/a&gt; during Gopherfest, November 18, 2015.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

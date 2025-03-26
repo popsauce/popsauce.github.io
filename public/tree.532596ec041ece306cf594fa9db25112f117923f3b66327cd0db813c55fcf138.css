@@ -1,0 +1,25 @@
+:root {
+  --pixel-size: 2; }
+
+body {
+  background: #96ffc1; }
+
+.tree {
+  width: calc(640px * var(--pixel-size));
+  height: calc(64px * var(--pixel-size));
+  overflow: hidden;
+  position: relative; }
+
+.tree_spritesheet {
+  animation: moveSpritesheet 3s steps(5) infinite;
+  width: calc(3200px * var(--pixel-size));
+  position: absolute; }
+
+.pixelart {
+  image-rendering: pixelated; }
+
+@keyframes moveSpritesheet {
+  from {
+    transform: translate3d(0px, 0, 0); }
+  to {
+    transform: translate3d(-100%, 0, 0); } }

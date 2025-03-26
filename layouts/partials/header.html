@@ -1,0 +1,351 @@
+{{ $parsedUrl := urls.Parse .Site.BaseURL }}
+{{ $domain := $parsedUrl.Host }}
+{{ $domainWithoutWWW := replace $domain "www." "" }}
+<header id="header">
+  <h1>
+    <a href="{{ .Site.BaseURL }}">{{ .Site.Params.title | default .Site.Title }}</a>
+    <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle theme">
+        <svg width="2rem" height="2rem" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 496">
+        <path fill="currentColor" d="M8,256C8,393,119,504,256,504S504,393,504,256,393,8,256,8,8,119,8,256ZM256,440V72a184,184,0,0,1,0,368Z" transform="translate(-8 -8)"/>
+        </svg>
+    </button>
+  </h1>
+
+  <nav>
+    {{ range .Site.Menus.main }}
+    <span class="nav-bar-item">
+      {{ if .Pre }}
+        <span class="icon">{{ .Pre | safeHTML }}</span>
+      {{ end }}
+      <a class="link" href="{{ .URL | safeURL }}">{{ .Name }}</a>
+    </span>
+    {{ end }}
+  </nav>
+</header>
+
+{{ $sass := resources.Get "/tree.scss" }}
+{{ $style := $sass | resources.ToCSS | resources.Fingerprint }}
+<link rel="stylesheet" href="{{ $style.Permalink }}" integrity="{{ $style.Data.Integrity }}">
+<div class="tree">
+
+<img id="sprite1" class="tree_spritesheet pixelart" src="/sprites/emptytree64x640-sheet1_15f.png" alt="tree" />
+<img id="sprite2" class="tree_spritesheet pixelart" src="/sprites/mainrain64x640_15f.png" alt="weather" />
+<img id="sprite3" class="tree_spritesheet pixelart" src="/sprites/emptyframe64x640_15f.png" alt="event" />
+
+</div>  
+
+<script>
+
+let sprite_array = new Array(
+  "/sprites/emptytree64x640-sheet1_15f.png",
+  "/sprites/deertree64x640-sheet2_15f.png",
+  "/sprites/deertree64x640-sheet3_15f.png",
+  "/sprites/deertree64x640-sheet4_15f.png",
+  "/sprites/deertree64x640-sheet5redo_15f.png",
+  "/sprites/grasseatdeer64x640-sheet_15f.png",
+
+  "/sprites/nemptytree64x640-sheet1_15f.png",
+  "/sprites/ndeertree64x640-sheet2_15f.png",
+  "/sprites/ndeertree64x640-sheet3_15f.png",
+  "/sprites/ndeertree64x640-sheet4_15f.png",
+  "/sprites/ndeertree64x640-sheet5redo_15f.png",
+  "/sprites/ngrasseatdeer64x640-sheet_15f.png");
+
+let weather_sprite_array = new Array(
+  "/sprites/emptyframe64x640_15f.png",
+  "/sprites/emptyframe64x640_15f.png",
+  "/sprites/mainrain64x640_15f.png",
+  "/sprites/no_snowfall_snow_1_64x640_15f.png",
+  "/sprites/emptyframe64x640_15f.png",
+
+  "/sprites/emptyframe64x640_15f.png",
+  "/sprites/emptyframe64x640_15f.png",
+  "/sprites/mainrain64x640_15f.png",
+  "/sprites/snow_5_64x640_15f.png",
+  "/sprites/emptyframe64x640_15f.png");
+
+let event_sprite_array = new Array(
+  "sprites/emptyframe64x640_15f.png",
+  "sprites/lightningstrikedemise_day_1_15f.png",
+  "sprites/butterfly_1_15f.png",
+  "sprites/x_day_2_15f.png",
+  "sprites/lightningstrike_day_15f.png",
+
+  "sprites/emptyframe64x640_15f.png",
+  "sprites/lightningstrikedemise_night_2_15f.png",
+  "sprites/ufotrial3_n_5_15f.png",
+  "sprites/x_night_nosnow_2_15f.png",
+  "sprites/lightningstrike_night_15f.png");
+
+let trial = new Array(
+  
+  "/sprites/emptyframe64x640_15f.png",
+  "/sprites/lightningstrikedemise_day_1_15f.png",
+  "/sprites/butterfly_1_15f.png",
+  "/sprites/x_day_2_15f.png",
+  "/sprites/lightningstrike_day_15f.png",
+  
+  "/sprites/emptyframe64x640_15f.png",
+  "/sprites/lightningstrikedemise_night_2_15f.png",
+  "/sprites/ufotrial3_n_5_15f.png",
+  "/sprites/x_night_nosnow_2_15f.png",
+  "/sprites/lightningstrike_night_15f.png",
+)
+//sprite/15f/empty_event_15f.png
+//sprite/15f/lighningstrike_night_15f.png
+//sprite/15f/lightningstrike_day_15f.png
+//sprite/15f/butterfly_1_64x640.png
+//sprite/15f/ufotrial3_n_5_15f.png
+//sprite/x_day_2_64x640.png
+//sprite/x_night_nosnow_1_64x640.png
+
+let m=localStorage.getItem("darkMode") ? localStorage.getItem("darkMode") : null;
+let first_toggle_value=localStorage.getItem("first_toggle_value") ? localStorage.getItem("first_toggle_value") : "false";
+//let first_toggle_value="false";
+//localStorage.setItem("first_toggle_value","false");
+
+let element = document.getElementById("dark-mode-toggle");
+element.addEventListener("click", firsttoggle);
+
+//let nav_bar_element=document.getElementById("navbarr");
+//nav_bar_element.addEventListener("click",firsttoggle);
+
+function firsttoggle(){
+  first_toggle_value="true";
+  localStorage.setItem("first_toggle_value","true");
+  load();
+}
+
+window.onload=load();
+
+function load(){
+  
+  m=localStorage.getItem("darkMode");
+  if (first_toggle_value==="true"){
+    localStorage.setItem("first_toggle_value","false");
+    if(m==="enabled"){
+      m=null;}
+    else{
+      m="enabled";}
+    }
+  //window.alert(m);
+  
+  //no. of sprites = 1 to l/2 day sprites , l/2 to l night sprites 
+  //probability variable in array for 1 to l/2 sprites and toggle variable m for toggling between day and night sprites
+  let sprite_array_half_len=Math.floor(sprite_array.length/2);
+  let weather_sprite_array_half_len=Math.floor(weather_sprite_array.length/2);
+  let event_sprite_array_half_len=Math.floor(event_sprite_array.length/2);
+
+
+  //current spritesheet count = 6 (Total 12 including night sprites)
+  //Hence probability count out of 100 assigned to 6 elements
+  let probability_range = [0,50,60,70,80,98,100];
+
+  let randomNum = Math.floor(Math.random()*100); // generate number between 0 to 100
+  //randomNum=76;
+  //event probabilities [5,8,9,10,22,98,75,76];
+  //[0,10,11,15,19,40,50,75,77];
+  //5 deer lightning death
+  //8 9 10 butterfly during day, ufo during night
+  //22 98 xday xnight
+  //75 76 lightning survive during rain
+
+  let luckysprite=1;
+  if (randomNum>=probability_range[0] && randomNum<probability_range[1]){
+    luckysprite=0;
+  }
+  else if (randomNum>=probability_range[1] && randomNum<probability_range[2]){
+    luckysprite=1;
+  }
+  else if (randomNum>=probability_range[2] && randomNum<probability_range[3]){
+    luckysprite=2;
+  }
+  else if (randomNum>=probability_range[3] && randomNum<probability_range[4]){
+    luckysprite=3;
+  }
+  else if (randomNum>=probability_range[4] && randomNum<probability_range[5]){
+    luckysprite=4;
+  }
+  else if (randomNum>=probability_range[5] && randomNum<probability_range[6]){
+    luckysprite=5;
+  }
+
+  if(randomNum===74 || randomNum===75 || randomNum===76){
+    luckysprite=0;
+  }
+  //randomnum === 75 76 for lightning strike
+ 
+  //else if (randomNum>=probability_range[6] && randomNum<probability_range[7]){
+  //  luckysprite=6;
+  //}
+
+
+
+  //Month logic for frequency of weather events
+  //
+  //const dateObj = new Date();
+  //const month   = dateObj.getUTCMonth() + 1; // months from 1-12
+  //const day     = dateObj.getUTCDate();
+  //const year    = dateObj.getUTCFullYear();
+  //
+  //const newDate = year + "/" + month + "/" + day;
+  //
+  //// Using template literals:
+  //const newDate = `${year}/${month}/${day}`;
+  //
+  //// Using padded values, so that 2023/1/7 becomes 2023/01/07
+  //const pMonth        = month.toString().padStart(2,"0");
+  //const pDay          = day.toString().padStart(2,"0");
+  //const newPaddedDate = `${year}/${pMonth}/${pDay}`;
+
+  const dateObj = new Date();
+  const month   = dateObj.getUTCMonth() + 1; // months from 1-12
+  //const day     = dateObj.getUTCDate();
+
+  //const month = 10;
+
+  //window.alert(month);
+  
+  //spring summer autumn winter ; dont overlap season ranges
+  //5 weather sprites : empty wind rain snowfall
+  //Current probability range [0,50,80,90,95,100]
+  
+  let weather_probability_range = [0,50,80,90,98,100];
+
+  //winter 1 ~ Jan,Feb ~ 1,2
+  if (month>=1 && month<3){
+    weather_probability_range = [0,0,0,0,80,100];
+  }
+  //spring March April 3 4
+  else if (month>=3 && month<5){
+    weather_probability_range = [0,50,70,90,95,100];
+  }
+  //summer May June July 5 6 7
+  else if (month>=5 && month<8){
+    weather_probability_range = [0,50,75,95,98,100];
+  }
+  //autumn August September October 8 9 10
+  else if (month>=8 && month<11){
+    weather_probability_range = [0,50,60,80,95,100];
+  }
+  //winter 2 November December 11 12
+  else if (month>=11 && month<13){
+    weather_probability_range = [0,0,0,0,80,100];
+  }
+
+  //Weather sprite logic
+  //5 weather sprites : empty wind rain snowcover snowfall
+  //Current probability range [0,50,80,90,95,100]
+  let weather_luckysprite=0; 
+  if (randomNum>=weather_probability_range[0] && randomNum<weather_probability_range[1]){
+    weather_luckysprite=0;
+  }
+  else if (randomNum>=weather_probability_range[1] && randomNum<weather_probability_range[2]){
+    weather_luckysprite=1;
+  }
+  else if (randomNum>=weather_probability_range[2] && randomNum<weather_probability_range[3]){
+    weather_luckysprite=2;
+  }
+  else if (randomNum>=weather_probability_range[3] && randomNum<weather_probability_range[4]){
+    weather_luckysprite=3;
+  }
+  else if (randomNum>=weather_probability_range[4] && randomNum<weather_probability_range[5]){
+    weather_luckysprite=4;
+  }
+
+  //Event sprite logic
+  //5 event sprites : empty, lightningdemise butterfly xday_snow normallightning | empty lightningdemise ufo xnight normal lightning
+  //Current probability range
+  //current rain probability range 
+
+  let event_probability_range = [0,5,9,15,20,94,98,74,77];
+  let event_luckysprite=0; 
+ 
+  if (randomNum>=event_probability_range[0] && randomNum<event_probability_range[1]){
+    event_luckysprite=0;
+  }
+  else if (randomNum>=event_probability_range[1] && randomNum<event_probability_range[2]){
+    event_luckysprite=1;
+  }
+  else if (randomNum>=event_probability_range[3] && randomNum<event_probability_range[4]){
+    event_luckysprite=2;
+  }
+  else if (randomNum>=event_probability_range[5] && randomNum<event_probability_range[6]){
+    event_luckysprite=3;
+  }
+  else if (randomNum>=event_probability_range[7] && randomNum<event_probability_range[8]){
+    event_luckysprite=4;
+  }
+
+
+  //window.alert(randomNum);
+  //window.alert(event_sprite_array[event_luckysprite]);
+  //let probabilities = [50,20,10,10,10];
+  //let rangestart_pointer=0;
+  //let rangeend_pointer=probabilities[0];
+  //
+  //for (let i = 1; i<=l;i++){
+  //  if (randomNum>=rangestart_pointer && randomNum<rangeend_pointer){
+  //    let luckysprite=i;
+  //  }
+  //  rangestart_pointer=rangeend_pointer;
+  //  rangeend_pointer=rangeend_pointer+probabilities[i];
+  //}
+  
+  //m ~ dark mode
+  if (m==="enabled"){
+    document.getElementById("sprite1").src = sprite_array[sprite_array_half_len+luckysprite];
+    document.getElementById("sprite2").src = weather_sprite_array[weather_sprite_array_half_len+weather_luckysprite];
+    document.getElementById("sprite3").src = trial[event_sprite_array_half_len+event_luckysprite];
+  }
+  else{
+    document.getElementById("sprite1").src = sprite_array[luckysprite];
+    document.getElementById("sprite2").src = weather_sprite_array[weather_luckysprite];
+    document.getElementById("sprite3").src = trial[event_luckysprite];
+  }
+ 
+}
+
+//document.getElementById("dark-mode-toggle").onclick =
+//function load() {
+//        const randomNumber = Math.ceil(Math.random() * 5); //numbers 1 - 5
+//        console.log(randomNumber);
+//        if (m==="n"){
+//        for (let i = 1; i <= 5; i++) {
+//            let id = "sprite" + i;
+//            document.getElementById(id).style.display = "none";
+//        }
+//        for (let i = 1; i <= 5; i++) {
+//            if (randomNumber === i) {
+//                let id = "sprite" + i + 5;
+//                document.getElementById(id).style.display = "inline";
+//            } else {
+//                let id = "sprite" + i + 5;
+//                document.getElementById(id).style.display = "none";
+//            }
+//        }
+//        }
+//        else{
+//        for (let i = 1; i <= 5; i++) {
+//            let id = "sprite" + i;
+//            if (randomNumber === i) {
+//                document.getElementById(id).style.display = "inline";
+//            } else {
+//                document.getElementById(id).style.display = "none";
+//            }
+//        }
+//        for (let i = 1; i <= 5; i++) {
+//            let id = "sprite" + i + 5;
+//            document.getElementById(id).style.display = "none";
+//        } 
+//        }
+//    } 
+
+
+
+</script>
+
+
+
+
+<hr class="head-rule"></hr>

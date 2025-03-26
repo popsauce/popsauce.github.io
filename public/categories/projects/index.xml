@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on Popsauce&#39;s Blog</title>
+    <link>http://localhost:1313/categories/projects/</link>
+    <description>Recent content in Projects on Popsauce&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>karanlohaan0@gmail.com (Karan Lohaan)</managingEditor>
+    <webMaster>karanlohaan0@gmail.com (Karan Lohaan)</webMaster><atom:link href="http://localhost:1313/categories/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to build a robotic arm</title>
+      <link>http://localhost:1313/posts/robotarm1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/robotarm1/</guid>
+      <description>&lt;p&gt;DFMA principal&lt;/p&gt;
+&lt;p&gt;no 3d part online well make our own
+hoose a specific goal
+coplete the whole stack
+rtos esp32 motor encoder
+no arduino hackerday hobby projects
+and of course the most important consideration making it dirt cheap&lt;/p&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Building your robot arm seems like a nice hobby project but does it have any use cases ?&lt;/p&gt;
+&lt;p&gt;Suppose&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>placeholder</title>
+      <link>http://localhost:1313/posts/placeholder/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/placeholder/</guid>
+      <description>&lt;p&gt;So&lt;/p&gt;
+&lt;h2 id=&#34;understanding-advanced_xorpy&#34;&gt;Understanding advanced_xor.py&lt;/h2&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

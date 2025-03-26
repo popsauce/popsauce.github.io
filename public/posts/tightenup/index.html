@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 100%">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <meta name="author" content="Karan Lohaan">
+
+  
+  
+  <meta name="description" content="Solving Tighten Up">
+  
+
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313//images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313//images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313//images/favicon-16x16.png">
+
+  
+  
+  <meta name="keywords" content='hugo latex theme blog texify texify2 texify3 michael neuper'>
+  
+
+  
+  
+
+  
+  
+  <link rel="stylesheet" href='/katex/katex.min.css'>
+<script defer defer src='/katex/katex.min.js'></script>
+<script defer src='/katex/contrib/auto-render.min.js'></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+    });
+</script>
+  
+
+  
+    <script async data-name="BMC-Widget" 
+        data-cfasync="true" 
+        src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+        data-id="michaelneuper" 
+        data-description="Like what I do? Buy me a coffee!" 
+        data-message="" 
+        data-color="#d79921" 
+        data-position="Right" 
+        data-x_margin="18" 
+        data-y_margin="18"
+        crossorigin="anonymous">
+  </script>
+  
+
+  
+  <meta property="og:title" content="Hardest Problem on Codeforces" />
+<meta property="og:description" content="Solving Tighten Up" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/posts/tightenup/" /><meta property="article:section" content="posts" />
+
+<meta property="og:site_name" content="Popsauce" />
+
+
+  
+  <link rel="canonical" href="http://localhost:1313/posts/tightenup/">
+
+  
+  
+  <meta itemprop="name" content="Hardest Problem on Codeforces">
+<meta itemprop="description" content="Solving Tighten Up">
+
+<meta itemprop="wordCount" content="2356">
+<meta itemprop="keywords" content="scripts,problem solving,deep dive," />
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/common.min.e562d763c6d0825495eb17de8b2c1d9800cf7c08db1c36accedf77a5fccfc4b9.css" integrity="sha256-5WLXY8bQglSV6xfeiywdmADPfAjbHDaszt93pfzPxLk=" crossorigin="anonymous">
+  
+
+  
+  
+    <link rel="stylesheet" href="/css/content.min.ba38eba94cb47fef9936258c42d11ff19fa9686a30b38e783773fe3f15eb44dc.css" integrity="sha256-ujjrqUy0f&#43;&#43;ZNiWMQtEf8Z&#43;paGows454N3P&#43;PxXrRNw=" crossorigin="anonymous">
+  
+
+  
+  
+  <title>Hardest Problem on Codeforces - Popsauce&#39;s Blog</title>
+  
+
+  
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Hardest Problem on Codeforces"/>
+<meta name="twitter:description" content="Solving Tighten Up"/>
+
+
+  
+
+
+  <link rel="stylesheet" href="/css/single.min.be779f459ad7e3aaf8afd0f80c6a61ca6c50993f5f18512532100ac6d93f0fa9.css" integrity="sha256-vnefRZrX46r4r9D4DGphymxQmT9fGFElMhAKxtk/D6k=" crossorigin="anonymous">
+
+
+  <link rel="stylesheet" href="/css/single.min.78a121b7d7a160420f9daab0ea13add66c37b9c44f27bba07b27207e2b0975d2.css" integrity="sha256-eKEht9ehYEIPnaqw6hOt1mw3ucRPJ7ugeycgfisJddI=" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+  <div id="wrapper">
+    
+
+
+<header id="header">
+  <h1>
+    <a href="http://localhost:1313/">Popsauce</a>
+    <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle theme">
+        <svg width="2rem" height="2rem" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 496">
+        <path fill="currentColor" d="M8,256C8,393,119,504,256,504S504,393,504,256,393,8,256,8,8,119,8,256ZM256,440V72a184,184,0,0,1,0,368Z" transform="translate(-8 -8)"/>
+        </svg>
+    </button>
+  </h1>
+
+  <nav>
+    
+    <span class="nav-bar-item">
+      
+        <span class="icon"><svg width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M17,11H16a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm0,4H16a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2ZM11,9h6a1,1,0,0,0,0-2H11a1,1,0,0,0,0,2ZM21,3H7A1,1,0,0,0,6,4V7H3A1,1,0,0,0,2,8V18a3,3,0,0,0,3,3H18a4,4,0,0,0,4-4V4A1,1,0,0,0,21,3ZM6,18a1,1,0,0,1-2,0V9H6Zm14-1a2,2,0,0,1-2,2H7.82A3,3,0,0,0,8,18V5H20Zm-9-4h1a1,1,0,0,0,0-2H11a1,1,0,0,0,0,2Zm0,4h1a1,1,0,0,0,0-2H11a1,1,0,0,0,0,2Z"/></svg>
+</span>
+      
+      <a class="link" href="/posts/">Blog</a>
+    </span>
+    
+    <span class="nav-bar-item">
+      
+        <span class="icon"><svg width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.88,16.88a3,3,0,0,0,0,4.24,3,3,0,0,0,4.24,0,3,3,0,0,0-4.24-4.24Zm2.83,2.83a1,1,0,0,1-1.42-1.42,1,1,0,0,1,1.42,0A1,1,0,0,1,5.71,19.71ZM5,12a1,1,0,0,0,0,2,5,5,0,0,1,5,5,1,1,0,0,0,2,0,7,7,0,0,0-7-7ZM5,8a1,1,0,0,0,0,2,9,9,0,0,1,9,9,1,1,0,0,0,2,0,11.08,11.08,0,0,0-3.22-7.78A11.08,11.08,0,0,0,5,8Zm10.61.39A15.11,15.11,0,0,0,5,4,1,1,0,0,0,5,6,13,13,0,0,1,18,19a1,1,0,0,0,2,0A15.11,15.11,0,0,0,15.61,8.39Z"/></svg>
+</span>
+      
+      <a class="link" href="/index.xml">RSS</a>
+    </span>
+    
+    <span class="nav-bar-item">
+      
+        <span class="icon"><svg width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
+<path d="M10.07031,20.50291a1.00008,1.00008,0,0,0-1.18115-.9834c-1.30908.24024-2.96191.27637-3.40137-.958a5.70754,5.70754,0,0,0-1.83691-2.415,1.20073,1.20073,0,0,1-.1665-.10938,1,1,0,0,0-.93067-.64551H2.54883a.99965.99965,0,0,0-1,.99512c-.00391.81543.811,1.33789,1.1416,1.51465a4.4408,4.4408,0,0,1,.92383,1.35937c.36426,1.02344,1.42285,2.57617,4.46582,2.376.001.03516.00195.06836.00244.09863l.00439.26758a1,1,0,0,0,2,0l-.00488-.31836C10.07715,21.4951,10.07031,21.22068,10.07031,20.50291Zm10.667-15.126c.03174-.125.063-.26367.09034-.41992a6.27792,6.27792,0,0,0-.40821-3.293,1.002,1.002,0,0,0-.61572-.58007c-.356-.12012-1.67041-.35645-4.18408,1.25a13.86918,13.86918,0,0,0-6.354,0C6.76221.751,5.45459.9658,5.10205,1.07908a.99744.99744,0,0,0-.63135.584,6.3003,6.3003,0,0,0-.40332,3.35644c.02442.12793.05078.2461.07813.35449A6.26928,6.26928,0,0,0,2.89014,9.20311a8.42168,8.42168,0,0,0,.04248.92187c.334,4.60254,3.334,5.98438,5.42431,6.459-.04345.125-.083.25878-.11816.40039a1.00023,1.00023,0,0,0,1.94238.47851,1.6784,1.6784,0,0,1,.46778-.87793.99947.99947,0,0,0-.5459-1.74512c-3.4541-.39453-4.95362-1.80175-5.1792-4.89843a6.61076,6.61076,0,0,1-.03369-.73828,4.25769,4.25769,0,0,1,.91943-2.71289,3.022,3.022,0,0,1,.1958-.23145.99988.99988,0,0,0,.188-1.02441,3.3876,3.3876,0,0,1-.15527-.55567A4.09356,4.09356,0,0,1,6.1167,3.06346a7.54263,7.54263,0,0,1,2.415,1.17968,1.00877,1.00877,0,0,0,.82764.13282,11.77716,11.77716,0,0,1,6.17285.001,1.00549,1.00549,0,0,0,.83056-.13769,7.572,7.572,0,0,1,2.40528-1.19043,4.03977,4.03977,0,0,1,.0874,1.57812,3.205,3.205,0,0,1-.16895.60743.9999.9999,0,0,0,.188,1.02441c.07715.08691.1543.18066.22363.26855A4.12186,4.12186,0,0,1,20,9.20311a7.03888,7.03888,0,0,1-.0376.77734c-.22021,3.05566-1.72558,4.46387-5.1958,4.85937a1,1,0,0,0-.54541,1.7461,1.63079,1.63079,0,0,1,.46631.9082,3.06079,3.06079,0,0,1,.09229.81934v2.334C14.77,21.2949,14.77,21.78025,14.77,22.00291a1,1,0,1,0,2,0c0-.2168,0-.69238.00977-1.33984V18.31346a4.8815,4.8815,0,0,0-.15479-1.31153,4.25638,4.25638,0,0,0-.11621-.416,6.51258,6.51258,0,0,0,5.44531-6.42383A8.69677,8.69677,0,0,0,22,9.20311,6.13062,6.13062,0,0,0,20.7373,5.37693Z"/></svg>
+</span>
+      
+      <a class="link" href="https://github.com/popsauce">GitHub</a>
+    </span>
+    
+  </nav>
+</header>
+
+
+
+<link rel="stylesheet" href="http://localhost:1313/tree.502e7b73446c8638ca38203cea6f639c20d1f4e38fdd283321135012ed218de8.css" integrity="sha256-UC57c0RshjjKOCA86m9jnCDR9OOP3SgzIRNQEu0hjeg=">
+<div class="tree">
+
+<img id="sprite1" class="tree_spritesheet pixelart" src="/sprites/emptytree64x640-sheet1_15f.png" alt="tree" />
+<img id="sprite2" class="tree_spritesheet pixelart" src="/sprites/mainrain64x640_15f.png" alt="weather" />
+<img id="sprite3" class="tree_spritesheet pixelart" src="/sprites/emptyframe64x640_15f.png" alt="event" />
+
+</div>  
+
+<script>
+
+let sprite_array = new Array(
+  "/sprites/emptytree64x640-sheet1_15f.png",
+  "/sprites/deertree64x640-sheet2_15f.png",
+  "/sprites/deertree64x640-sheet3_15f.png",
+  "/sprites/deertree64x640-sheet4_15f.png",
+  "/sprites/deertree64x640-sheet5redo_15f.png",
+  "/sprites/grasseatdeer64x640-sheet_15f.png",
+
+  "/sprites/nemptytree64x640-sheet1_15f.png",
+  "/sprites/ndeertree64x640-sheet2_15f.png",
+  "/sprites/ndeertree64x640-sheet3_15f.png",
+  "/sprites/ndeertree64x640-sheet4_15f.png",
+  "/sprites/ndeertree64x640-sheet5redo_15f.png",
+  "/sprites/ngrasseatdeer64x640-sheet_15f.png");
+
+let weather_sprite_array = new Array(
+  "/sprites/emptyframe64x640_15f.png",
+  "/sprites/emptyframe64x640_15f.png",
+  "/sprites/mainrain64x640_15f.png",
+  "/sprites/no_snowfall_snow_1_64x640_15f.png",
+  "/sprites/emptyframe64x640_15f.png",
+
+  "/sprites/emptyframe64x640_15f.png",
+  "/sprites/emptyframe64x640_15f.png",
+  "/sprites/mainrain64x640_15f.png",
+  "/sprites/snow_5_64x640_15f.png",
+  "/sprites/emptyframe64x640_15f.png");
+
+let event_sprite_array = new Array(
+  "sprites/emptyframe64x640_15f.png",
+  "sprites/lightningstrikedemise_day_1_15f.png",
+  "sprites/butterfly_1_15f.png",
+  "sprites/x_day_2_15f.png",
+  "sprites/lightningstrike_day_15f.png",
+
+  "sprites/emptyframe64x640_15f.png",
+  "sprites/lightningstrikedemise_night_2_15f.png",
+  "sprites/ufotrial3_n_5_15f.png",
+  "sprites/x_night_nosnow_2_15f.png",
+  "sprites/lightningstrike_night_15f.png");
+
+let trial = new Array(
+  
+  "/sprites/emptyframe64x640_15f.png",
+  "/sprites/lightningstrikedemise_day_1_15f.png",
+  "/sprites/butterfly_1_15f.png",
+  "/sprites/x_day_2_15f.png",
+  "/sprites/lightningstrike_day_15f.png",
+  
+  "/sprites/emptyframe64x640_15f.png",
+  "/sprites/lightningstrikedemise_night_2_15f.png",
+  "/sprites/ufotrial3_n_5_15f.png",
+  "/sprites/x_night_nosnow_2_15f.png",
+  "/sprites/lightningstrike_night_15f.png",
+)
+
+
+
+
+
+
+
+
+let m=localStorage.getItem("darkMode") ? localStorage.getItem("darkMode") : null;
+let first_toggle_value=localStorage.getItem("first_toggle_value") ? localStorage.getItem("first_toggle_value") : "false";
+
+
+
+let element = document.getElementById("dark-mode-toggle");
+element.addEventListener("click", firsttoggle);
+
+
+
+
+function firsttoggle(){
+  first_toggle_value="true";
+  localStorage.setItem("first_toggle_value","true");
+  load();
+}
+
+window.onload=load();
+
+function load(){
+  
+  m=localStorage.getItem("darkMode");
+  if (first_toggle_value==="true"){
+    localStorage.setItem("first_toggle_value","false");
+    if(m==="enabled"){
+      m=null;}
+    else{
+      m="enabled";}
+    }
+  
+  
+  
+  
+  let sprite_array_half_len=Math.floor(sprite_array.length/2);
+  let weather_sprite_array_half_len=Math.floor(weather_sprite_array.length/2);
+  let event_sprite_array_half_len=Math.floor(event_sprite_array.length/2);
+
+
+  
+  
+  let probability_range = [0,50,60,70,80,98,100];
+
+  let randomNum = Math.floor(Math.random()*100); 
+  
+  
+  
+  
+  
+  
+  
+
+  let luckysprite=1;
+  if (randomNum>=probability_range[0] && randomNum<probability_range[1]){
+    luckysprite=0;
+  }
+  else if (randomNum>=probability_range[1] && randomNum<probability_range[2]){
+    luckysprite=1;
+  }
+  else if (randomNum>=probability_range[2] && randomNum<probability_range[3]){
+    luckysprite=2;
+  }
+  else if (randomNum>=probability_range[3] && randomNum<probability_range[4]){
+    luckysprite=3;
+  }
+  else if (randomNum>=probability_range[4] && randomNum<probability_range[5]){
+    luckysprite=4;
+  }
+  else if (randomNum>=probability_range[5] && randomNum<probability_range[6]){
+    luckysprite=5;
+  }
+
+  if(randomNum===74 || randomNum===75 || randomNum===76){
+    luckysprite=0;
+  }
+  
+ 
+  
+  
+  
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  const dateObj = new Date();
+  const month   = dateObj.getUTCMonth() + 1; 
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  let weather_probability_range = [0,50,80,90,98,100];
+
+  
+  if (month>=1 && month<3){
+    weather_probability_range = [0,0,0,0,80,100];
+  }
+  
+  else if (month>=3 && month<5){
+    weather_probability_range = [0,50,70,90,95,100];
+  }
+  
+  else if (month>=5 && month<8){
+    weather_probability_range = [0,50,75,95,98,100];
+  }
+  
+  else if (month>=8 && month<11){
+    weather_probability_range = [0,50,60,80,95,100];
+  }
+  
+  else if (month>=11 && month<13){
+    weather_probability_range = [0,0,0,0,80,100];
+  }
+
+  
+  
+  
+  let weather_luckysprite=0; 
+  if (randomNum>=weather_probability_range[0] && randomNum<weather_probability_range[1]){
+    weather_luckysprite=0;
+  }
+  else if (randomNum>=weather_probability_range[1] && randomNum<weather_probability_range[2]){
+    weather_luckysprite=1;
+  }
+  else if (randomNum>=weather_probability_range[2] && randomNum<weather_probability_range[3]){
+    weather_luckysprite=2;
+  }
+  else if (randomNum>=weather_probability_range[3] && randomNum<weather_probability_range[4]){
+    weather_luckysprite=3;
+  }
+  else if (randomNum>=weather_probability_range[4] && randomNum<weather_probability_range[5]){
+    weather_luckysprite=4;
+  }
+
+  
+  
+  
+  
+
+  let event_probability_range = [0,5,9,15,20,94,98,74,77];
+  let event_luckysprite=0; 
+ 
+  if (randomNum>=event_probability_range[0] && randomNum<event_probability_range[1]){
+    event_luckysprite=0;
+  }
+  else if (randomNum>=event_probability_range[1] && randomNum<event_probability_range[2]){
+    event_luckysprite=1;
+  }
+  else if (randomNum>=event_probability_range[3] && randomNum<event_probability_range[4]){
+    event_luckysprite=2;
+  }
+  else if (randomNum>=event_probability_range[5] && randomNum<event_probability_range[6]){
+    event_luckysprite=3;
+  }
+  else if (randomNum>=event_probability_range[7] && randomNum<event_probability_range[8]){
+    event_luckysprite=4;
+  }
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  if (m==="enabled"){
+    document.getElementById("sprite1").src = sprite_array[sprite_array_half_len+luckysprite];
+    document.getElementById("sprite2").src = weather_sprite_array[weather_sprite_array_half_len+weather_luckysprite];
+    document.getElementById("sprite3").src = trial[event_sprite_array_half_len+event_luckysprite];
+  }
+  else{
+    document.getElementById("sprite1").src = sprite_array[luckysprite];
+    document.getElementById("sprite2").src = weather_sprite_array[weather_luckysprite];
+    document.getElementById("sprite3").src = trial[event_luckysprite];
+  }
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+<hr class="head-rule"></hr>
+    
+<main id="main" class="post">
+  
+  <div class="post-heading">
+    <h1 class="post-title">Hardest Problem on Codeforces</h1>
+    <div class="publish-metadata">
+      
+      
+      
+      
+      
+      
+      
+        &nbsp;
+        <span>
+          <svg width="0.75em" height="0.75em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.4998 5.49994L18.3282 8.32837M3 20.9997L3.04745 20.6675C3.21536 19.4922 3.29932 18.9045 3.49029 18.3558C3.65975 17.8689 3.89124 17.4059 4.17906 16.9783C4.50341 16.4963 4.92319 16.0765 5.76274 15.237L17.4107 3.58896C18.1918 2.80791 19.4581 2.80791 20.2392 3.58896C21.0202 4.37001 21.0202 5.63634 20.2392 6.41739L8.37744 18.2791C7.61579 19.0408 7.23497 19.4216 6.8012 19.7244C6.41618 19.9932 6.00093 20.2159 5.56398 20.3879C5.07171 20.5817 4.54375 20.6882 3.48793 20.9012L3 20.9997Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          2356 words
+        </span>
+      
+      
+      
+        
+      
+      
+        &nbsp;
+        <span>
+          <svg width="0.75em" height="0.75em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 7V12L14.5 13.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          ~12 mins
+        </span>
+      
+    </div>
+  </div>
+
+  
+  <div>
+    
+    <a class="link tag" href='http://localhost:1313/tags/scripts'>#scripts</a>
+    
+    <a class="link tag" href='http://localhost:1313/tags/problem-solving'>#problem solving</a>
+    
+    <a class="link tag" href='http://localhost:1313/tags/deep-dive'>#deep dive</a>
+    
+    <br></br>
+  </div>
+  
+  
+  
+  <details>
+    <summary>
+      <b>Table of Contents</b>
+    </summary>
+    <div class="toc numbered-subtitles"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#finding-the-hardest-problem-on-codeforces">Finding the hardest problem on codeforces</a></li>
+    <li><a href="#problem-description">Problem Description</a></li>
+    <li><a href="#solving-the-hardest-problem-on-codeforces">Solving the hardest problem on codeforces</a>
+      <ul>
+        <li><a href="#my-approach">My Approach</a></li>
+      </ul>
+    </li>
+    <li><a href="#heading"></a></li>
+    <li><a href="#philosophical-end-quote">Philosophical end quote</a></li>
+  </ul>
+</nav></div>
+  </details>
+  
+  
+  <article class="content numbered-subtitles">
+    
+    <p>What makes a problem hard to solve ?</p>
+<p>Are hard problems really that out of reach for a person new to CP (Competitive Programming) ?</p>
+<p>Since the general advice to tackle CP is that you should work your way up to harder problems.(i.e Solve a lot of easier problems then slowly start solving problems that are harder)</p>
+<p>If I were to attempt a problem that was really hard would i be able to solve it ?</p>
+<p>Would it be a question of how much time it would take ? (like maybe i&rsquo;ll take more time compared to a seasoned competitive programmer)</p>
+<p>Or would my solution not be as efficient ? (read skill issue)</p>
+<p>Or god forbid i was unable to arrive at any solution</p>
+<p>Anyways after this chain of thought I think you can see where i&rsquo;m going with this.</p>
+<h2 id="finding-the-hardest-problem-on-codeforces">Finding the hardest problem on codeforces</h2>
+<p>There are a lot of ways to classify how hard a problem is, I settled with a straightforward approach for this one and wrote &ldquo;hardest problem on codeforces&rdquo; on my search engine and clicked on the first search result, and voila it led me to this <a href="https://codeforces.com/blog/entry/10690">blogpost</a> which described this <a href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1164">problem</a>.
+And more than the title it was the problem itself that had me hooked, one reason was that trying to solve this problem in a physical setting with physical props seems really easy so would it really be that hard to solve, in an iterative manner.</p>
+<p>Regarding the credibility of this problem being one of the hardest to solve you&rsquo;ll have to take <a href="https://codeforces.com/profile/rng_58">rng_58</a>&rsquo;s <a href="https://codeforces.com/blog/entry/10690">word</a> if not mine.</p>
+<h2 id="problem-description">Problem Description</h2>
+<p>The best way to describe this problem is to visualise a bulletin board.
+The board has a set of pins placed on the board and a loose piece of thread that starts from a hole, is placed in a certain manner and then ends at another hole.</p>
+<p>So we have to predict the final state of the thread when it is pulled from these 2 holes resulting in a taut thread that loops around certain pins depending on its initial state.</p>
+<p>Some examples of the initial state and final state are shown below :</p>
+<p><img src="/tightenup1s.png" alt="problem pic"> <img src="/tightenup4s.png" alt="problem pic"></p>
+<p>Example 1, This shows the initial thread in an inverted s shape and how it loops around certain pins when pulled.</p>
+<p><img src="/tightenup2s.png" alt="problem pic"> <img src="/tightenup5s.png" alt="problem pic"></p>
+<p>Example 2, This one forms a star.</p>
+<p><img src="/tightenup3s.png" alt="problem pic"> <img src="/tightenup6s.png" alt="problem pic"></p>
+<p>Example 3, This one would have been really hard to simulate mentally.</p>
+<p>.</p>
+<p>So now that we&rsquo;ve understood the problem statement its time to deal with the input, output specifics.
+According to the <a href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1164">problem</a> statement we&rsquo;re given multiple datasets, each dataset is preceded by a line containing m and n.</p>
+<p>Here m represents the number of vertices of the thread including starting and ending point, n represents the number of pins.
+For each dataset there are m+n lines depicting x,y positions of m vertices of the thread and n positions of pins.
+And we have to keep on reading datasets until we get 0 0 as an input.</p>
+<p>A sample dataset is shown below :-</p>
+<pre><code>m n
+x1 y1     -
+...        | # m lines for thread vertices
+x1 y1     -
+x1 y1     -
+...        | # n lines for pin positions
+x1 y1     -
+</code></pre>
+<p>In this case given below we are given 4 datasets :-</p>
+<pre><code>m n     # 1st dataset
+x1 y1
+...
+x1 y1
+m2 n2   # 2nd dataset
+x2 y2
+...
+x2 y2
+m3 n3   # 3rd dataset
+x3 y3
+...
+x3 y3
+m4 n4   # 4th dataset
+x4 y4
+...
+x4 y4
+0 0     # end
+</code></pre>
+<p>As it can be seen we read the first line with m n; then read another m lines for the vertices of the thread and read another n lines for the positions of pins.  We keep on accepting datasets until we get 0,0.</p>
+<p>So for this case we read 4 datasets.</p>
+<p>For the output we are supposed to return the length of the final state of the thread for each dataset, ie :-</p>
+<pre><code>len1
+len2
+len3
+len4
+</code></pre>
+<p>Now that we&rsquo;ve covered the semantics of the problem statement lets see how we can solve it.</p>
+<p><code>I would really recommend going through the</code>  <a href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1164">problem statement</a> <code> and thinking of solutions on your own for a few minutes as it'll make this post that much more easy to understand.</code></p>
+<h2 id="solving-the-hardest-problem-on-codeforces">Solving the hardest problem on codeforces</h2>
+<p>Now that i had gone through the description a few times, i started thinking of ways to solve this problem.</p>
+<h3 id="my-approach">My Approach</h3>
+<p>A set of pins on x,y plane and a set of vertices that depict the thread. One thing thats not mentioned explicitly is that the order of the vertices of the thread are how it is being represented (like the thread goes from 1st point to 2nd point to 3rd point etc) otherwise there are innumerable ways to make a thread if you&rsquo;re just given an unordered set of vertices.</p>
+<h4 id="pulling-on-a-loose-thread">Pulling on a loose thread</h4>
+<p>So if you imagine pulling on a loose thread that goes through some points you&rsquo;ll recollect that as it keeps on getting shorter, its vertices keep on decreasing until youre left with just the starting and ending point from where you were pulling.</p>
+<p><img src="/pulloutput.gif" alt="pull"></p>
+<p>As it can be seen in the example above if there are no obstacles (pins) in the path of the thread its vertices and length will keep on decreasing. These 2 aspects are the key insights that can be taken from the above example. So we have to do the following transformation :-</p>
+<ul>
+<li>decrease the number of thread vertices</li>
+<li>decrease the length of the thread</li>
+</ul>
+<p>Since both of these variables are correlated, as removing a vertex would also reduce the length, we have to decide dealing with which would be easier to do in an iterative manner, I went with removing the vertices of the thread to get to the final state.</p>
+<h4 id="traversing-through-the-thread">Traversing through the thread</h4>
+<p>Now that we know that we&rsquo;ll be decreasing the number of vertices let&rsquo;s see how to traverse through the thread. To traverse through an ordered set of vertices we&rsquo;ll pick n vertices at a time and try to reduce them.
+So how do we decide on our n vertices. Lets see some examples</p>
+<h5 id="n-vertices--n-sided-polygon">N vertices ~ n sided polygon</h5>
+<p>Lets say we take n vertices at a time and reduce them to their starting and ending vertex.
+Then taking a large n would help as in a single iteration we&rsquo;ll reduce n vertices.</p>
+<p><img src="/npoly.gif" alt="npoly"></p>
+<p>But this is only valid if there are no pins in the n vertex polygon.</p>
+<p><img src="/npolygon.png" alt="npolygon"></p>
+<p>If there are pins in the n vertex polygon. We could reduce the n sided poygon to starting vertex, pin and ending vertex, which involves doing the following transformation Xn-&gt;3n.</p>
+<p><img src="/npolygonpin.png" alt="npolygonpin"></p>
+<p>But doing this would be wrong, as we would be assuming that the thread would definitely loop around the pin. If there&rsquo;s a case where in the final configuration the thread does not loop around this pin we would have no way of knowing how the thread loops around the pin and whether it can be removed like a vertex or not.</p>
+<p>The example given below demonstrates how this transformation would result in an incorrect state:-</p>
+<p><img src="/incorrectstate.gif" alt="incorrectstate1"></p>
+<p>Here we can see why we cant reduce vertices to pin positions prematurely, cause if we do go forward with the transformation we&rsquo;ll have to make sure that theres a way of knowing which side the thread occupies when going around the pin. Like in the case given below :-</p>
+<p><img src="/pinloop1.png" alt="incorrectstate2"></p>
+<p>If we loop the thread with every pin that lies inside its n vertex polygon we get the following state if we just replace the vertex position with pin position for the thread representation:-</p>
+<p><img src="/pinloop2.png" alt="incorrectstate3"></p>
+<p>Here if we loop the thread around the pin at the bottom we would not be able to reach the correct final state shown below :-</p>
+<p><img src="/pinloop3.png" alt="incorrectstate4"></p>
+<p>We could also work around this by storing a tangent or a point to show where the thread has looped to resolve such cases as shown below :-</p>
+<p><img src="/pinloop4.png" alt="incorrectstate5"></p>
+<p>But this doesnt seem to be too optimal as we&rsquo;ll have to calculate and store additional information about the tangent or point so lets see if theres another way.</p>
+<p>So now that we have ruled out prematurely looping around pins, we still have to decide how to traverse through the thread.</p>
+<p>Since we&rsquo;re not touching the pins anymore at this stage lets see which n gives us a better intermediate state.</p>
+<p><img src="/6n3n.gif" alt="6Nvs3N"></p>
+<p>Here we can see that taking a small n is better as we get to a better intermediate state (with lesser length and lesser vertices) without iterating to an incorrect transformation (like the case of looping around pins prematurely).</p>
+<p>Another big reason is that dealing with triangles is a lot more easier than n&gt;3 polygons when it comes to applying functions like checking if a point lies inside the polygon. And we cant go lower than 3 vertices as that would just be a line.</p>
+<h4 id="iterating-through-triangles">Iterating through triangles</h4>
+<p>Now that we&rsquo;ve decided to go through the thread 3 points at a time, lets see how that would pan out in a much more realistic scenario :-</p>
+<p><img src="/tightenuptraverse1.png" alt="tightenuptraverse1"></p>
+<p>Here pins are depicted in blue and (Xn,Yn) represent pin positions, similiarly thread state and thread vertices are depicted in brown and (In,Jn) represent thread vertex positions.</p>
+<p>Lets see how to tackle the first 3 thread vertices.</p>
+<p><img src="/triangleoutput.gif" alt="triangleoutputgif"></p>
+<p>As it can be seen in this example if there is no point inside our triangle we remove the 2nd vertex according to the thread sequence in the 3 vertices.</p>
+<p>So the sequence of steps are as follows :-</p>
+<ul>
+<li>Go through the vertices 3 at a time</li>
+<li>Check if any pin lies inside the triangle</li>
+<li>If a pin lies inside the triangle we don&rsquo;t do anything and move 1 vertex ahead.</li>
+<li>If there is no pin inside the triangle we remove the 2nd vertex from the thread stack.</li>
+<li>Then we consider the following 3 vertices : vertex 1, vertex 3, new vertex after vertex 3. (after removing vertex 2)</li>
+<li>And then repeat these steps again</li>
+</ul>
+<p>If we apply this sequence of steps for the whole thread this is what we get :-</p>
+<p><img src="/fulltraversalbig.gif" alt="fulltraversalbig"></p>
+<p>Seems pretty neat doesn&rsquo;t it ?</p>
+<p>Lets see compare our initial state and final state after going through the thread once.</p>
+<p><img src="/tightenuptraverse1x64.png" alt="tightenuptraverse1x64"></p>
+<p>So our triangle traversal strategy seems to work nicely but there&rsquo;s still room for more reductions.</p>
+<p>See if you can spot more triangles without pins in our final state.</p>
+<p><img src="/tightenuptraverse64xtri.png" alt="tightenuptraverse64xtri"></p>
+<p>So we found 2 more triangles without pins that can be reduced.</p>
+<p>The question now is whether there is a way of knowing beforehand how many times we&rsquo;ll have to go through the thread vertices.</p>
+<p>If there isn&rsquo;t we&rsquo;ll have to rely on traversing through the thread again until all the triangles without pins have been reduced.</p>
+<p>So we&rsquo;ll keep on traversing through the thread until all triangles left have pins inside them.</p>
+<p>Again there are 2 strategies that can be used :-</p>
+<ol>
+<li>Go through through the thread again using the same idea until we can&rsquo;t reduce triangles anymore.</li>
+<li>Go through only the new triangles that were created by removing the vertices.</li>
+</ol>
+<p><strong>For strategy 1 :</strong> This is easier to implement as we can keep on updating a set which contains triangles that have pins, so we dont have to apply the functions on the ones for which we have checked in a previous iteration and only apply them when we come across a new triangle.</p>
+<p><strong>For strategy 2 :</strong> Here we only traverse through new triangles which were created after removing a vertex. So we create another array and add 2 triangles corresponding to every vertex removed.</p>
+<p>Since strategy 2 seems more optimal lets see how that would work.</p>
+<p>To see how to implement strategy 2 we consider a set of points p1 p2 p3 p4 p5, this would give us triangle T1 (p123), T2(p234), T3(p345).</p>
+<p>So when we are traversing through the points, we reduce triangle T2(p234) by removing p3 which leaves us with p1 p2 p4 p5 . So after reducing T2 we get 2 new triangles T1(p124), T2(p245) that we have not considered before as shown in the example below :</p>
+<p><img src="/it2.gif" alt="iteration2"></p>
+<p>So we would have to check for 2 new triangles T1(p124), T2(p245) for our next iteration to check if they can be reduced.</p>
+<p>So the transformation can be simplified to the following step whenever a vertex is removed :-</p>
+<p><img src="/it14.png" alt="iteration2final"></p>
+<p>i.e add 2 triangles to an array whenever a point is removed. Then we go through this second array and reduce more triangles, and repeat these steps until we are left with no more triangles that can be reduced.</p>
+<h4 id="grouping-pins-according-to-triangles">Grouping pins according to triangles</h4>
+<p>One thing we have not discussed so far is how we are going to go through the pins when we check if they lie inside the triangle, for the thread it was straightforward as we had a starting point and ending point but here its not.</p>
+<p>One way is we go through all the pins whenever we have to check if a pin lies inside a triangle.</p>
+<p>Lets see how that would work, we have <code>m</code> thread vertices. But since we are going through them 3 at a time we would have  <code>m-2</code> triangles that have to be checked for <code>n</code> pins.</p>
+<p>i.e <code>n * (m-2)</code> times we would have to check for pins, in every iteration which is a lot. Lets see if we can reduce it.</p>
+<p>So can we group pins according to their corresponding triangles.</p>
+<p>This can be done if we take the lowest x,y points and highest x,y points out of the 3 points and check which pins lie in that range.</p>
+<p>We need a fast look up method to access pins in a given x and y range.
+bsp, kd tree+, quad tree</p>
+<h4 id="reducing-the-thread">Reducing the thread</h4>
+<h2 id="heading"></h2>
+<h2 id="philosophical-end-quote">Philosophical end quote</h2>
+<p>Problems are meant to be conquered dont let any red flag holding, low acceptance rate bearing, problem ever convince you to believe otherwise.</p>
+<blockquote>
+<p><strong>P.S : I tried my best to reduce chunks of text by adding accompanying visual explanations and reducing the text block size by being more precise, i hope the explanations are a medium or easy read, ciao.</strong></p>
+</blockquote>
+    
+  </article>
+
+  <button onclick="topFunction()" id="back-to-top" title="Go to top">Back to Top</button>
+
+  
+
+<div id="sharingbuttons">
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+</div>
+  <div class="paginator">
+    
+    <a class="link" href="http://localhost:1313/posts/tightenup2/" title="Hardest Problem on Codeforces (Functional Style)">← prev</a>
+    
+    
+    <a class="link" href="http://localhost:1313/posts/meshgsplat/" title="Generating meshes from gaussian splats">next →</a>
+    
+  </div>
+  <div class="comment">
+    
+    
+    
+      <script src="https://giscus.app/client.js"
+        data-repo="michaelneuper/hugo-texify3"
+        data-repo-id="R_kgDOIjPNaQ"
+        data-category="General"
+        data-category-id="DIC_kwDOIjPNac4CaklA"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme=""
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+  </script>
+  
+  </div>
+  
+  
+</main>
+
+    <footer id="footer">
+  <div>
+    
+  </div>
+  <div>
+    
+    <span> ✧ Godspeed internet person ✧ </span>
+  </div>
+  <div>
+    <span>
+    <pre>
+      
+                           *     .--.
+                                / /  `
+               +               | |
+                      +         \ \__,
+                  *          +   '--'  *
+                      +   /\
+         +              .'  '.   *          *
+                *      /======\      +
+                      ;:.  _   ;
+    *                 |:. (_)  |    *
+                      |:.  _   |                + 
+            +         |:. (_)  |          *
+                      ;:.      ;     
+                    .' \:.    / `.
+                   / .-'':._.'`-. \
+                   |/    /||\    \|         
+                 _..--"""````"""--.._
+           _.-'``                    ``'-._
+         -'                                '-
+
+
+
+    </pre>
+    </span>
+  </div>
+</footer>
+
+  </div>
+
+  
+  <script src='http://localhost:1313/js/script.js' defer></script>
+
+  
+  
+
+  
+  
+
+  
+  
+
+</body>
+
+</html>

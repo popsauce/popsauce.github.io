@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Computer Graphics on Popsauce&#39;s Blog</title>
+    <link>http://localhost:1313/categories/computer-graphics/</link>
+    <description>Recent content in Computer Graphics on Popsauce&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>karanlohaan0@gmail.com (Karan Lohaan)</managingEditor>
+    <webMaster>karanlohaan0@gmail.com (Karan Lohaan)</webMaster><atom:link href="http://localhost:1313/categories/computer-graphics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Data Structures for 2D points</title>
+      <link>http://localhost:1313/posts/spatialdatastructures/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/spatialdatastructures/</guid>
+      <description>&lt;h2 id=&#34;navigating-the-2d-plane&#34;&gt;Navigating the 2D Plane&lt;/h2&gt;
+&lt;p&gt;2d plane requires certain data structures like quad tree bs a quick brown fox jumped over the pickled fence zebra with another drawn&lt;/p&gt;
+&lt;h2 id=&#34;quad-tree&#34;&gt;Quad tree&lt;/h2&gt;
+&lt;p&gt;KD&lt;/p&gt;
+&lt;h2 id=&#34;bsp&#34;&gt;BSP&lt;/h2&gt;
+&lt;h2 id=&#34;kd-tree&#34;&gt;KD tree&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>Meshes, Voxels, NURBS and T-Splines</title>
+      <link>http://localhost:1313/posts/nurbstspline/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/nurbstspline/</guid>
+      <description>&lt;p&gt;While learning CAD basics I stumbled upon various CAD specific surface modelling primitives like NURBS and T Splines.
+Ive tried to demystify some aspects of these surface representing functions here.&lt;/p&gt;
+&lt;h2 id=&#34;newer-perspectives&#34;&gt;Newer Perspectives&lt;/h2&gt;
+&lt;p&gt;The main motivation for going down this deep dive of understanding CAD surfaces was mainly because it is really different from other forms of representing 3d models that rely on using a set of discrete points, triangles, polygons.&lt;/p&gt;
+&lt;p&gt;I also wanted to check for their viability for representing 3d models in a more compressed/continuous manner as storing a set of points/triangles/polygons as a set of functions could be beneficial if we&amp;rsquo;re talking about general regular geometry based objects.  u&lt;/p&gt;
+&lt;h2 id=&#34;case-studies-for-different-shapes&#34;&gt;Case studies for different Shapes&lt;/h2&gt;
+&lt;p&gt;cylinder
+sphere
+monkeyface
+room model&lt;/p&gt;
+&lt;h2 id=&#34;file-formats-for-exotic-shapes&#34;&gt;File Formats for Exotic Shapes&lt;/h2&gt;
+&lt;p&gt;scale constrained models ?(do they fix the model geometry to a scale present in the real world or is it just an arbitrary set of points)&lt;/p&gt;
+&lt;h3 id=&#34;bezier-curve&#34;&gt;Bezier Curve&lt;/h3&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h2 id=&#34;non-uniform-rational-b-splines&#34;&gt;Non Uniform Rational B-Splines&lt;/h2&gt;
+&lt;p&gt;the stonk&lt;/p&gt;
+&lt;h2 id=&#34;t-splines&#34;&gt;T-Splines&lt;/h2&gt;
+&lt;p&gt;T Splines are more recent compared to NURBS based surfaces. Some key differences are the fact that it includes&lt;/p&gt;
+&lt;h2 id=&#34;tspline-viewer&#34;&gt;Tspline viewer&lt;/h2&gt;
+&lt;h2 id=&#34;contents-of-a-cad-file&#34;&gt;Contents of a CAD file&lt;/h2&gt;
+&lt;p&gt;step is kind of like the csv of the cad world as it is a platform agnostic file type&lt;/p&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;p&gt;The NURBS Book by Les A. Piegl and Wayne Tiller: This book was published in 1995 a really great to the point resource
+p&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>placeholder</title>
+      <link>http://localhost:1313/posts/placeholder/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/placeholder/</guid>
+      <description>&lt;p&gt;So&lt;/p&gt;
+&lt;h2 id=&#34;understanding-advanced_xorpy&#34;&gt;Understanding advanced_xor.py&lt;/h2&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

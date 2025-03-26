@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Scripts on Popsauce&#39;s Blog</title>
+    <link>http://localhost:1313/categories/scripts/</link>
+    <description>Recent content in Scripts on Popsauce&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>karanlohaan0@gmail.com (Karan Lohaan)</managingEditor>
+    <webMaster>karanlohaan0@gmail.com (Karan Lohaan)</webMaster><atom:link href="http://localhost:1313/categories/scripts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Advanced XOR</title>
+      <link>http://localhost:1313/posts/advancedxor/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/advancedxor/</guid>
+      <description>&lt;p&gt;Advanced XOR is a XOR encryption based problem in the form of a python script.
+This problem had the notoriety of being the hardest problem in the whole problemset that was given as a test,
+as only a few people had been able to solve it at my university.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h2 id=&#34;understanding-advanced_xorpy&#34;&gt;Understanding advanced_xor.py&lt;/h2&gt;
+&lt;p&gt;The main script advanced_xor.py contains 2 main functions, one to generate a key and the other which runs the encryption function.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;from os import urandom
+from ctypes import CDLL
+import string
+
+key = &amp;quot;&amp;quot;
+ciphertext = &amp;quot;&amp;quot;
+def get_key():
+    global key
+    c = urandom(1)
+    if len(key)!=5::
+        if c not in string.ascii_lowercase and c not in string.ascii_uppercase :
+            get_key()
+        else:
+            key += c
+            get_key()
+    
+def xor_encrypt(x):
+    global key
+    global ciphertext
+    get_key()
+    
+    hex_key = key.encode(&amp;quot;hex&amp;quot;)
+    key_list = [hex_key[i]+hex_key[i+1] for i in range(0,len(hex_key),2)]
+    print key
+    for i in xrange(len(x)):
+        ciphertext += chr(ord(x[i]) ^ int(key_list[i%5], 16))
+
+    
+if __name__ == &amp;quot;__main__&amp;quot;:
+    plaintext = raw_input(&amp;quot;Enter the plaintext to be encrypted: &amp;quot;)
+    xor_encrypt(plaintext)
+    print ciphertext.encode(&amp;quot;hex&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The script prompts for a string called plaintext, which can have any length.
+After getting the plaintext it generates a key and encrypts the plaintext.&lt;/p&gt;
+&lt;h3 id=&#34;def-get_key&#34;&gt;def get_key()&lt;/h3&gt;
+&lt;p&gt;This function generates a key of length 5 which contains both upper case and lower case ascii alphabets.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def get_key():
+    global key
+    c = urandom(1)
+    if len(key)!=5::
+        if c not in string.ascii_lowercase and c not in string.ascii_uppercase :
+            get_key()
+        else:
+            key += c
+            get_key()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;def-xor_encrypt&#34;&gt;def xor_encrypt()&lt;/h3&gt;
+&lt;p&gt;This is the main function that is used to encrypt the plaintext.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def xor_encrypt(x):
+    global key
+    global ciphertext
+    get_key()
+    
+    hex_key = key.encode(&amp;quot;hex&amp;quot;)
+    key_list = [hex_key[i]+hex_key[i+1] for i in range(0,len(hex_key),2)]
+    print key
+    for i in xrange(len(x)):
+        ciphertext += chr(ord(x[i]) ^ int(key_list[i%5], 16))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The encryption algorithm first encodes the key into hexadecimal form based on the unicode number corresponding to each character in the key. The range of this encoding lies from a-z ~ 61-7A , A-Z ~ 41-5A.&lt;/p&gt;
+&lt;h2 id=&#34;solving-advanced_xorpy&#34;&gt;Solving advanced_xor.py&lt;/h2&gt;
+&lt;p&gt;So after messing around with the xor_encrypt function i tested a few ideas. The most important one is the that instead of generating the key and testing if it decrypts the whole ciphertext we divide the cipher text and match for that.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;print &amp;quot;Enter the ciphertext you want to decrypt.&amp;quot;
+a=raw_input()
+a=a.decode(&amp;quot;hex&amp;quot;)
+l=len(a)
+loflist=int(l/5)
+extravalue=l-loflist
+
+lofcipone=loflist
+lofciptwo=loflist
+lofcipthree=loflist
+lofcipfour=loflist
+lofcipfive=loflist
+
+if extravalue==1 or extravalue==2 or extravalue==3 or extravalue==4:
+    lofcipone=lofcipone+1
+if extravalue==2 or extravalue==3 or extravalue==4:
+    lofciptwo=lofciptwo+1
+if extravalue==3 or extravalue==4:
+    lofcipthree=lofcipthree+1
+if extravalue==4:
+    lofcipfour=lofcipfour+1
+
+cipone=[]
+ciptwo=[]
+cipthree=[]
+cipfour=[]
+cipfive=[]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here we can see that the ciphertext was divided into 5 lists corresponding to the key length which is also 5. For example if ciphertext is  &amp;ldquo;12345 12345 12345 12345 12345 12&amp;rdquo; (spaces are there to make it readable). cipone would contain 111111 ciptwo would contain 222222 ie 6 characters and the rest would contain 5 characters.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;i=0
+b=0
+while i&amp;lt;lofcipone:
+    cipone.append(ord(a[b]))
+    b=b+5
+    i=i+1
+i=0
+b=1
+while i&amp;lt;lofciptwo:
+    ciptwo.append(ord(a[b]))
+    b=b+5
+    i=i+1
+i=0
+b=2
+while i&amp;lt;lofcipthree:
+    cipthree.append(ord(a[b]))
+    b=b+5
+    i=i+1
+i=0
+b=3
+while i&amp;lt;lofcipfour:
+    cipfour.append(ord(a[b]))
+    b=b+5
+    i=i+1
+i=0
+b=4
+while i&amp;lt;lofcipfive:
+    cipfive.append(ord(a[b]))
+    b=b+5
+    i=i+1
+
+print &amp;quot; These five lists represent 5 cipherlists :&amp;quot;
+
+print cipone
+print ciptwo
+print cipthree
+print cipfour
+print cipfive
+
+checkpoint=raw_input(&amp;quot;Do you want to continue ? ...&amp;quot;)
+
+br=0
+for aa in range(65,91)+ range(97,123):
+    if br==1:
+        break
+    loopone=0
+    plaone=&amp;quot;&amp;quot;
+    for i in cipone:
+        x=aa^i
+        if x&amp;gt;=32 and x&amp;lt;=126:
+            plaone+=chr(x)
+        else:
+            plaone=&amp;quot;&amp;quot;
+            loopone=1
+            break
+    if loopone!=1:
+        for ab in range(65,91)+range(97,123):
+            if br==1:
+                break
+            looptwo=0
+            platwo=&amp;quot;&amp;quot;
+            for j in ciptwo:
+                x=ab^j
+                if x&amp;gt;=32 and x&amp;lt;=126:
+                    platwo+=chr(x)
+                else:
+                    platwo=&amp;quot;&amp;quot;
+                    looptwo=1
+                    break
+            if looptwo!=1:
+                for ac in range(65,91)+ range(97,123):
+                    if br==1:
+                        break
+                    loopthree=0
+                    plathree=&amp;quot;&amp;quot;
+                    for k in cipthree:
+                        x=ac^k
+                        if x&amp;gt;=32 and x&amp;lt;=126:
+                            plathree+=chr(x)
+                        else:
+                            plathree=&amp;quot;&amp;quot;
+                            loopthree=1
+                            break
+                    if loopthree!=1:
+                        for ad in range(65,91)+range(97,123):
+                            if br==1:
+                                break
+                            loopfour=0
+                            plafour=&amp;quot;&amp;quot;
+                            for l in cipfour:
+                                x=ad^l
+                                if x&amp;gt;=32 and x&amp;lt;=126:
+                                    plafour+=chr(x)
+                                else:
+                                    plafour=&amp;quot;&amp;quot;
+                                    loopfour=1
+                                    break
+                            if loopfour!=1:
+                                for ae in range(65,91)+range(97,123):
+                                    if br==1:
+                                        break
+                                    loopfive=0
+                                    plafive=&amp;quot;&amp;quot;
+                                    for m in cipfive:
+                                        x=ae^m
+                                        if x&amp;gt;=32 and x&amp;lt;=126:
+                                            plafive+=chr(x)
+                                        else:
+                                            plafive=&amp;quot;&amp;quot;
+                                            loopfive=1
+                                            break
+                                    if loopfive!=1:
+                                        plaintext=&amp;quot;&amp;quot;
+                                        aaa=chr(aa)
+                                        aab=chr(ab)
+                                        aac=chr(ac)
+                                        aad=chr(ad)
+                                        aae=chr(ae)
+                                        value=aaa+aab+aac+aad+aae
+                                        print value
+                                        for a in range(0,lofcipfive):
+                                            plaintext+=plaone[a]+platwo[a]+plathree[a]+plafour[a]+plafive[a]
+                                        
+                                        if lofcipone&amp;gt;lofcipfive:
+                                            plaintext=plaintext+plaone[lofcipfive]
+                                        if lofciptwo&amp;gt;lofcipfive:
+                                            plaintext=plaintext+platwo[lofcipfive]
+                                        if lofcipthree&amp;gt;lofcipfive:
+                                            plaintext=plaintext+plathree[lofcipfive]
+                                        if lofcipfour&amp;gt;lofcipfive:
+                                            plaintext=plaintext+plafour[lofcipfive]
+                                        
+                                        flag=plaintext
+                                        print &amp;quot;&amp;quot;
+                                        print flag
+                                        print &amp;quot;&amp;quot;
+                                        if checkervalue==&amp;quot;&amp;quot;:
+                                            if hashlib.md5(flag).digest().encode(&amp;quot;hex&amp;quot;) == &amp;quot;067abbb88d2201a393ba660728f83b84&amp;quot;:
+                                                print &amp;quot;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!&amp;quot;
+                                                print &amp;quot;Yeah!....You are a genius!&amp;quot;
+                                                print &amp;quot;&amp;quot;
+                                                ans=value
+                                                fin=flag
+                                                br=1
+                                        else:
+                                            if flag==checkervalue:
+                                                print &amp;quot;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!&amp;quot;
+                                                print &amp;quot;Yeah!....You are a genius!&amp;quot;
+                                                print &amp;quot;&amp;quot;
+                                                ans=value
+                                                fin=flag
+                                                br=1
+print ans
+print &amp;quot;&amp;quot;
+print fin
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;the-result&#34;&gt;The result&lt;/h2&gt;
+&lt;p&gt;🥁 and its done !!&lt;/p&gt;
+&lt;p&gt;As it can be seen the ciphertext was &amp;ldquo;You completed Advanced XOR&amp;rdquo; and the key was &amp;ldquo;snMdh&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/advanced_xor_1.png&#34; alt=&#34;alt text&#34;&gt;&lt;/p&gt;
+&lt;p&gt;As it can be seen the final result shows the time it takes to decrypt the original ciphertext. The 3 terms real, user, sys calculate time elapsed differently. Real represents wallclock time to execute the function from start to finish, user + sys shows the actual CPU time used by this process ie ~11m30s, Interestingly since the process was running on more than one processor it exceeds the real time shown.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Compute Efficient Object Detection</title>
+      <link>http://localhost:1313/posts/computeefficientobjectdetection/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/computeefficientobjectdetection/</guid>
+      <description>&lt;p&gt;Resource Starved object detection&lt;/p&gt;
+&lt;p&gt;I was looking for an object detection solution for keeping track of crop items and their timeline transition so one would have to identify and keep track of a crop&amp;rsquo;s state using a data set of
+Object Detection has come a long way from relying on basic keypoint detection algorithms to cnns to vision transformers&lt;/p&gt;
+&lt;p&gt;When it comes to performing object detection on a small microcontroller there are a lot of options but they dont work as well as one would like them to&lt;/p&gt;
+&lt;h2 id=&#34;feature-based-object-detection&#34;&gt;Feature based object detection&lt;/h2&gt;
+&lt;h2 id=&#34;cnn-based-object-detection-efficient-cnns&#34;&gt;CNN based object detection (Efficient CNN&amp;rsquo;s)&lt;/h2&gt;
+&lt;h2 id=&#34;vision-transformer-based-object-detection&#34;&gt;vision transformer based object detection&lt;/h2&gt;
+&lt;h2 id=&#34;explaining-different-benchmarks-for-compute-efficient-neural-networks&#34;&gt;Explaining different benchmarks for compute efficient neural networks&lt;/h2&gt;
+&lt;h3 id=&#34;real-time-latency&#34;&gt;Real time Latency&lt;/h3&gt;
+&lt;h3 id=&#34;accuracy&#34;&gt;Accuracy&lt;/h3&gt;
+&lt;h3 id=&#34;precision&#34;&gt;Precision&lt;/h3&gt;
+&lt;h2 id=&#34;factors-that-matter-for-small-form-factor-dev-boards&#34;&gt;Factors that matter for small form factor dev boards&lt;/h2&gt;
+&lt;p&gt;Would it be possible to reduce the size of the packages and libraries that have to be installed&lt;/p&gt;
+&lt;p&gt;Since the opencv cpp library has extensive documentation i think the smallest form factor would be to directly try to implement the libraries that are required so we would have to narrow down our&lt;/p&gt;
+&lt;h2 id=&#34;heading&#34;&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;testing-different-recipes-on-a-dev-board&#34;&gt;Testing different recipes on a dev board&lt;/h2&gt;
+&lt;p&gt;There are plenty of options to choose from when deciding on a combination of devboard and camera,&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Data Structures for 2D points</title>
+      <link>http://localhost:1313/posts/spatialdatastructures/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/spatialdatastructures/</guid>
+      <description>&lt;h2 id=&#34;navigating-the-2d-plane&#34;&gt;Navigating the 2D Plane&lt;/h2&gt;
+&lt;p&gt;2d plane requires certain data structures like quad tree bs a quick brown fox jumped over the pickled fence zebra with another drawn&lt;/p&gt;
+&lt;h2 id=&#34;quad-tree&#34;&gt;Quad tree&lt;/h2&gt;
+&lt;p&gt;KD&lt;/p&gt;
+&lt;h2 id=&#34;bsp&#34;&gt;BSP&lt;/h2&gt;
+&lt;h2 id=&#34;kd-tree&#34;&gt;KD tree&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>Feature Detection Benchmarking for Regular Objects</title>
+      <link>http://localhost:1313/posts/siftsurfbrieforb/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/siftsurfbrieforb/</guid>
+      <description>&lt;p&gt;Comparing different feature extraction algorithms for accuracy in different settings&lt;/p&gt;
+&lt;h2 id=&#34;primer-on-feature-extraction-methods&#34;&gt;Primer on feature extraction methods&lt;/h2&gt;
+&lt;h3 id=&#34;haar-cascades&#34;&gt;Haar cascades&lt;/h3&gt;
+&lt;h3 id=&#34;difference-of-gaussians&#34;&gt;Difference of Gaussians&lt;/h3&gt;
+&lt;h2 id=&#34;sift&#34;&gt;SIFT&lt;/h2&gt;
+&lt;h2 id=&#34;surf&#34;&gt;SURF&lt;/h2&gt;
+&lt;h2 id=&#34;brief&#34;&gt;BRIEF&lt;/h2&gt;
+&lt;h2 id=&#34;orb&#34;&gt;ORB&lt;/h2&gt;
+&lt;h2 id=&#34;benchmarking&#34;&gt;Benchmarking&lt;/h2&gt;
+&lt;h3 id=&#34;accuracy&#34;&gt;Accuracy&lt;/h3&gt;
+&lt;h3 id=&#34;speed&#34;&gt;Speed&lt;/h3&gt;</description>
+    </item>
+    
+    <item>
+      <title>Generating meshes from gaussian splats</title>
+      <link>http://localhost:1313/posts/meshgsplat/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/meshgsplat/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hardest Problem on Codeforces</title>
+      <link>http://localhost:1313/posts/tightenup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/tightenup/</guid>
+      <description>&lt;p&gt;What makes a problem hard to solve ?&lt;/p&gt;
+&lt;p&gt;Are hard problems really that out of reach for a person new to CP (Competitive Programming) ?&lt;/p&gt;
+&lt;p&gt;Since the general advice to tackle CP is that you should work your way up to harder problems.(i.e Solve a lot of easier problems then slowly start solving problems that are harder)&lt;/p&gt;
+&lt;p&gt;If I were to attempt a problem that was really hard would i be able to solve it ?&lt;/p&gt;
+&lt;p&gt;Would it be a question of how much time it would take ? (like maybe i&amp;rsquo;ll take more time compared to a seasoned competitive programmer)&lt;/p&gt;
+&lt;p&gt;Or would my solution not be as efficient ? (read skill issue)&lt;/p&gt;
+&lt;p&gt;Or god forbid i was unable to arrive at any solution&lt;/p&gt;
+&lt;p&gt;Anyways after this chain of thought I think you can see where i&amp;rsquo;m going with this.&lt;/p&gt;
+&lt;h2 id=&#34;finding-the-hardest-problem-on-codeforces&#34;&gt;Finding the hardest problem on codeforces&lt;/h2&gt;
+&lt;p&gt;There are a lot of ways to classify how hard a problem is, I settled with a straightforward approach for this one and wrote &amp;ldquo;hardest problem on codeforces&amp;rdquo; on my search engine and clicked on the first search result, and voila it led me to this &lt;a href=&#34;https://codeforces.com/blog/entry/10690&#34;&gt;blogpost&lt;/a&gt; which described this &lt;a href=&#34;https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1164&#34;&gt;problem&lt;/a&gt;.
+And more than the title it was the problem itself that had me hooked, one reason was that trying to solve this problem in a physical setting with physical props seems really easy so would it really be that hard to solve, in an iterative manner.&lt;/p&gt;
+&lt;p&gt;Regarding the credibility of this problem being one of the hardest to solve you&amp;rsquo;ll have to take &lt;a href=&#34;https://codeforces.com/profile/rng_58&#34;&gt;rng_58&lt;/a&gt;&amp;rsquo;s &lt;a href=&#34;https://codeforces.com/blog/entry/10690&#34;&gt;word&lt;/a&gt; if not mine.&lt;/p&gt;
+&lt;h2 id=&#34;problem-description&#34;&gt;Problem Description&lt;/h2&gt;
+&lt;p&gt;The best way to describe this problem is to visualise a bulletin board.
+The board has a set of pins placed on the board and a loose piece of thread that starts from a hole, is placed in a certain manner and then ends at another hole.&lt;/p&gt;
+&lt;p&gt;So we have to predict the final state of the thread when it is pulled from these 2 holes resulting in a taut thread that loops around certain pins depending on its initial state.&lt;/p&gt;
+&lt;p&gt;Some examples of the initial state and final state are shown below :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/tightenup1s.png&#34; alt=&#34;problem pic&#34;&gt; &lt;img src=&#34;http://localhost:1313/tightenup4s.png&#34; alt=&#34;problem pic&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Example 1, This shows the initial thread in an inverted s shape and how it loops around certain pins when pulled.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/tightenup2s.png&#34; alt=&#34;problem pic&#34;&gt; &lt;img src=&#34;http://localhost:1313/tightenup5s.png&#34; alt=&#34;problem pic&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Example 2, This one forms a star.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/tightenup3s.png&#34; alt=&#34;problem pic&#34;&gt; &lt;img src=&#34;http://localhost:1313/tightenup6s.png&#34; alt=&#34;problem pic&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Example 3, This one would have been really hard to simulate mentally.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;So now that we&amp;rsquo;ve understood the problem statement its time to deal with the input, output specifics.
+According to the &lt;a href=&#34;https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1164&#34;&gt;problem&lt;/a&gt; statement we&amp;rsquo;re given multiple datasets, each dataset is preceded by a line containing m and n.&lt;/p&gt;
+&lt;p&gt;Here m represents the number of vertices of the thread including starting and ending point, n represents the number of pins.
+For each dataset there are m+n lines depicting x,y positions of m vertices of the thread and n positions of pins.
+And we have to keep on reading datasets until we get 0 0 as an input.&lt;/p&gt;
+&lt;p&gt;A sample dataset is shown below :-&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;m n
+x1 y1     -
+...        | # m lines for thread vertices
+x1 y1     -
+x1 y1     -
+...        | # n lines for pin positions
+x1 y1     -
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In this case given below we are given 4 datasets :-&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;m n     # 1st dataset
+x1 y1
+...
+x1 y1
+m2 n2   # 2nd dataset
+x2 y2
+...
+x2 y2
+m3 n3   # 3rd dataset
+x3 y3
+...
+x3 y3
+m4 n4   # 4th dataset
+x4 y4
+...
+x4 y4
+0 0     # end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As it can be seen we read the first line with m n; then read another m lines for the vertices of the thread and read another n lines for the positions of pins.  We keep on accepting datasets until we get 0,0.&lt;/p&gt;
+&lt;p&gt;So for this case we read 4 datasets.&lt;/p&gt;
+&lt;p&gt;For the output we are supposed to return the length of the final state of the thread for each dataset, ie :-&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;len1
+len2
+len3
+len4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that we&amp;rsquo;ve covered the semantics of the problem statement lets see how we can solve it.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;I would really recommend going through the&lt;/code&gt;  &lt;a href=&#34;https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1164&#34;&gt;problem statement&lt;/a&gt; &lt;code&gt; and thinking of solutions on your own for a few minutes as it&#39;ll make this post that much more easy to understand.&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;solving-the-hardest-problem-on-codeforces&#34;&gt;Solving the hardest problem on codeforces&lt;/h2&gt;
+&lt;p&gt;Now that i had gone through the description a few times, i started thinking of ways to solve this problem.&lt;/p&gt;
+&lt;h3 id=&#34;my-approach&#34;&gt;My Approach&lt;/h3&gt;
+&lt;p&gt;A set of pins on x,y plane and a set of vertices that depict the thread. One thing thats not mentioned explicitly is that the order of the vertices of the thread are how it is being represented (like the thread goes from 1st point to 2nd point to 3rd point etc) otherwise there are innumerable ways to make a thread if you&amp;rsquo;re just given an unordered set of vertices.&lt;/p&gt;
+&lt;h4 id=&#34;pulling-on-a-loose-thread&#34;&gt;Pulling on a loose thread&lt;/h4&gt;
+&lt;p&gt;So if you imagine pulling on a loose thread that goes through some points you&amp;rsquo;ll recollect that as it keeps on getting shorter, its vertices keep on decreasing until youre left with just the starting and ending point from where you were pulling.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pulloutput.gif&#34; alt=&#34;pull&#34;&gt;&lt;/p&gt;
+&lt;p&gt;As it can be seen in the example above if there are no obstacles (pins) in the path of the thread its vertices and length will keep on decreasing. These 2 aspects are the key insights that can be taken from the above example. So we have to do the following transformation :-&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;decrease the number of thread vertices&lt;/li&gt;
+&lt;li&gt;decrease the length of the thread&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Since both of these variables are correlated, as removing a vertex would also reduce the length, we have to decide dealing with which would be easier to do in an iterative manner, I went with removing the vertices of the thread to get to the final state.&lt;/p&gt;
+&lt;h4 id=&#34;traversing-through-the-thread&#34;&gt;Traversing through the thread&lt;/h4&gt;
+&lt;p&gt;Now that we know that we&amp;rsquo;ll be decreasing the number of vertices let&amp;rsquo;s see how to traverse through the thread. To traverse through an ordered set of vertices we&amp;rsquo;ll pick n vertices at a time and try to reduce them.
+So how do we decide on our n vertices. Lets see some examples&lt;/p&gt;
+&lt;h5 id=&#34;n-vertices--n-sided-polygon&#34;&gt;N vertices ~ n sided polygon&lt;/h5&gt;
+&lt;p&gt;Lets say we take n vertices at a time and reduce them to their starting and ending vertex.
+Then taking a large n would help as in a single iteration we&amp;rsquo;ll reduce n vertices.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/npoly.gif&#34; alt=&#34;npoly&#34;&gt;&lt;/p&gt;
+&lt;p&gt;But this is only valid if there are no pins in the n vertex polygon.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/npolygon.png&#34; alt=&#34;npolygon&#34;&gt;&lt;/p&gt;
+&lt;p&gt;If there are pins in the n vertex polygon. We could reduce the n sided poygon to starting vertex, pin and ending vertex, which involves doing the following transformation Xn-&amp;gt;3n.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/npolygonpin.png&#34; alt=&#34;npolygonpin&#34;&gt;&lt;/p&gt;
+&lt;p&gt;But doing this would be wrong, as we would be assuming that the thread would definitely loop around the pin. If there&amp;rsquo;s a case where in the final configuration the thread does not loop around this pin we would have no way of knowing how the thread loops around the pin and whether it can be removed like a vertex or not.&lt;/p&gt;
+&lt;p&gt;The example given below demonstrates how this transformation would result in an incorrect state:-&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/incorrectstate.gif&#34; alt=&#34;incorrectstate1&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Here we can see why we cant reduce vertices to pin positions prematurely, cause if we do go forward with the transformation we&amp;rsquo;ll have to make sure that theres a way of knowing which side the thread occupies when going around the pin. Like in the case given below :-&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pinloop1.png&#34; alt=&#34;incorrectstate2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;If we loop the thread with every pin that lies inside its n vertex polygon we get the following state if we just replace the vertex position with pin position for the thread representation:-&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pinloop2.png&#34; alt=&#34;incorrectstate3&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Here if we loop the thread around the pin at the bottom we would not be able to reach the correct final state shown below :-&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pinloop3.png&#34; alt=&#34;incorrectstate4&#34;&gt;&lt;/p&gt;
+&lt;p&gt;We could also work around this by storing a tangent or a point to show where the thread has looped to resolve such cases as shown below :-&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pinloop4.png&#34; alt=&#34;incorrectstate5&#34;&gt;&lt;/p&gt;
+&lt;p&gt;But this doesnt seem to be too optimal as we&amp;rsquo;ll have to calculate and store additional information about the tangent or point so lets see if theres another way.&lt;/p&gt;
+&lt;p&gt;So now that we have ruled out prematurely looping around pins, we still have to decide how to traverse through the thread.&lt;/p&gt;
+&lt;p&gt;Since we&amp;rsquo;re not touching the pins anymore at this stage lets see which n gives us a better intermediate state.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/6n3n.gif&#34; alt=&#34;6Nvs3N&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Here we can see that taking a small n is better as we get to a better intermediate state (with lesser length and lesser vertices) without iterating to an incorrect transformation (like the case of looping around pins prematurely).&lt;/p&gt;
+&lt;p&gt;Another big reason is that dealing with triangles is a lot more easier than n&amp;gt;3 polygons when it comes to applying functions like checking if a point lies inside the polygon. And we cant go lower than 3 vertices as that would just be a line.&lt;/p&gt;
+&lt;h4 id=&#34;iterating-through-triangles&#34;&gt;Iterating through triangles&lt;/h4&gt;
+&lt;p&gt;Now that we&amp;rsquo;ve decided to go through the thread 3 points at a time, lets see how that would pan out in a much more realistic scenario :-&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/tightenuptraverse1.png&#34; alt=&#34;tightenuptraverse1&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Here pins are depicted in blue and (Xn,Yn) represent pin positions, similiarly thread state and thread vertices are depicted in brown and (In,Jn) represent thread vertex positions.&lt;/p&gt;
+&lt;p&gt;Lets see how to tackle the first 3 thread vertices.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/triangleoutput.gif&#34; alt=&#34;triangleoutputgif&#34;&gt;&lt;/p&gt;
+&lt;p&gt;As it can be seen in this example if there is no point inside our triangle we remove the 2nd vertex according to the thread sequence in the 3 vertices.&lt;/p&gt;
+&lt;p&gt;So the sequence of steps are as follows :-&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Go through the vertices 3 at a time&lt;/li&gt;
+&lt;li&gt;Check if any pin lies inside the triangle&lt;/li&gt;
+&lt;li&gt;If a pin lies inside the triangle we don&amp;rsquo;t do anything and move 1 vertex ahead.&lt;/li&gt;
+&lt;li&gt;If there is no pin inside the triangle we remove the 2nd vertex from the thread stack.&lt;/li&gt;
+&lt;li&gt;Then we consider the following 3 vertices : vertex 1, vertex 3, new vertex after vertex 3. (after removing vertex 2)&lt;/li&gt;
+&lt;li&gt;And then repeat these steps again&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If we apply this sequence of steps for the whole thread this is what we get :-&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/fulltraversalbig.gif&#34; alt=&#34;fulltraversalbig&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Seems pretty neat doesn&amp;rsquo;t it ?&lt;/p&gt;
+&lt;p&gt;Lets see compare our initial state and final state after going through the thread once.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/tightenuptraverse1x64.png&#34; alt=&#34;tightenuptraverse1x64&#34;&gt;&lt;/p&gt;
+&lt;p&gt;So our triangle traversal strategy seems to work nicely but there&amp;rsquo;s still room for more reductions.&lt;/p&gt;
+&lt;p&gt;See if you can spot more triangles without pins in our final state.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/tightenuptraverse64xtri.png&#34; alt=&#34;tightenuptraverse64xtri&#34;&gt;&lt;/p&gt;
+&lt;p&gt;So we found 2 more triangles without pins that can be reduced.&lt;/p&gt;
+&lt;p&gt;The question now is whether there is a way of knowing beforehand how many times we&amp;rsquo;ll have to go through the thread vertices.&lt;/p&gt;
+&lt;p&gt;If there isn&amp;rsquo;t we&amp;rsquo;ll have to rely on traversing through the thread again until all the triangles without pins have been reduced.&lt;/p&gt;
+&lt;p&gt;So we&amp;rsquo;ll keep on traversing through the thread until all triangles left have pins inside them.&lt;/p&gt;
+&lt;p&gt;Again there are 2 strategies that can be used :-&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Go through through the thread again using the same idea until we can&amp;rsquo;t reduce triangles anymore.&lt;/li&gt;
+&lt;li&gt;Go through only the new triangles that were created by removing the vertices.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;For strategy 1 :&lt;/strong&gt; This is easier to implement as we can keep on updating a set which contains triangles that have pins, so we dont have to apply the functions on the ones for which we have checked in a previous iteration and only apply them when we come across a new triangle.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;For strategy 2 :&lt;/strong&gt; Here we only traverse through new triangles which were created after removing a vertex. So we create another array and add 2 triangles corresponding to every vertex removed.&lt;/p&gt;
+&lt;p&gt;Since strategy 2 seems more optimal lets see how that would work.&lt;/p&gt;
+&lt;p&gt;To see how to implement strategy 2 we consider a set of points p1 p2 p3 p4 p5, this would give us triangle T1 (p123), T2(p234), T3(p345).&lt;/p&gt;
+&lt;p&gt;So when we are traversing through the points, we reduce triangle T2(p234) by removing p3 which leaves us with p1 p2 p4 p5 . So after reducing T2 we get 2 new triangles T1(p124), T2(p245) that we have not considered before as shown in the example below :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/it2.gif&#34; alt=&#34;iteration2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;So we would have to check for 2 new triangles T1(p124), T2(p245) for our next iteration to check if they can be reduced.&lt;/p&gt;
+&lt;p&gt;So the transformation can be simplified to the following step whenever a vertex is removed :-&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/it14.png&#34; alt=&#34;iteration2final&#34;&gt;&lt;/p&gt;
+&lt;p&gt;i.e add 2 triangles to an array whenever a point is removed. Then we go through this second array and reduce more triangles, and repeat these steps until we are left with no more triangles that can be reduced.&lt;/p&gt;
+&lt;h4 id=&#34;grouping-pins-according-to-triangles&#34;&gt;Grouping pins according to triangles&lt;/h4&gt;
+&lt;p&gt;One thing we have not discussed so far is how we are going to go through the pins when we check if they lie inside the triangle, for the thread it was straightforward as we had a starting point and ending point but here its not.&lt;/p&gt;
+&lt;p&gt;One way is we go through all the pins whenever we have to check if a pin lies inside a triangle.&lt;/p&gt;
+&lt;p&gt;Lets see how that would work, we have &lt;code&gt;m&lt;/code&gt; thread vertices. But since we are going through them 3 at a time we would have  &lt;code&gt;m-2&lt;/code&gt; triangles that have to be checked for &lt;code&gt;n&lt;/code&gt; pins.&lt;/p&gt;
+&lt;p&gt;i.e &lt;code&gt;n * (m-2)&lt;/code&gt; times we would have to check for pins, in every iteration which is a lot. Lets see if we can reduce it.&lt;/p&gt;
+&lt;p&gt;So can we group pins according to their corresponding triangles.&lt;/p&gt;
+&lt;p&gt;This can be done if we take the lowest x,y points and highest x,y points out of the 3 points and check which pins lie in that range.&lt;/p&gt;
+&lt;p&gt;We need a fast look up method to access pins in a given x and y range.
+bsp, kd tree+, quad tree&lt;/p&gt;
+&lt;h4 id=&#34;reducing-the-thread&#34;&gt;Reducing the thread&lt;/h4&gt;
+&lt;h2 id=&#34;heading&#34;&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;philosophical-end-quote&#34;&gt;Philosophical end quote&lt;/h2&gt;
+&lt;p&gt;Problems are meant to be conquered dont let any red flag holding, low acceptance rate bearing, problem ever convince you to believe otherwise.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;P.S : I tried my best to reduce chunks of text by adding accompanying visual explanations and reducing the text block size by being more precise, i hope the explanations are a medium or easy read, ciao.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Hardest Problem on Codeforces (Functional Style)</title>
+      <link>http://localhost:1313/posts/tightenup2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/tightenup2/</guid>
+      <description>&lt;p&gt;This is an attempt to solve the hardest problem on codeforces using a different approach
+And i did attempt to try and learn the functional way of doing things but i figured in terms of street cred amongst cs grads, i think solving the hardest problem on codeforces in a functional programming language is where its at, instant peak stardom.&lt;/p&gt;
+&lt;p&gt;But before I get ahead of myself here, I would mention that my solution is probably not the best way to go about solving this problem/either of the 2&lt;/p&gt;
+&lt;p&gt;And i&amp;rsquo;d be really grateful if you have any helpful suggestions or things that i might have missed out on when it comes to my approach at solving this problem.&lt;/p&gt;
+&lt;h2 id=&#34;problem-description&#34;&gt;Problem Description&lt;/h2&gt;
+&lt;p&gt;The official problem statement is mentioned &lt;a href=&#34;&#34;&gt;here&lt;/a&gt;. And in my last post i did break down this problem statement to make it easier to understand.&lt;/p&gt;
+&lt;h2 id=&#34;solving-the-hardest-problem-on-codeforces-functional-style&#34;&gt;Solving the hardest problem on codeforces (Functional Style)&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>Object detection on the edge on a budget</title>
+      <link>http://localhost:1313/posts/budgetfriendlycamera/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/budgetfriendlycamera/</guid>
+      <description>&lt;p&gt;I was on the lookout for a custom object detection solution for 2 projects that i had in mind. Mostly to keep track of certain items and do some estimation based tasks like inventory management and update their status in real time.&lt;/p&gt;
+&lt;p&gt;For example a scenario where a desk is in the field of view of the camera it should be able to detect objects present on the desk and then update a table of of values that maintain things present on the desk.&lt;/p&gt;
+&lt;p&gt;So starting with some basic design considerations we need the following things more or less :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Portable camera for capturing a video stream for object detection&lt;/li&gt;
+&lt;li&gt;Real time camera streaming (good to have)&lt;/li&gt;
+&lt;li&gt;Adequate compute for object detection&lt;/li&gt;
+&lt;li&gt;A way to interface with camera and schedule cron jobs if possible&lt;/li&gt;
+&lt;li&gt;Extracting information from the video scene and storing it in a csv file containing the updated values of the last streaming session.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;potential-options-for-a-portable-camera&#34;&gt;Potential options for a portable camera&lt;/h2&gt;
+&lt;p&gt;Camera module is probably the most important thing in this project so here are the potential options when it comes to digital cameras -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;camera based SoC / microcontroller&lt;/li&gt;
+&lt;li&gt;webcameras&lt;/li&gt;
+&lt;li&gt;consumer grade portable digital cameras like gopros&lt;/li&gt;
+&lt;li&gt;smartphone cameras&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;What varies wildly amongst all these offerings is their cost, the size of their image sensors, thier recording resolution ranges and all these other variables&lt;/p&gt;
+&lt;p&gt;I wont mention all the options that i went through but some of the major ones that stood out for my use case were esp32 based cameras, stm32f4 /f7 boards with openvision camera modules, raspberry pi soc with camera modules.&lt;/p&gt;
+&lt;p&gt;And i even considered webcameras and old smartphone cameras cause i think its much better to go for an old smartphone camera as its the best quality camera you can get on a budget but still i wanted to test an soc based solution so i mostly went with using an old smartphone camera for testing the setup and a raspberry pi 0 2 w board for my image processing needs.&lt;/p&gt;
+&lt;p&gt;Some options that i was considering at the time are listed here :-&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Esp 32 with openvision camera modules like ov2640, 5640, 7670, 9655.&lt;/li&gt;
+&lt;li&gt;Raspberry Pi modules ranging from Raspberry Pi Zero 2 W to Raspberry Pi 4 with their respective camera modules.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;The sections below detail how to setup both types of cameras&lt;/p&gt;
+&lt;h2 id=&#34;potential-options-for-compute&#34;&gt;Potential Options for Compute&lt;/h2&gt;
+&lt;p&gt;Now this part is interesting cause this aspect was really hard to pin down and a lot of my inhibitions were really put to test. First I ruled out all the recent SOTA models as running a ViT based object detection solution would be a bit too overkill and expensive no matter how badly i wanted to go down this route. So after going through a lot of potential options these were what i nailed it down to :&lt;/p&gt;
+&lt;p&gt;Try and see if I can make it work with a feature detection based algorithm if it could satisfy my use case as itll be easiest to setup and really efficient&lt;/p&gt;
+&lt;p&gt;But before training anything fancy I trained a ResNet on my laptop to see how it fares as it is the easiest to implement&lt;/p&gt;
+&lt;h2 id=&#34;setting-up-the-rpi-0-2-w&#34;&gt;Setting up the RPi 0 2 W&lt;/h2&gt;
+&lt;p&gt;So as a potential portable battery powered camera this was a good choice compared to a smartphone as it costs $5 for microsd card, $15 for the rpi 0 2 w, $15 for the v2.1 camera module and $15-30 for a powerbank (10 Ah to 20 Ah) so around $50.
+An old smartphone camera might cost around this much if not more like an old pixel camera or and old iphone.&lt;/p&gt;
+&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
+&lt;p&gt;For this setup im using the 64bit Bullseye lite os based on debian 11, while flashing the image it is necessary to use the raspi-imager provided by rpi especialy for this headless setup as that is the only way to enable and run ssh.&lt;/p&gt;
+&lt;p&gt;Earlier i used to use startup disk creator with an empty ssh file into the boot drive which enabled a default user and password but that has been disabled now.&lt;/p&gt;
+&lt;p&gt;In the raspi imager ui there will be additional options for entering network details and enabling ssh which is pretty straightforward. It is neccessary to enter the network details for this headless setup as we&amp;rsquo;ll be connecting to our rpi using ssh over a wifi network so this has to be set during the image flashing process itself.&lt;/p&gt;
+&lt;p&gt;After flashing the os to the micro sd card we can put it into our rpi and boot it up.&lt;/p&gt;
+&lt;h2 id=&#34;setting-up-rpi-as-a-headless-camera&#34;&gt;Setting up rpi as a headless camera&lt;/h2&gt;
+&lt;p&gt;For our headless setup we ssh into our rpi and set it up without a screen so for that we&amp;rsquo;ll have to use the ssh username and password that we had set while flashing the image. Along with this we connect the v2 camera module to the mipi connector.&lt;/p&gt;
+&lt;p&gt;After booting the rpi we need to set the camera settings by selecting the interface options using &lt;code&gt;sudo raspi-config&lt;/code&gt; command&lt;/p&gt;
+&lt;p&gt;After booting the rpi we can confirm whether the camera is working or not by using the libcamera library,
+libcamera-hello
+libcamera-vid&lt;/p&gt;
+&lt;h2 id=&#34;tradeoffs-between-live-streaming-video-vs-storing-and-transferring-video-files&#34;&gt;Tradeoffs between live-streaming video vs storing and transferring video files&lt;/h2&gt;
+&lt;h2 id=&#34;media-server&#34;&gt;Media Server&lt;/h2&gt;
+&lt;p&gt;For realtime streaming its essential to choose a lightweight media library that will convert the raw footage to rtsp if the stream&lt;/p&gt;
+&lt;p&gt;Would it be possible to reduce the size of the packages and libraries that have to be installed&lt;/p&gt;
+&lt;p&gt;Since the opencv cpp library has extensive documentation i think the smallest form factor would be to directly try to implement the libraries that are required so we would have to narrow down our&lt;/p&gt;
+&lt;h2 id=&#34;feature-detection&#34;&gt;Feature Detection&lt;/h2&gt;
+&lt;h2 id=&#34;testing-different-recipes-on-a-dev-board&#34;&gt;Testing different recipes on a dev board&lt;/h2&gt;
+&lt;p&gt;There are plenty of options to choose from when deciding on a combination of devboard and camera,&lt;/p&gt;
+&lt;p&gt;questions regarding pretraining transformer for video data&lt;/p&gt;
+&lt;p&gt;labelled data for objects&lt;/p&gt;
+&lt;p&gt;depth estimation for arms and arm positions ?&lt;/p&gt;
+&lt;p&gt;The question&lt;/p&gt;
+&lt;p&gt;distribution of labous instead of having a transformer do it all&lt;/p&gt;
+&lt;p&gt;object detection :vit transformer or keypoint detection ? or yolo a&lt;/p&gt;
+&lt;p&gt;object position :depth estimation&lt;/p&gt;
+&lt;p&gt;set of actions that can be done on the object llm&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Scaling Image Processing</title>
+      <link>http://localhost:1313/posts/scalingimageprocessing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/scalingimageprocessing/</guid>
+      <description>&lt;p&gt;Tools for all your image processing needs.&lt;/p&gt;
+&lt;h2 id=&#34;image-processing-primer&#34;&gt;Image Processing Primer&lt;/h2&gt;
+&lt;p&gt;Modify&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;hue sat values&lt;/li&gt;
+&lt;li&gt;scaling&lt;/li&gt;
+&lt;li&gt;edge detection&lt;/li&gt;
+&lt;li&gt;optical flow&lt;/li&gt;
+&lt;li&gt;canny edges&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ocr
+background removal&lt;/p&gt;
+&lt;h2 id=&#34;heading&#34;&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;opencv&#34;&gt;OpenCV&lt;/h2&gt;
+&lt;h2 id=&#34;imagemagick&#34;&gt;Imagemagick&lt;/h2&gt;
+&lt;h2 id=&#34;ffmpeg&#34;&gt;FFMPEG&lt;/h2&gt;
+&lt;h2 id=&#34;gnu-image-manipulation-program&#34;&gt;GNU Image Manipulation Program&lt;/h2&gt;
+&lt;p&gt;so while so far we have just had command line tools or libraries why have i mentioned a gui based application. Its not like we&amp;rsquo;ll be able to open and edit each image on the gui right ?&lt;/p&gt;
+&lt;p&gt;I get all the concerns but i think this tool is the most underrated tool when it comes to quickly prototyping different techniques to see which achieves the best results and then applying custom results in a way that no other tool can, let me explain why&lt;/p&gt;
+&lt;p&gt;all the above tools are a great fit when you know exactly what you want to do to the image but for cases where its still unknown how to approach refining an image for a particular task i always always open GIMP, ive really grown to like it over the years.&lt;/p&gt;
+&lt;p&gt;But the best feature of them all is the fact that you can write scripts to do the same ie apply the same setting to all the images that you want to apply it to.
+There are primarily 2 ways to get this done&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Script Fu&lt;/li&gt;
+&lt;li&gt;Python Fu&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;script-fu&#34;&gt;Script Fu&lt;/h3&gt;
+&lt;h3 id=&#34;python-fu&#34;&gt;Python Fu&lt;/h3&gt;
+&lt;h2 id=&#34;specific-augmentation-related-techniques-for-certain-applications&#34;&gt;Specific augmentation related techniques for certain applications&lt;/h2&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

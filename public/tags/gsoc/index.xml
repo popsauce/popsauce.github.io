@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GSoC on Popsauce&#39;s Blog</title>
+    <link>http://localhost:1313/tags/gsoc/</link>
+    <description>Recent content in GSoC on Popsauce&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>karanlohaan0@gmail.com (Karan Lohaan)</managingEditor>
+    <webMaster>karanlohaan0@gmail.com (Karan Lohaan)</webMaster>
+    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/gsoc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Modelling Axolotl Embryos GSoC</title>
+      <link>http://localhost:1313/posts/modellingaxolotls/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/modellingaxolotls/</guid>
+      <description>&lt;h2 id=&#34;project-details&#34;&gt;Project Details&lt;/h2&gt;
+&lt;h2 id=&#34;1-project-abstract&#34;&gt;1. Project Abstract​:&lt;/h2&gt;
+&lt;h3 id=&#34;11-what-is-the-project-about-&#34;&gt;1.1 What is the project about ?&lt;/h3&gt;
+&lt;p&gt;The key objective of this project is to generate a 3d model based on a
+set of 2d images of an axolotl embryo at a particular stage. The sample
+dataset contains 2D images of an embryo captured using a microscope in a
+flipping column.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image32.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 1 - Stage 4 Axolotl Embryos in different orientations&lt;/p&gt;
+&lt;p&gt;The 2D image dataset of any embryo sample at a particular stage
+typically contains 8 images per sample. With each image containing
+different orientations of the embryo as shown in figure 1.&lt;/p&gt;
+&lt;h3 id=&#34;12-why-is-this-project-important-&#34;&gt;1.2 Why is this project important ?&lt;/h3&gt;
+&lt;p&gt;This project is meant as a research tool to aid researchers in modelling
+axolotl embryos based on images generated using techniques mentioned in
+the paper
+&lt;a href=&#34;https://www.researchgate.net/publication/328615916_Acquisition_and_reconstruction_of_4D_surfaces_of_axolotl_embryos_with_the_flipping_stage_robotic_microscope&#34;&gt;&lt;!-- raw HTML omitted --&gt;[1]&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;
+. Axolotl embryos are unique in their similarities to human embryos in
+aspects like neural plate closure and tube formation in embryos and they
+are often used as model organisms for studying embryogenesis due to the
+transparent membrane of the embryo that allows us to analyse significant
+changes in the organism across different stages.&lt;/p&gt;
+&lt;p&gt;No open source alternatives exist for this type of a tool that can
+reconstruct an ellipsoidal structure from a small set of 2D images using
+uncalibrated reconstruction methods, this tool would help in recreating
+more than just 3D models of axolotl embryos, as the method outlined here
+can be applied to any model that resembles an ellipsoid or a sphere, for
+example other embryos/cells, planets, asteroids, spherical objects, etc
+can be potential subjects that can be modelled using the techniques
+mentioned in this proposal.&lt;/p&gt;
+&lt;h2 id=&#34;2-project-in-detail-and-planned-approach&#34;&gt;2. Project in Detail and Planned Approach:&lt;/h2&gt;
+&lt;p&gt;Modelling the axolotl embryos from the given set of 2D images can be
+divided into different sub problems that have to be solved step by step.&lt;/p&gt;
+&lt;p&gt;So to get the final implementation of the minimum viable solution I have
+divided my approach approach into 3 main categories : -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Extracting embryo images from given 2D images (2.2)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Generating a 3D model based on given 2D images (2.3)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Projecting embryo images on the generated 3D model (2.4)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;21-overview-of-current-3d-reconstruction-methods&#34;&gt;2.1 Overview of current 3D reconstruction Methods:&lt;/h3&gt;
+&lt;p&gt;Recreating an accurate 3D model is still an area of active research
+where there are different domain specific problems that arise depending
+on the method used, the type of data available and the complexity of the
+model that has to be generated.&lt;/p&gt;
+&lt;p&gt;So upon researching current reconstruction techniques I found that they
+either rely heavily on additional data in the form of depth maps, camera
+coordinates, etc to generate accurate models as outlined in this doc
+&lt;a href=&#34;https://docs.google.com/document/d/13XlC-Vmw73AgCSLihCjD8btnN01Xk5J7LBVb5X2vs8Q/edit?usp=sharing&#34;&gt;&lt;!-- raw HTML omitted --&gt;[2]&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;
+or require existing 3D model datasets for training a NN that generates a
+probability density cloud after analysing images, since the microscope
+image dataset has some limitations based on the number of images
+available per sample and the lack of any other form of external data for
+spatial information, we will have to create new custom methods to tackle
+reconstruction that generate spatial information based on 2D images that
+utilise properties of an ellipsoid to recreate a 3D model. A List of
+research papers on 3D reconstruction techniques can be found here
+&lt;a href=&#34;https://docs.google.com/document/d/1KiuWRnsuQq4DdXVvLSC7bKDpIxDu7hvBqVqMnQse3bA/edit?usp=sharing&#34;&gt;&lt;!-- raw HTML omitted --&gt;[3]&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;
+for comparisons of different methods.&lt;/p&gt;
+&lt;h3 id=&#34;22-extracting-embryo-images-from-2d-images&#34;&gt;2.2 Extracting embryo images from 2D images.&lt;/h3&gt;
+&lt;h4 id=&#34;221-methods-to-extract-region-of-interest&#34;&gt;2.2.1 Methods to Extract Region of Interest&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Extracting embryo images accurately is very critical in generating a
+model as we’ll be deriving all the necessary spatial information from
+the features present in the extracted embryo image. Initially I was
+planning on training a NN trained on a training dataset of self
+cropped images to extract our Region of Interest (Embryo) from the
+background (flipping column).&lt;/p&gt;
+&lt;p&gt;But since our dataset has some unique aspects like a monochromatic
+blue hue as the background we can just mask all blue hue pixels by
+modifying HSV (hue, saturation, value) values based on a rgb histogram
+of the pixel population (See figure 3).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image11.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image22.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image29.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 3 - Embryo images and their corresponding rgb pixel population
+histogram, y axis represents pixel population, x axis represents hue
+value of given pixel ranging from 0 to 255&lt;/p&gt;
+&lt;h4 id=&#34;222-masking-hue-values-according-to-a-custom-threshold&#34;&gt;2.2.2 Masking hue values according to a custom threshold:&lt;/h4&gt;
+&lt;p&gt;The usual opencv algorithms (for eg watershed algorithm) for segmenting
+objects from background were adequate for most images but for some
+embryo images like the ones which have both their light yellow side and
+dark side in the same frame as shown in figure 4, the output was not
+coming out accurately as most of these algorithms rely on selecting
+shapes based on similar pixel value intensity, so they were treating the
+lighter side and the darker side as 2 separate entities.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image10.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 4 - Embryo with both light colored and dark colored side in same
+image&lt;/p&gt;
+&lt;p&gt;So instead of joining the entities in a separate step it was more
+convenient to just remove the blue hue background as it had a more
+consistent pixel value range of blue hues.&lt;/p&gt;
+&lt;p&gt;So after identifying relevant hsv values of the background we can mask
+the image in the following manner shown in figure 5.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;media/image22.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image34.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image26.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 5 - Masking hues in the embryo image.&lt;/p&gt;
+&lt;h4 id=&#34;223-additional-image-augmentation-methods-for-improving-contour-extraction&#34;&gt;2.2.3 Additional image augmentation methods for improving contour extraction:&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;For some embryo images (Figure 6) which have a yellowish-green hue in
+the ventral side masking all relevant areas resulted in the embryo
+losing some pixels shown in the figure. This would make it difficult
+to outline the embryo.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image11.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image39.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image16.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 6 - Masking hues in the embryo image.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;So a workaround for this involves increasing the relative saturation
+value (S) and decreasing the relative brightness value (L) to get a
+more clear distinction between the embryo and the background that
+results in a more clean outline of the embryo as shown in figure 8.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;media/image27.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 7 - Diagram showing HSL spectrum&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;media/image11.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image42.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image6.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 8 - Changing the S and L values to get a cleaner outline of ROI&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;media/image42.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image13.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 9 - RGB pixel population histogram of the augmented image&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We can then get a more accurate outline and crop out the image as
+shown in figure 8.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;23-generating-a-3d-model-based-on-given-2d-images&#34;&gt;2.3 Generating a 3D model based on given 2D images&lt;/h3&gt;
+&lt;p&gt;The 3D model that we are going to generate would resemble an irregular
+ellipsoid. To generate an accurate approximation of the 3D model we have
+to solve 3 sub problems : -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Getting accurate outlines/contours (2.3.1)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Finding the approximate axis of rotation (2.3.2)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Finding the angle of rotation for each contour by measuring the
+displacement of corresponding points wrt the axis (2.3.3)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Generating a 3D mesh based on the point cloud (2.3.4)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;media/image36.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 10 - Overview of the main idea, the first diagram represents a
+single contour, the second diagram represents the 3d figure i.e by
+rotating the outline according to the angle of rotation we can
+generate a very close approximation of the actual 3D model that gets
+better with more images per sample.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;231-getting-accurate-outlinescontours&#34;&gt;2.3.1 Getting accurate outlines/contours:&lt;/h4&gt;
+&lt;p&gt;The 3D model that we are going to generate would resemble an irregular
+ellipsoid. The first step in generating the 3D model is extracting
+outlines from all embryo images in the set.&lt;/p&gt;
+&lt;h2 id=&#34;mediaimage24pngmediaimage41pngmediaimage18png&#34;&gt;&lt;img src=&#34;media/image24.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image41.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image18.png&#34; alt=&#34;&#34;&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;media/image3.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image15.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image12.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 11- Rough Outlines/Contours of 3 Axolotl embryos&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The contour plots will be used as 2D numpy arrays of x, y coordinates
+for further transformation steps.&lt;/p&gt;
+&lt;p&gt;Since most samples have 8 images we’ll get 8 outlines per sample. And
+after applying image filters for smoothening the ROI we can get a
+smoother outline of the contour&lt;/p&gt;
+&lt;p&gt;As shown in figure 12&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image17.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 12- Smoothened Outline/Contour of Axolotl embryo&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;media/image21.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image31.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image28.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image33.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image33.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image33.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image35.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image30.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 13- All Outlines/Contours of a stage 4 axolotl embryo in 8
+different orientations&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;After getting all embryo outlines we’ll align them on the y axis and
+then modify the numpy array of 2D coordinates as outlined in section
+2.3.4 to generate a 3D point cloud.&lt;/p&gt;
+&lt;p&gt;Depending on the no. of images per set this method would be able to
+generate better approximations that approach the ideal model which
+gets better with more images per sample.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;232-finding-the-approximate-axis-of-rotation&#34;&gt;2.3.2 Finding the approximate axis of rotation:&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;For finding the approximate axis of rotation we can either take the
+mean of the extreme points in the numpy array of 2D coordinates of the
+contour, and generate a vertical line between them. For example, find
+the max and min of y coordinate values and take the mean of their
+distance in the x axis to get the x coordinate of the corresponding
+axis of rotation, or use a centroid based on the given coordinates in
+the numpy array.&lt;/p&gt;
+&lt;p&gt;Or we can rely on finding a vertical axis that remains the same size
+across the set of images taken 2 at a time and is closest to the
+centroid. So selecting the longest vertical line and tracing it across
+images can also reveal accurate approximations for axis of rotation.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;233-finding-the-angle-of-rotation-for-each-contour&#34;&gt;2.3.3 Finding the angle of rotation for each contour:&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We then need to find the angle of rotation for each image,there are
+multiple ways to find out the angle at which we’ll place our outlines
+like, by checking the displacement of similar points with respect to
+an approximate axis of rotation.&lt;/p&gt;
+&lt;p&gt;So we will go through the sample set of 8 images and evaluate the
+angle of rotation between each pair after going through them in their
+normal order of rotation which will give us 7 values for angle of
+rotation of the embryo in adjacent frames.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image45.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image4.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 14- Approximating the angle of rotation based on a set of 8
+corresponding points in the two adjacent images&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image25.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 15 - Another example showing the method of finding angle of
+rotation by checking for displacement of corresponding points.&lt;/p&gt;
+&lt;h4 id=&#34;234-generating-a-3d-mesh-based-on-the-generated-point-cloud&#34;&gt;2.3.4 Generating a 3D mesh based on the generated point cloud:&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Now since we have both the contours and their angle of rotation we
+apply the 3D transformation formula for rotating our contours about
+the y axis and generate an array of x,y,z coordinates from the numpy
+array of x, y coordinates of the contour.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 16- Transformation of coordinates after rotation about z axis
+where A= x1, y1, z1 and A’= x2, y2, z1&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;So a point on the contour say P( x, y) would be P’( x*sin(∅), y,
+x*cos(∅) ) on the 3D ellipsoid upon rotation about the y axis. Where
+∅ is the angle of rotation.&lt;/p&gt;
+&lt;p&gt;So after getting the angle of rotation we can then align all outlines
+to the XY Plane by aligning their axis of rotation to the y axis and
+then apply the following transformation formula to get the new x y z
+coordinates after rotating the outline into the plane about the axis
+of rotation by an angle ∅.&lt;/p&gt;
+&lt;p&gt;From P to P’ we get the following transformation (x, y, 0) to ( x *
+cos(∅), y , x * sin(∅) ) as explained in figure 17 where the x
+coordinate becomes x*cos(∅), y coordinate remains the same as we’re
+rotating the figure about y axis and z coordinate is x*sin(∅) as
+shown in the XZ plane diagram in figure 17.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;media/image44.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 17- Diagram explaining the transformation formula for getting 3D
+coordinates by rotating 2D contour about Y axis&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;So after converting our 2d numpy array of coordinates to a 3d array.&lt;/p&gt;
+&lt;p&gt;We can then generate a 3D scatter plot and generate a point cloud of
+the embryo surface.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image7.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 18 - A regular ellipsoidal point cloud&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Then for generating the 3D mesh we can use Open3D for generating the
+mesh that generates surfaces based on principles similar to nearest
+neighbour algorithms for generating the mesh based on point
+coordinates.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;media/image40.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 19 - Mesh generated from the ellipsoidal point cloud&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We can then export the 3D model in any specified format using python
+stl and Open3D libraries.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;24-projecting-embryo-images-on-the-generated-3d-model&#34;&gt;2.4 Projecting embryo images on the generated 3D model&lt;/h3&gt;
+&lt;p&gt;There are various projection methods that outline how to go about
+projecting an image to a 3D model in the Open3D, Scikit and PyOpenGL
+libraries. Image projection requires transforming the perspective image
+to a projection texture that can be applied to the model.&lt;/p&gt;
+&lt;p&gt;Out of the existing projection methods cylindrical projection methods
+would suit this model the best as we are dealing with an irregular
+ellipsoid. We can generate an approximate equirectangular image and then
+apply it to our generated model. An example can be seen in figure&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;media/image20.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image23.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Figure 20 - Projection image of jupiter, projection image wrapped around
+a model.&lt;/p&gt;
+&lt;h4 id=&#34;241-use-image-stitching-algorithms-to-stitch-multiple-projection-images&#34;&gt;2.4.1 Use image stitching algorithms to stitch multiple projection images:&lt;/h4&gt;
+&lt;p&gt;We’ll be using the extracted embryo images from section 2.2 to generate
+the projection image.&lt;/p&gt;
+&lt;p&gt;Where we’ll stitch multiple projection images into a single image using
+opencv’s image stitching algorithms.The final image made up of multiple
+stitched images would then be used as a texture or a projection image
+that will be wrapped around the 3D model.&lt;/p&gt;
+&lt;h4 id=&#34;242-projecting-the-final-projection-image-to-the-generated-3d-model&#34;&gt;2.4.2 Projecting the final projection image to the generated 3D model:&lt;/h4&gt;
+&lt;p&gt;Similarly we can try mapping our extracted embryo to a sphere as shown
+in figure 21.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image19.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image9.png&#34; alt=&#34;&#34;&gt;&lt;img src=&#34;media/image38.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 21- Projection image of the embryo wrapped around a sphere&lt;/p&gt;
+&lt;p&gt;But the main objective is mapping it onto our 3D generated model&lt;/p&gt;
+&lt;p&gt;We could either rely on the image projection method or generate a depth
+map based on our model.&lt;/p&gt;
+&lt;p&gt;An example of an approximate mockup of the 3D model using 2 sample
+images is shown in figure 22&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;media/image37.gif&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Figure 22 - Projection image of the embryo wrapped around an early
+mockup of the generated model.&lt;/p&gt;
+&lt;h3 id=&#34;25-deploying-the-tool&#34;&gt;2.5 Deploying the tool:&lt;/h3&gt;
+&lt;h4 id=&#34;251-publishing-it-to-pypi&#34;&gt;2.5.1 Publishing it to PyPI:&lt;/h4&gt;
+&lt;p&gt;Since im using python libraries like OpenCV, Open3D, PyOpenGL,
+matplotlib, basemap, i can deploy my solution by creating a python
+package and publish it to PyPI (Python Package Index) for making it
+accessible to all users as an installable library/package. This
+implementation is the easiest as it doesn’t require any changes to the
+main project code as it can be used as is in any python environment.&lt;/p&gt;
+&lt;h4 id=&#34;252-deploying-the-script-as-a-web-application&#34;&gt;2.5.2 Deploying the script as a web application:&lt;/h4&gt;
+&lt;p&gt;The other option is deploying my solution as a web application on a site
+like heroku. I&amp;rsquo;ll set up my python scripts using flask and heroku CLI,
+this method would have to comply with the site related restrictions and
+would require tweaking libraries or other dependencies to reduce
+complete project size. The heroku deployment option is very
+straightforward for hosting python scripts and there is extensive
+documentation for the same.&lt;/p&gt;
+&lt;h4 id=&#34;253-adding-documentation&#34;&gt;2.5.3 Adding Documentation:&lt;/h4&gt;
+&lt;p&gt;I’ll add extensive documentation using github pages / read the docs / mk
+docs along with the implementation steps to help in ease of access as
+well as improving readability.&lt;/p&gt;
+&lt;h2 id=&#34;31-minimum-set-of-deliverables&#34;&gt;3.1 Minimum set of deliverables:&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Extracting embryo images from given 2D images (2.2)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Generating a 3D model based on given 2D images (2.3)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Projecting embryo images on the generated 3D model (2.4)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Deploying the python script (2.5)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;32-additional-features-that-can-be-added-if-extra-time-is-there&#34;&gt;3.2 Additional features that can be added if extra time is there:&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Additional features that can be added:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Displaying details like number, projected area, approximate
+volume, hsv heatmap of individual cells in each embryo stage to
+check for abnormalities and defects.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Outlining and labelling each segmented section in the generated
+model for easier classification.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;4-tentative-timeline&#34;&gt;4. Tentative timeline:&lt;/h2&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h2 id=&#34;5-plan-for-communication-with-mentors&#34;&gt;5. Plan for communication with mentors:&lt;/h2&gt;
+&lt;p&gt;I&amp;rsquo;ll continue communicating with my mentors and keep them updated on my
+progress during the devoworm weekly meetings like I have been doing in
+the past. I will be active on all the mediums I have provided in my
+contact details. I’ll also keep on updating minor progress milestones on
+slack.&lt;/p&gt;
+&lt;h2 id=&#34;6-candidate-details&#34;&gt;6. Candidate Details:&lt;/h2&gt;
+&lt;h3 id=&#34;61-why-do-i-want-to-do-this-project-&#34;&gt;6.1 Why do I want to do this project ?&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I’ve previously worked on computer vision projects related to image
+classification and feature extraction and was always interested in
+delving more into the spatial learning aspect side of things as these
+techniques are being implemented in most real life applications like
+self driving cars to area mapping drones, but felt they were too
+difficult to try out, but I’ve been learning more methods in the
+domain of 3D reconstruction through the ideas tested in this project
+which has definitely improved my understanding about the process.&lt;/p&gt;
+&lt;p&gt;There&amp;rsquo;s also the added benefit of working with a real dataset that can
+be used as a research tool which is more exciting to work on compared
+to a hobby project and has a lot of scope for usage in other areas as
+irregular ellipsoid 3D reconstruction can be done for a much broader
+set of objects, which really pushed me to delve deeper into exploring
+ideas relevant for this project.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;62-relevant-project-experience-and-past-contributions&#34;&gt;6.2 Relevant Project Experience and Past contributions&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I have experience in designing CAD models based on complex shapes that
+are used as components for Hardware Projects using a 3D printer. I
+have also created a python script for generating custom 3D templates
+for imprinting text and logos for a given 3d model using a general cli
+interface by running the python script as described in
+&lt;a href=&#34;https://github.com/popsauce/3D-imprint-generator&#34;&gt;&lt;!-- raw HTML omitted --&gt;[4]&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;
+.&lt;/p&gt;
+&lt;p&gt;I have been actively working on this project for the past few weeks
+and have been updating my progress using presentations and mockups in
+the weekly meetings of my organisation
+&lt;a href=&#34;https://www.youtube.com/channel/UChGTq41_rJwmZ1I4j7SezWQ&#34;&gt;&lt;!-- raw HTML omitted --&gt;[5]&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;63-is-this-the-only-project-im-applying-for&#34;&gt;6.3 Is this the only project I’m applying for?&lt;/h3&gt;
+&lt;p&gt;Yes, this is the only project that I am applying for.&lt;/p&gt;
+&lt;h3 id=&#34;64-working-time-and-commitments-&#34;&gt;6.4 Working time and commitments :&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I plan to work full time on this project. I’ll be dedicating most of
+my time after classes to get things done as per the timeline, if not
+ahead of it. Giving me 40 to 50 hours every week including weekends.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;65-other-plans-for-summer-&#34;&gt;6.5 Other plans for summer :&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I don&amp;rsquo;t have any major commitments during the project period that will
+hinder my progress on the project. I’ll just be having my end semester
+exams in my college that will get over by May end.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;appendix-&#34;&gt;Appendix :&lt;/h2&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

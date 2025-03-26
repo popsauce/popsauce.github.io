@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Functional Programming on Popsauce&#39;s Blog</title>
+    <link>http://localhost:1313/categories/functional-programming/</link>
+    <description>Recent content in Functional Programming on Popsauce&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>karanlohaan0@gmail.com (Karan Lohaan)</managingEditor>
+    <webMaster>karanlohaan0@gmail.com (Karan Lohaan)</webMaster><atom:link href="http://localhost:1313/categories/functional-programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dabbling into Functional Programming</title>
+      <link>http://localhost:1313/posts/dabblingintofp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/dabblingintofp/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;I started getting piqued by the idea of using a functional programming language after coming across a lot of posts on lisp. And its position on the language &lt;a href=&#34;https://www.paulgraham.com/avg.html&#34;&gt;power continuum&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Even on &lt;a href=&#34;https://survey.stackoverflow.co/2022/#section-most-loved-dreaded-and-wanted-programming-scripting-and-markup-languages&#34;&gt;developer surveys&lt;/a&gt; 2 functional languages were number 2 and 3 on this list as being the most loved languages.&lt;/p&gt;
+&lt;p&gt;Now that might not indicate too much cause at the end of the day its a tool to get things done and its definitely better to use a language more suited to the task at hand.&lt;/p&gt;
+&lt;p&gt;But all in all it had me convinced that i could not ignore this mystery paradigm anymore.&lt;/p&gt;
+&lt;p&gt;When it comes to deciding on a language i think theres a spectrum to follow some things require speed, some things require existing libraries that are required for a particular kind of task, some things are easier in one language harder in another and all other possible variables you can think of like good forums and good resources etc that could dictate how much leverage you might get when using that language.&lt;/p&gt;
+&lt;p&gt;So after making my case for dabbling into a functional programming language i had to decide on one, or maybe a few ?&lt;/p&gt;
+&lt;p&gt;Some of those choices were :-&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Haskell for the Best Possible Implementation of FP in a Language&lt;/li&gt;
+&lt;li&gt;Scala, Clojure for Apps That Can Run On JVM&lt;/li&gt;
+&lt;li&gt;Elixir, Erlang for Applications That Run on BeamVM, for Scalable Fault Tolerant Highly Available Systems&lt;/li&gt;
+&lt;li&gt;F# for Apps that run on the .NET framework&lt;/li&gt;
+&lt;li&gt;Common Lisp, for Lisp macros&lt;/li&gt;
+&lt;li&gt;Clojurescript, Purescript as an Alternative for JavaScript&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;After trying to compare by going through lots of posts on all possible aspects it seemed that there is no golden bullet.&lt;/p&gt;
+&lt;p&gt;From extensive &lt;a href=&#34;https://danluu.com/empirical-pl/&#34;&gt;comparisons&lt;/a&gt; between functional and non functional languages.&lt;/p&gt;
+&lt;p&gt;To comparing a single &lt;a href=&#34;https://benchmarksgame-team.pages.debian.net/benchmarksgame/&#34;&gt;metric&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This rabbithole had no end.&lt;/p&gt;
+&lt;h2 id=&#34;comparing-potential-options&#34;&gt;Comparing Potential Options&lt;/h2&gt;
+&lt;p&gt;So when it came to choosing a language from the landscape of functional programming i still did not have my answer.&lt;/p&gt;
+&lt;p&gt;This &lt;a href=&#34;https://en.wikipedia.org/wiki/Comparison_of_functional_programming_languages&#34;&gt;wiki&lt;/a&gt; article has a list of features offered by each language but i have no way of gaging whether how these features would affect the final outcome when im trying to solve a problem or make an application using these languages.&lt;/p&gt;
+&lt;p&gt;So i tried to find examples of things that have been done already using these languages, and I found code conferences even better than books when it came to seeing the kind of things people are building with these languages.&lt;/p&gt;
+&lt;p&gt;For projects that run on beamVM the &amp;ldquo;Code BEAM&amp;rdquo; conferences on &lt;a href=&#34;https://www.youtube.com/@CodeSync&#34;&gt;code sync&lt;/a&gt; were really good, haskell has GOTO conferences,&lt;/p&gt;
+&lt;h2 id=&#34;dabbling-into-functional-programming&#34;&gt;Dabbling into Functional Programming&lt;/h2&gt;
+&lt;p&gt;So now that I had a general direction about which langauges I wanted to try, to learn FP.&lt;/p&gt;
+&lt;p&gt;I thought of solving a set of problems.
+Problems that arent too hard yet arent too easy, just enough so that i can get a general idea about how to do things the FP way.&lt;/p&gt;
+&lt;p&gt;The problems are :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Given a set of x,y points we have to determine whether it lies on any of a given set of general functions if it doesnt we return &amp;ldquo;null&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;Take a set of strings encode them into a single string and then decode them again.&lt;/li&gt;
+&lt;li&gt;Implement a fast access table similar to a hash table/dictionary&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In case youre wondering where these problems came from, I just made them up.&lt;/p&gt;
+&lt;p&gt;And we&amp;rsquo;ll try to solve these problems using these languages&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Haskell&lt;/li&gt;
+&lt;li&gt;Elixir&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This choice i think could be attributed to chance, its just that after going through so many posts i just gravitated more towards these two as my first candidates, but i&amp;rsquo;ll probably stick with haskell given the fact that it is a better language to grasp functional programming concepts.
+I might transition to another language later but for now im just trying out these 2.&lt;/p&gt;
+&lt;h3 id=&#34;determine-if-a-set-of-points-lie-on-a-general-function-in-the-xy-plane&#34;&gt;Determine if a set of points lie on a general function in the xy plane.&lt;/h3&gt;
+&lt;p&gt;For this problem our input is straightforward we take in a set of points [$(x_{1},y_{1})(x_{2},y_{2})(x_{3},y_{3})$]. And check if they lie on either of these general functions :
+$$
+10^x, e^x, x^2, x, \sqrt{x}, \ln(x), \log_{10}(x)
+$$&lt;/p&gt;
+&lt;p&gt;And return the function on which the point lies, if it doesn&amp;rsquo;t we return null.&lt;/p&gt;
+&lt;p&gt;Ok so first things first just dealing with Input/Output took me a really long time to figure out cause IO Monads has a lot of nuance to it&lt;/p&gt;
+&lt;p&gt;So i tried 2 ways of taking in input&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;File reading&lt;/li&gt;
+&lt;li&gt;Manually entering xy points&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For file reading i found a great &lt;a href=&#34;https://stackoverflow.com/questions/7867723/haskell-file-readin&#34;&gt;answer&lt;/a&gt; on stack overflow.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;main = do  
+        contents &amp;lt;- readFile &amp;quot;test.txt&amp;quot;
+        print . map readInt . words $ contents
+-- alternately, main = print . map readInt . words =&amp;lt;&amp;lt; readFile &amp;quot;test.txt&amp;quot;
+
+readInt :: String -&amp;gt; Int
+readInt = read
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Manually entering and storing xy points in a list turned out to be more tricky than the last one as it was more&lt;/p&gt;
+&lt;h3 id=&#34;encoding-decoding-strings&#34;&gt;Encoding Decoding strings&lt;/h3&gt;
+&lt;p&gt;In this problem we take a set of strings and combine them into a single string and then use another decoding algorithm to retrieve the original set of strings&lt;/p&gt;
+&lt;p&gt;Like if we have this set of strings [&amp;ldquo;apple&amp;rdquo;, &amp;ldquo;banana&amp;rdquo;, &amp;ldquo;custard&amp;rdquo;] we could just use a single char delimiter &amp;ldquo;:&amp;rdquo; and create a single string &amp;ldquo;apple:banana:custard&amp;rdquo;, or another way could be adding string length info to the string along with a delimiter.&lt;/p&gt;
+&lt;h3 id=&#34;creating-a-hash-table&#34;&gt;Creating a Hash table&lt;/h3&gt;
+&lt;p&gt;I think&lt;/p&gt;
+&lt;h2 id=&#34;data-structures-in-functional-programming&#34;&gt;Data Structures in Functional Programming&lt;/h2&gt;
+&lt;p&gt;So now that we have covered this thing in det&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Haskell meets C (Haskell FFI Primer)</title>
+      <link>http://localhost:1313/posts/haskellffi/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/haskellffi/</guid>
+      <description>&lt;h2 id=&#34;premise&#34;&gt;Premise&lt;/h2&gt;
+&lt;p&gt;f&lt;/p&gt;
+&lt;h2 id=&#34;foreign-function-interface-ffi&#34;&gt;Foreign Function Interface (FFI)&lt;/h2&gt;
+&lt;h2 id=&#34;testing-it-out&#34;&gt;Testing it out&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>placeholder</title>
+      <link>http://localhost:1313/posts/placeholder/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/placeholder/</guid>
+      <description>&lt;p&gt;So&lt;/p&gt;
+&lt;h2 id=&#34;understanding-advanced_xorpy&#34;&gt;Understanding advanced_xor.py&lt;/h2&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

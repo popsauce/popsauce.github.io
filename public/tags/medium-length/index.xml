@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Medium Length on Popsauce&#39;s Blog</title>
+    <link>http://localhost:1313/tags/medium-length/</link>
+    <description>Recent content in Medium Length on Popsauce&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>karanlohaan0@gmail.com (Karan Lohaan)</managingEditor>
+    <webMaster>karanlohaan0@gmail.com (Karan Lohaan)</webMaster><atom:link href="http://localhost:1313/tags/medium-length/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hardest Problem on Codeforces</title>
+      <link>http://localhost:1313/posts/tightenup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>karanlohaan0@gmail.com (Karan Lohaan)</author>
+      <guid>http://localhost:1313/posts/tightenup/</guid>
+      <description>&lt;p&gt;What makes a problem hard to solve ?&lt;/p&gt;
+&lt;p&gt;Are hard problems really that out of reach for a person new to CP (Competitive Programming) ?&lt;/p&gt;
+&lt;p&gt;Since the general advice to tackle CP is that you should work your way up to harder problems.(i.e Solve a lot of easier problems then slowly start solving problems that are harder)&lt;/p&gt;
+&lt;p&gt;Would it be a question of how much time it would take ? (like maybe i&amp;rsquo;ll take more time compared to a seasoned competitive programmer)&lt;/p&gt;
+&lt;p&gt;Or would my solution not be as efficient ? (read skill issue)&lt;/p&gt;
+&lt;p&gt;Anyways after this chain of thought I think you can see where i&amp;rsquo;m going with this.&lt;/p&gt;
+&lt;h2 id=&#34;finding-the-hardest-problem-on-codeforces&#34;&gt;Finding the hardest problem on codeforces&lt;/h2&gt;
+&lt;p&gt;There are a lot of ways to classify how hard a problem is, I settled with a straightforward approach and wrote &amp;ldquo;hardest problem on codeforces&amp;rdquo; on my search engine and clicked on the first search result, and voila it led me to this &lt;a href=&#34;https://codeforces.com/blog/entry/10690&#34;&gt;blogpost&lt;/a&gt; which described this &lt;a href=&#34;https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1164&#34;&gt;problem&lt;/a&gt;.
+And it had me hooked, one reason was that trying to solve this problem in a physical setting with physical props seems really easy so would it really be that hard to solve it in an iterative manner.&lt;/p&gt;
+&lt;h2 id=&#34;problem-description&#34;&gt;Problem Description&lt;/h2&gt;
+&lt;p&gt;The best way to describe this problem is to visualise a bulletin board.
+The board has a set of pins placed on the board and a loose piece of thread that starts from a hole, is placed in a certain manner and then ends at another hole.&lt;/p&gt;
+&lt;p&gt;So we have to predict the final state of the thread when it is pulled from these 2 holes resulting in a taut thread that loops around certain pins depending on its initial state.&lt;/p&gt;
+&lt;p&gt;Some examples of the initial state and final state are shown below :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/tightenup1s.png&#34; alt=&#34;problem pic&#34;&gt; &lt;img src=&#34;http://localhost:1313/tightenup4s.png&#34; alt=&#34;problem pic&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Example 1, This shows the initial thread in a an inverted s shape and how it loops around certain pins when pulled.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/tightenup2s.png&#34; alt=&#34;problem pic&#34;&gt; &lt;img src=&#34;http://localhost:1313/tightenup5s.png&#34; alt=&#34;problem pic&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Example 2, This one forms a star.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/tightenup3s.png&#34; alt=&#34;problem pic&#34;&gt; &lt;img src=&#34;http://localhost:1313/tightenup6s.png&#34; alt=&#34;problem pic&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Example 3, This one would have been really hard to simulate mentally.&lt;/p&gt;
+&lt;p&gt;So now that we&amp;rsquo;ve understood the problem statement its time to deal with the input, output specifics.
+According to the &lt;a href=&#34;https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1164&#34;&gt;problem&lt;/a&gt; statement we&amp;rsquo;re given multiple datasets, each dataset is preceded by a line containing m and n.&lt;/p&gt;
+&lt;p&gt;Here m represents the number of vertices of the thread including starting and ending point, n represents the number of pins.
+For each dataset there are m+n lines depicting x,y positions of m vertices of the thread and n positions of pins.
+And we have to keep on reading datasets until we get 0 0 as an input.&lt;/p&gt;
+&lt;p&gt;A sample dataset is shown below :-&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;m n
+x1 y1     -
+...        | # m lines for thread vertices
+x1 y1     -
+x1 y1     -
+...        | # n lines for pin positions
+x1 y1     -
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In this case given below we are given 4 datasets :-&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;m n
+x1 y1
+...
+x1 y1
+m2 n2
+x2 y2
+...
+x2 y2
+m3 n3
+x3 y3
+...
+x3 y3
+m4 n4
+x4 y4
+...
+x4 y4
+0 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As it can be seen we read the first line with m n; then read another m lines for the vertices of the thread and read another n lines for the positions of pins.  We keep on accepting datasets until we get 0,0. So for this case we read 4 datasets.&lt;/p&gt;
+&lt;p&gt;For the output we are supposed to output the length of the final state of the thread for each dataset, ie :-&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;len1
+len2
+len3
+len4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;solving-the-hardest-problem-on-codeforces&#34;&gt;Solving the hardest problem on codeforces&lt;/h2&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
